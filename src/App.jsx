@@ -6,45 +6,35 @@ import Register from "./pages/Register/Register";
 import FavoriteList from './pages/FavoriteList/FavoriteList';
 import UsersList from "./pages/UsersList/UsersList";
 import NotFound from './components/NotFound/NotFound';
-import { SignedIn, UserButton } from "@clerk/clerk-react";
+import { SignedIn, useUser } from "@clerk/clerk-react";
 import Unauthorized from './components/NotFound/Unauthorized';
 
-
+const ADMIN_ID = "user_2xrsm24KySxTtwMs8DeEhw69T6c";
 
 function App() {
+  const { isSignedIn, user } = useUser();
+  const role = user?.publicMetadata?.role;
+  const isAdmin = user?.id === ADMIN_ID;
 
-  const routes=createBrowserRouter([
+  const routes = createBrowserRouter([
     {
-      path:'',element : <Layout/> , children : [
-        {
-          index:true,element:<LandingPage/>
-        },
-        {
-          path:'favorites',element:<SignedIn> <FavoriteList/> </SignedIn>
-        },
-        {
-          path:'users',element:<SignedIn> <UsersList/> </SignedIn>
-        },
-        {
-          path: '/login', element: <Login /> 
-        },
-        {
-          path: '/register', element: <Register />
-        },
-        {
-          path: '/unauthorized', element: <Unauthorized />
-        },
-        {
-          path:'*',element:<NotFound/>
-        },
-
+      path: '', element: <Layout />, children: [
+        { index: true, element: <LandingPage /> },
+        { path: 'favorites', element: (isSignedIn && role === 'user') ? <FavoriteList /> : <Unauthorized /> },
+        { path: 'users', element: (isSignedIn && isAdmin) ? <UsersList /> : <Unauthorized /> },
+        { path: 'login', element: <Login /> },
+        { path: 'login/*', element: <Login /> },
+        { path: 'register', element: <Register /> },
+        { path: 'register/*', element: <Register /> },
+        { path: 'unauthorized', element: <Unauthorized /> },
+        { path: '*', element: <NotFound /> },
       ]
     }
   ])
 
   return (
     <>
-    <RouterProvider router={routes}></RouterProvider>
+      <RouterProvider router={routes}></RouterProvider>
     </>
   )
 }

@@ -1,17 +1,21 @@
-import { SignUp } from "@clerk/clerk-react";
+import { SignUp, useUser } from "@clerk/clerk-react";
 import { useEffect } from "react";
-import { useUser } from "@clerk/clerk-react";
 import { useNavigate } from "react-router-dom";
 
 export default function Register() {
-  const { isSignedIn } = useUser();
+  const { isSignedIn, user } = useUser();
   const navigate = useNavigate();
 
+  // Assign 'user' role to new signups
   useEffect(() => {
-    if (isSignedIn) {
+    if (isSignedIn && user) {
+      // Only set role if not already set
+      if (!user.publicMetadata.role) {
+        user.update({ publicMetadata: { role: "user" } });
+      }
       navigate("/unauthorized");
     }
-  }, [isSignedIn, navigate]);
+  }, [isSignedIn, user, navigate]);
 
   return (
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
