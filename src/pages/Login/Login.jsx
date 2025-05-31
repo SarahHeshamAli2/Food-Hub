@@ -1,6 +1,9 @@
+import { SignIn } from "@clerk/clerk-react";
 
 export default function Login() {
   return (
-    <div>Login</div>
+    <div>
+      <SignIn routing="path" path="/login"></SignIn>
+    </div>
   )
 }

@@ -6,6 +6,7 @@ import Register from "./pages/Register/Register";
 import FavoriteList from './pages/FavoriteList/FavoriteList';
 import UsersList from "./pages/UsersList/UsersList";
 import NotFound from './components/NotFound/NotFound';
+import { SignedIn, SignedOut } from "@clerk/clerk-react";
 
 
 
@@ -18,16 +19,16 @@ function App() {
           index:true,element:<LandingPage/>
         },
         {
-          path:'login',element:<Login/>
+          path:'login',element:<SignedOut> <Login/> </SignedOut>
         },
         {
-          path:'register',element:<Register/>
+          path:'register',element:<SignedOut> <Register/> </SignedOut>
         },
         {
-          path:'favorites',element:<FavoriteList/>
+          path:'favorites',element:<SignedIn> <FavoriteList/> </SignedIn>
         },
         {
-          path:'users',element:<UsersList/>
+          path:'users',element:<SignedIn> <UsersList/> </SignedIn>
         },
         {
           path:'*',element:<NotFound/>
@@ -39,7 +40,6 @@ function App() {
 
   return (
     <>
-
     <RouterProvider router={routes}></RouterProvider>
     </>
   )
