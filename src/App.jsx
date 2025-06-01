@@ -6,24 +6,17 @@ import Register from "./pages/Register/Register";
 import FavoriteList from './pages/FavoriteList/FavoriteList';
 import UsersList from "./pages/UsersList/UsersList";
 import NotFound from './components/NotFound/NotFound';
-import { SignedIn, useUser } from "@clerk/clerk-react";
 import Unauthorized from './components/NotFound/Unauthorized';
-
-const ADMIN_ID = "user_2xrsm24KySxTtwMs8DeEhw69T6c";
+import AdminProtected from "./components/Protected Routes/adminProtected";
+import UserProtected from "./components/Protected Routes/userProtected";
 
 function App() {
-  const { isSignedIn, user } = useUser();
-  const role = user?.publicMetadata?.role;
-  const isAdmin = user?.id === ADMIN_ID;
-
-  console.log(role);
-  
   const routes = createBrowserRouter([
     {
       path: '', element: <Layout />, children: [
         { index: true, element: <LandingPage /> },
-        { path: 'favorites', element: (isSignedIn && role === 'user') ? <FavoriteList /> : <Unauthorized /> },
-        { path: 'users', element: (isSignedIn && isAdmin) ? <UsersList /> : <Unauthorized /> },
+        { path: 'favorites', element: <UserProtected> <FavoriteList /> </UserProtected> },
+        { path: 'users', element: <AdminProtected> <UsersList /> </AdminProtected> },
         { path: 'login', element: <Login /> },
         { path: 'login/*', element: <Login /> },
         { path: 'register', element: <Register /> },
