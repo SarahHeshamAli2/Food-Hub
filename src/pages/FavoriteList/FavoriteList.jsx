@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useUser } from '@clerk/clerk-react';
-import { getFavorites } from '../../services/api';
+import { BASE_URL, getFavorites } from '../../services/api';
 import styles from './favoriteList.module.css';
 import FavoriteListView from './FavoriteListView';
 
@@ -14,7 +14,7 @@ export default function FavoriteList() {
       if (isLoaded && isSignedIn) {
         const ids = await getFavorites(user.id);
         // Fetch all recipes
-        const res = await fetch('http://localhost:3001/recipes');
+        const res = await fetch(BASE_URL + '/recipes');
         const allRecipes = await res.json();
         setRecipes(allRecipes.filter(r => ids.includes(r.id)));
         setLoading(false);
