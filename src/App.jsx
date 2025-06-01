@@ -11,7 +11,9 @@ import AddRecipe from './pages/AddRecipe/AddRecipe';
 import PendingRequest from "./components/PendingRequest/PendingRequest";
 import AdminProtected from "./components/Protected Routes/adminProtected";
 import UserProtected from "./components/Protected Routes/userProtected";
-import RecipesList from "./pages/RecipesList/RecipesList";
+import RecipeDetailsPage from './pages/RecipeDetailsPage/RecipeDetailsPage';
+
+import RecipesContextProvider from './context/RecipesContextProvider';
 
 function App() {
   const routes = createBrowserRouter([
@@ -29,13 +31,16 @@ function App() {
         { path: 'pending-request', element: <PendingRequest /> },
         { path: 'unauthorized', element: <Unauthorized /> },
         { path: '*', element: <NotFound /> },
+        { path: 'recipes/:id', element: <RecipeDetailsPage /> },
       ]
     }
   ])
 
   return (
     <>
-      <RouterProvider router={routes}></RouterProvider>
+      <RecipesContextProvider>
+        <RouterProvider router={routes} />
+      </RecipesContextProvider>
     </>
   )
 }
