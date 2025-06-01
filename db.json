@@ -1238,11 +1238,32 @@
         "Beverage"
       ]
     }
-    
-
   ],
-    "pendingRecipes": []
-, 
+  "favorites": [
+    {
+      "userId": "",
+      "favoriteRecipeId": [],
+      "id": "58fe"
+    },
+    {
+      "id": "4b6d",
+      "userId": "user_2xtlDDFnnGN9yU7jdRDsilvaHj2",
+      "favoriteRecipeId": [
+        "1",
+        "2",
+        "3"
+      ]
+    },
+    {
+      "id": "fc56",
+      "userId": "user_2xuKN4kfxAPz1gIjyYw8UHg7IYp",
+      "favoriteRecipeId": [
+        "1",
+        "2"
+      ]
+    }
+  ],
+  "pendingRecipes": [],
   "total": 50,
   "skip": 0,
   "limit": 30
