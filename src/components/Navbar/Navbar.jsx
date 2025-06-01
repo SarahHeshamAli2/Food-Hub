@@ -1,6 +1,9 @@
+import { UserButton } from "@clerk/clerk-react";
 
 export default function NavbarPage() {
   return (
-    <div >Navbar</div>
+    <div >Navbar
+      <UserButton></UserButton>
+    </div>
   )
 }
