@@ -41,7 +41,7 @@ A modern recipe sharing platform built with **React + Vite** and **Clerk** authe
 
 1. **Clone the repo:**
    ```sh
-   git clone https://github.com/your-username/food-hub.git
+   git clone https://github.com/SarahHeshamAli2/Food-Hub.git
    cd food-hub
    ```
 2. **Install dependencies:**
