@@ -1,0 +1,84 @@
+.container {
+  max-width: 700px;
+  margin: 2rem auto;
+}
+
+.title {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.list {
+  max-width: 700px;
+  margin: 2rem auto;
+  padding: 0;
+  list-style: none;
+}
+
+.item {
+  background: #fff;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px #eee;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.recipeInfo {
+  display: flex;
+  align-items: center;
+}
+
+.recipeImage {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-right: 1rem;
+}
+
+.recipeName {
+  margin: 0;
+}
+
+.recipeMeta {
+  font-size: 0.9rem;
+  color: #888;
+}
+
+.favoriteBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.5rem;
+  transition: color 0.2s;
+}
+
+.favorited {
+  color: #ff7a59;
+}
+
+.notFavorited {
+  color: #ccc;
+}
+
+.spinnerContainer {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #ccc;
+  border-top: 4px solid #333;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
