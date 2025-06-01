@@ -6,6 +6,9 @@ import RecipesListView from './RecipesListView';
 
 export default function RecipesList() {
   const { user, isLoaded, isSignedIn } = useUser();
+  console.log(isSignedIn);
+  
+  
   const [recipes, setRecipes] = useState([]);
   const [favoriteIds, setFavoriteIds] = useState([]);
   const [loading, setLoading] = useState(true);
