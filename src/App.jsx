@@ -16,6 +16,8 @@ function App() {
   const role = user?.publicMetadata?.role;
   const isAdmin = user?.id === ADMIN_ID;
 
+  console.log(role);
+  
   const routes = createBrowserRouter([
     {
       path: '', element: <Layout />, children: [
