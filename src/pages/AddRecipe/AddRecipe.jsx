@@ -1,42 +1,36 @@
 import { useEffect, useRef, useState } from "react";
-import styles from "./addRecipe.module.css";
+import styles from "./AddRecipe.module.css";
 import axios from "axios";
 import { BASE_URL, Recipe } from "../../services/api";
+import { useNavigate } from "react-router-dom";
 
 export default function AddRecipe() {
-  const [recipes,setRecipes]=useState([])
-
-
-  const getAllRecipes = ()=>{
-    axios.get(BASE_URL+Recipe.GET_ALL).then(res=>setRecipes(res.data)
-    ).catch(err=>console.log(err)
-    )
-
-  }
-
-  useEffect(()=>{
-    getAllRecipes()
-  },[])
-
+  const [recipes, setRecipes] = useState([]);
   const [image, setImage] = useState(null);
   const [ingredients, setIngredients] = useState([""]);
   const fileInputRef = useRef(null);
+  const navigate=useNavigate()
+
+  useEffect(() => {
+    axios.get(BASE_URL + Recipe.GET_ALL)
+      .then(res => setRecipes(res.data))
+      .catch(console.error);
+  }, []);
+
+const handleSubmit=()=>{
+  navigate('/pending-request')
+}
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file && file.type.startsWith("image/")) {
       const reader = new FileReader();
-      reader.onloadend = () => {
-        setImage(reader.result);
-      };
+      reader.onloadend = () => setImage(reader.result);
       reader.readAsDataURL(file);
     }
   };
 
-  const openFilePicker = () => {
-    fileInputRef.current.click();
-  };
-
+  const openFilePicker = () => fileInputRef.current.click();
   const handleDelete = () => {
     setImage(null);
     fileInputRef.current.value = null;
@@ -49,115 +43,118 @@ export default function AddRecipe() {
   };
 
   const addIngredient = () => {
-    if (ingredients.length < 4) {
-      setIngredients([...ingredients, ""]);
-    }
+    if (ingredients.length < 6) setIngredients([...ingredients, ""]);
+  };
+
+  const removeIngredient = (index) => {
+    const updated = ingredients.filter((_, i) => i !== index);
+    setIngredients(updated);
   };
 
   return (
-    <>
-      <h3>Create new recipe</h3>
-      <hr />
-      <div className="container">
-        <div className="w-50">
-          <form>
-            <label htmlFor="recpieTitle">Recipe Title:</label>
-            <input
-              id="recpieTitle"
-              type="text"
-              className="form-control "
-            />
+    <div className={styles.card}>
+      <h2 className={styles.title}>Let's Cook Something New!
 
-            <label htmlFor="recipeImg">Recipe Image:</label>
-            <input
-              type="file"
-              accept="image/*"
-              ref={fileInputRef}
-              onChange={handleImageChange}
-              style={{ display: "none" }}
-            />
+</h2>
+      <form onSubmit={(e)=>handleSubmit(e.preventDefault())} className={styles.form}>
 
-            {image ? (
-              <div className={styles.imageWrapper}>
-                <img
-                  src={image}
-                  alt="Uploaded"
-                  className={styles.uploadedImage}
-                />
-                <div className={styles.buttonsContainer}>
-                  <button
-                    type="button"
-                    className={styles.actionButton}
-                    onClick={openFilePicker}
-                  >
-                    Change Image
-                  </button>
-                  <button
-                    type="button"
-                    className={styles.actionButton}
-                    onClick={handleDelete}
-                  >
-                    <i className="fa-solid fa-trash-can"></i>
-                  </button>
-                </div>
-              </div>
-            ) : (
-              <div className={styles.uploadBox} onClick={openFilePicker}>
-                <span className={styles.placeholderText}>
-                  Click to upload image
-                </span>
-              </div>
-            )}
+        <label htmlFor="recipeTitle" className={styles.label}>Recipe Title</label>
+        <input id="recipeTitle" type="text" className={styles.input} placeholder="E.g., Spaghetti Bolognese" />
 
-            <label className="my-2">Ingredients:</label>
-            {ingredients.map((ingredient, index) => (
-              <input
-                key={index}
-                type="text"
-                value={ingredient}
-                placeholder={`Ingredient ${index + 1}`}
-                onChange={(e) => handleInputChange(index, e.target.value)}
-                className="form-control my-2"
-              />
-            ))}
-
-            {ingredients.length < 4 && (
-              <button
-                type="button"
-                onClick={addIngredient}
-                className={styles.addButton}
-              >
-                <i className="fa-solid fa-plus"></i> Add Ingredient
-              </button>
-            )}
-
-            <label htmlFor="servings">
-              Servings:
-            </label>
-            <input type="number" className="form-control" />
-            <p className={styles.smallText}>how many portions does this recipe make </p >
-            <label htmlFor="cookingTime">Cooking Time:</label>
-            <input type="number" placeholder="Minutes" className="form-control w-25"/>
-            <label htmlFor="prepTime">preparing Time:</label>
-            <input type="number" placeholder="Minutes" className="form-control w-25"/>
-      <label htmlFor="cuisine">Cuisine:</label>
-<div className={`${styles.dropdownWrapper} position-relative w-25`}>
-  <select className={`form-control ${styles.customSelect}`} id="cuisine">
-    <option disabled selected>Select cuisine</option>
-    {[...new Set(recipes.map((rec) => rec.cuisine).filter(Boolean))].map(
-      (uniqueCuisine, index) => (
-        <option key={index} value={uniqueCuisine}>
-          {uniqueCuisine}
-        </option>
-      )
-    )}
-  </select>
-  <i className={`fa-solid fa-chevron-down ${styles.chevronIcon}`}></i>
+        <label className={styles.label}>Recipe Image</label>
+        <input
+          type="file"
+          accept="image/*"
+          ref={fileInputRef}
+          onChange={handleImageChange}
+          style={{ display: "none" }}
+        />
+        {image ? (
+         <div className={styles.imagePreviewWrapper}>
+  <img src={image} alt="Uploaded" className={styles.imagePreview} />
+  <div className={styles.imageActions}>
+    <button
+      type="button"
+      className={`${styles.imageBtn} ${styles.sameStyleButton}`}
+      onClick={openFilePicker}
+    >
+      Change Image
+    </button>
+    <button
+      type="button"
+      className={`${styles.imageBtnDelete} ${styles.sameStyleButton}`}
+      onClick={handleDelete}
+    >
+      <i className="fa-solid fa-trash-can"></i>
+    </button>
+  </div>
 </div>
 
-          </form>
+        ) : (
+          <div className={styles.imagePlaceholder} onClick={openFilePicker}>
+            <span>Click or drag image here to upload</span>
+          </div>
+        )}
+
+        <label className={styles.label}>Ingredients</label>
+        <div className={styles.ingredientsContainer}>
+          {ingredients.map((ing, idx) => (
+            <div key={idx} className={styles.ingredientRow}>
+              <input
+                type="text"
+                value={ing}
+                placeholder={`Ingredient ${idx + 1}`}
+                onChange={(e) => handleInputChange(idx, e.target.value)}
+                className={styles.input}
+              />
+              <button
+                type="button"
+                className={styles.removeIngredientBtn}
+                onClick={() => removeIngredient(idx)}
+                aria-label={`Remove ingredient ${idx + 1}`}
+              >
+                &times;
+              </button>
+            </div>
+          ))}
+          <button
+            type="button"
+            onClick={addIngredient}
+            className={styles.addIngredientBtn}
+            disabled={ingredients.length >= 6}
+          >
+            + Add Ingredient
+          </button>
         </div>
-      </div>
-    </>
+
+        <div className={styles.row}>
+          <div className={styles.col}>
+            <label htmlFor="servings" className={styles.label}>Servings</label>
+            <input id="servings" type="number" min="1" className={styles.input} placeholder="e.g., 4" />
+            <small className={styles.helpText}>Number of portions</small>
+          </div>
+
+          <div className={styles.col}>
+            <label htmlFor="prepTime" className={styles.label}>Prep Time (min)</label>
+            <input id="prepTime" type="number" min="1" className={styles.input} placeholder="e.g., 15" />
+          </div>
+
+          <div className={styles.col}>
+            <label htmlFor="cookTime" className={styles.label}>Cooking Time (min)</label>
+            <input id="cookTime" type="number" min="1" className={styles.input} placeholder="e.g., 30" />
+          </div>
+        </div>
+
+        <label htmlFor="cuisine" className={styles.label}>Cuisine</label>
+        <select id="cuisine" className={styles.select} defaultValue="">
+          <option value="" disabled>Select cuisine</option>
+          {[...new Set(recipes.map(r => r.cuisine).filter(Boolean))].map((cuisine, i) => (
+            <option key={i} value={cuisine}>{cuisine}</option>
+          ))}
+        </select>
+
+        <button type="submit" className={styles.submitBtn}>Create Recipe</button>
+      </form>
+    </div>
   );
 }

@@ -9,6 +9,7 @@ import NotFound from './components/NotFound/NotFound';
 import { SignedIn, useUser } from "@clerk/clerk-react";
 import Unauthorized from './components/NotFound/Unauthorized';
 import AddRecipe from './pages/AddRecipe/AddRecipe';
+import PendingRequest from "./components/PendingRequest/PendingRequest";
 
 const ADMIN_ID = "user_2xrsm24KySxTtwMs8DeEhw69T6c";
 
@@ -28,6 +29,7 @@ function App() {
         { path: 'register', element: <Register /> },
         { path: 'add-recipe', element: <AddRecipe /> },
         { path: 'register/*', element: <Register /> },
+        { path: 'pending-request', element: <PendingRequest /> },
         { path: 'unauthorized', element: <Unauthorized /> },
         { path: '*', element: <NotFound /> },
       ]
