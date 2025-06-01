@@ -12,6 +12,7 @@ import PendingRequest from "./components/PendingRequest/PendingRequest";
 import AdminProtected from "./components/Protected Routes/adminProtected";
 import UserProtected from "./components/Protected Routes/userProtected";
 import RecipesList from "./pages/RecipesList/RecipesList";
+import AllPendingRequests from "./pages/AllPendingRequests/AllPendingRequests";
 
 function App() {
   const routes = createBrowserRouter([
@@ -28,6 +29,7 @@ function App() {
         { path: 'register/*', element: <Register /> },
         { path: 'pending-request', element: <PendingRequest /> },
         { path: 'unauthorized', element: <Unauthorized /> },
+        { path: 'all-pending-requests', element: <AllPendingRequests /> },
         { path: '*', element: <NotFound /> },
       ]
     }

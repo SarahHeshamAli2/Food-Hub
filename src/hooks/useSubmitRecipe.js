@@ -1,8 +1,11 @@
+import { useUser } from "@clerk/clerk-react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 export default function useSubmitRecipe(recipes, image) {
   const navigate = useNavigate();
+  const{user}=useUser()
+  
 
   const submitRecipe = async (data, ingredients) => {
     const cleanedIngredients = ingredients.filter((ing) => ing.trim());
@@ -36,6 +39,8 @@ export default function useSubmitRecipe(recipes, image) {
       rating: 4.4,
       reviewCount: 55,
       mealType: ["Main"],
+      isCreated:true,
+      creator:user.fullName
     };
 
     try {
