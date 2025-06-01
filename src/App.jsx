@@ -7,6 +7,8 @@ import FavoriteList from './pages/FavoriteList/FavoriteList';
 import UsersList from "./pages/UsersList/UsersList";
 import NotFound from './components/NotFound/NotFound';
 import Unauthorized from './components/NotFound/Unauthorized';
+import AddRecipe from './pages/AddRecipe/AddRecipe';
+import PendingRequest from "./components/PendingRequest/PendingRequest";
 import AdminProtected from "./components/Protected Routes/adminProtected";
 import UserProtected from "./components/Protected Routes/userProtected";
 
@@ -20,7 +22,9 @@ function App() {
         { path: 'login', element: <Login /> },
         { path: 'login/*', element: <Login /> },
         { path: 'register', element: <Register /> },
+        { path: 'add-recipe', element: <AddRecipe /> },
         { path: 'register/*', element: <Register /> },
+        { path: 'pending-request', element: <PendingRequest /> },
         { path: 'unauthorized', element: <Unauthorized /> },
         { path: '*', element: <NotFound /> },
       ]

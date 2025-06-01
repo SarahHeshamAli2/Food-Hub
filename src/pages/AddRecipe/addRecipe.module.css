@@ -1,0 +1,200 @@
+.card {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+}
+
+.title {
+  margin-bottom: 1rem;
+  font-weight: 700;
+  color: #333;
+  text-align: center;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.label {
+  font-weight: 600;
+  color: #555;
+  margin-bottom: 0.3rem;
+}
+
+.input, .select {
+  padding: 0.5rem 0.8rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.input:focus, .select:focus {
+  border-color: var(--primary-color);
+  outline: none;
+  box-shadow: 0 0 6px var(--primary-color + 'aa'); /* fallback if no opacity var */
+}
+
+.imagePlaceholder {
+  aspect-ratio: 16 / 9; 
+  width: 100%;
+  max-height: 300px;
+  cursor: pointer;
+  border: 2px dashed #ddd;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #aaa;
+  font-style: italic;
+  transition: border-color 0.3s;
+}
+
+.imagePlaceholder:hover {
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+}
+
+.imagePreviewWrapper {
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
+  max-height: none; 
+  margin-bottom: 0.5rem;
+}
+
+.imagePreviewWrapper img {
+  width: 100%;         
+  height: auto;        
+  object-fit: contain;
+  display: block;      
+}
+
+.imagePreview {
+  width: 100%;
+  height: auto;        
+  object-fit: contain; 
+  display: block;
+}
+
+.imageActions {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.imageBtn, .imageBtnDelete {
+  background: var(--primary-color);
+  border: none;
+  color: white;
+  padding: 0.3rem 0.8rem;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.3s;
+}
+
+.imageBtnDelete {
+  background: #e04e39;
+}
+
+.imageBtn:hover {
+  background: rgba(var(--primary-color-rgb), 0.8); 
+}
+
+.imageBtnDelete:hover {
+  background: #c43d28;
+}
+
+.ingredientsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.ingredientRow {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.removeIngredientBtn {
+  background: #e04e39; 
+  border: none;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0 0.6rem;
+  border-radius: 6px;
+  transition: background 0.3s;
+}
+
+.removeIngredientBtn:hover {
+  background: #c43d28;
+}
+
+.addIngredientBtn {
+  align-self: flex-start;
+  background: var(--primary-color);
+  border: none;
+  color: white;
+  padding: 0.5rem 1rem;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.addIngredientBtn:disabled {
+  background: #f0a28c; 
+  cursor: not-allowed;
+}
+
+.addIngredientBtn:hover:not(:disabled) {
+  background: rgba(var(--primary-color-rgb), 0.8);
+}
+
+.row {
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.col {
+  flex: 1 1 30%;
+  min-width: 120px;
+  display: flex;
+  flex-direction: column;
+}
+
+.helpText {
+  font-size: 0.8rem;
+  color: #888;
+  margin-top: 0.2rem;
+}
+
+.submitBtn {
+  margin-top: 1.5rem;
+  background: var(--primary-color);
+  border: none;
+  padding: 0.75rem;
+  font-weight: 700;
+  color: white;
+  font-size: 1.1rem;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.submitBtn:hover {
+  background: rgba(var(--primary-color-rgb), 0.8);
+}
