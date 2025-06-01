@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 
 const UserProtected = ({children}) => {
     const {user,isLoaded,isSignedIn} = useUser();
-    console.log(user);
     
     const navigate = useNavigate();
     useEffect(()=>{
