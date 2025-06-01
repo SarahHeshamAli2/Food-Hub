@@ -33,7 +33,7 @@ const RecipeDetailsPage = () => {
 
     return (
         <div className='recipe-details'>
-            <div className='container m-4'>
+            <div className='container m-md-4'>
                 <div className='row'>
                     <div className="recipe-header mb-2">
                         <h1 className="mb-3 fw-bolder">{recipe.name}</h1>
@@ -159,7 +159,8 @@ const RecipeDetailsPage = () => {
                         <h3>Recent Recipes</h3>
                         {
                             recipes.slice(0, 3).map((recipe) => (
-                                <IngredientCard recipe={recipe}>
+                                
+                                <IngredientCard key={recipe?.id} recipe={recipe}>
                                 </IngredientCard>
                             ))
                         }

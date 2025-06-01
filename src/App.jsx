@@ -14,6 +14,7 @@ import UserProtected from "./components/Protected Routes/userProtected";
 import RecipeDetailsPage from './pages/RecipeDetailsPage/RecipeDetailsPage';
 
 import RecipesContextProvider from './context/RecipesContextProvider';
+import RecipesList from './pages/RecipesList/RecipesList';
 
 function App() {
   const routes = createBrowserRouter([
