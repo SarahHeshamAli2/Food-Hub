@@ -1,0 +1,49 @@
+.container {
+  max-width: 600px;
+  margin: 1rem auto;
+  padding: 1rem;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+  text-align: center;
+  color: #333;
+}
+
+.title {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  color: var(--primary-color);
+  font-weight: 700;
+}
+
+.message {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  line-height: 1.5;
+}
+
+.note {
+  font-size: 1rem;
+  color: #666;
+  font-style: italic;
+}
+.backButton {
+  margin-top: 2rem;
+  background: var(--primary-color);
+  border: none;
+  padding: 0.5rem 1rem;
+  color: white;
+  font-weight: 700;
+  font-size: 1rem;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.3s;
+  display: inline-block;
+}
+
+.backButton:hover {
+  background: #e2583e; 
+}
+a{
+    text-decoration: none;
+}

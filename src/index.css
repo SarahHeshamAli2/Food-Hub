@@ -1,5 +1,4 @@
 :root {
-  --color-primary: #b66055;
-  --color-primary-dark : #8c4d44;
-
+  --primary-color: #ff7a59;
+  --primary-color-rgb: 255, 122, 89; 
 }
