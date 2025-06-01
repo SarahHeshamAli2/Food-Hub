@@ -1,8 +1,24 @@
 import PropTypes from 'prop-types';
-
 import styles from './recipesList.module.css';
+import { useState } from 'react';
 
-export default function RecipesListView({ recipes, isSignedIn, favoriteIds, onToggleFavorite }) {
+export default function RecipesListView({ recipes, isSignedIn, isAdmin, favoriteIds, onToggleFavorite, onDelete, onUpdate }) {
+  const [menuOpenId, setMenuOpenId] = useState(null);
+
+  const handleMenuToggle = (id) => {
+    setMenuOpenId(menuOpenId === id ? null : id);
+  };
+
+  const handleDelete = (id) => {
+    setMenuOpenId(null);
+    onDelete && onDelete(id);
+  };
+
+  const handleUpdate = (id) => {
+    setMenuOpenId(null);
+    onUpdate && onUpdate(id);
+  };
+
   return (
     <div className={styles.container}>
       <h2 className={styles.title}>All Recipes</h2>
@@ -16,7 +32,25 @@ export default function RecipesListView({ recipes, isSignedIn, favoriteIds, onTo
                 <div className={styles.recipeMeta}>{recipe.cuisine} | {recipe.mealType?.join(', ')}</div>
               </div>
             </div>
-            {isSignedIn && (
+            {isAdmin && (
+              <div className={styles.menuWrapper}>
+                <button
+                  className={styles.menuBtn}
+                  onClick={() => handleMenuToggle(recipe.id)}
+                  aria-label="Open admin menu"
+                  title="Admin actions"
+                >
+                  <i className="fas fa-ellipsis-v"></i>
+                </button>
+                {menuOpenId === recipe.id && (
+                  <div className={styles.contextMenu}>
+                    <button onClick={() => handleDelete(recipe.id)} className={styles.contextMenuItem}>Delete</button>
+                    <button onClick={() => handleUpdate(recipe.id)} className={styles.contextMenuItem}>Update</button>
+                  </div>
+                )}
+              </div>
+            )}
+            {!isAdmin && isSignedIn && (
               <button
                 onClick={() => onToggleFavorite(recipe.id)}
                 className={styles.favoriteBtn + ' ' + (favoriteIds.includes(recipe.id) ? styles.favorited : styles.notFavorited)}
@@ -32,10 +66,13 @@ export default function RecipesListView({ recipes, isSignedIn, favoriteIds, onTo
     </div>
   );
 }
-//just to catch errors lw b3t prop 8alt...
+
 RecipesListView.propTypes = {
   recipes: PropTypes.array.isRequired,
   isSignedIn: PropTypes.bool.isRequired,
+  isAdmin: PropTypes.bool.isRequired,
   favoriteIds: PropTypes.array.isRequired,
-  onToggleFavorite: PropTypes.func.isRequired,
+  onToggleFavorite: PropTypes.func,
+  onDelete: PropTypes.func,
+  onUpdate: PropTypes.func,
 };

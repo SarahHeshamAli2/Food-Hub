@@ -82,3 +82,52 @@
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+
+.menuWrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.menuBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.3rem;
+  color: #888;
+  padding: 0.3rem 0.6rem;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+.menuBtn:hover {
+  background: #f3f3f3;
+}
+
+.contextMenu {
+  position: absolute;
+  top: 2.2rem;
+  right: 0;
+  background: #fff;
+  border: 1px solid #eee;
+  box-shadow: 0 2px 8px #eee;
+  border-radius: 8px;
+  z-index: 10;
+  min-width: 110px;
+  padding: 0.3rem 0;
+  display: flex;
+  flex-direction: column;
+}
+.contextMenuItem {
+  background: none;
+  border: none;
+  text-align: left;
+  padding: 0.6rem 1rem;
+  font-size: 1rem;
+  color: #333;
+  cursor: pointer;
+  border-radius: 0;
+  transition: background 0.2s;
+}
+.contextMenuItem:hover {
+  background: #ffe5e0;
+  color: #e04e39;
+}
