@@ -198,3 +198,12 @@
 .submitBtn:hover {
   background: rgba(var(--primary-color-rgb), 0.8);
 }
+.error {
+  color: #d32f2f;
+  background-color: #fdecea;
+  padding: 6px 10px;
+  border-left: 4px solid #d32f2f;
+  margin-top: 4px;
+  border-radius: 4px;
+  font-size: 0.875rem;
+}
