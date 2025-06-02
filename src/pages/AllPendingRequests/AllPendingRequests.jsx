@@ -111,6 +111,8 @@ const handleReject = (recipe) => {
             </td>
             <td>{recipe.cuisine}</td>
             <td>{recipe.servings}</td>
+            {console.log(recipe.creator)
+            }
             <td>{recipe.creator || "Unknown"}</td>
             <td>
               <Badge bg={status === "pending" ? "warning" : status === "accepted" ? "success" : "danger"}>

@@ -20,9 +20,9 @@ export default function LandingPage() {
     
     <Banner/>
 
-    <diV className="bg-gray-50 min-h-screen">
+    <div className="bg-gray-50 min-h-screen">
        <MealType/>
-    </diV>
+    </div>
     <NewsletterSection/>
     <PopularCategories/>
 

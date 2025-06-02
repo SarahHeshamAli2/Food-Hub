@@ -34,7 +34,8 @@ const PopularCategories = () => {
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 text-center">
         {categories.map((cat, index) => (
           <motion.div
-            key={cat}
+            
+            key={index}
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.4, delay: index * 0.1 }}
