@@ -1,20 +1,19 @@
 import { useUser } from '@clerk/clerk-react';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { getFavorites, addFavorite, removeFavorite, BASE_URL } from '../../services/api';
 import styles from './recipesList.module.css';
 import RecipesListView from './RecipesListView';
+import {recipesContext} from '../../context/RecipesContextProvider';
 
 export default function RecipesList() {
   const { user, isLoaded, isSignedIn } = useUser();
-  const [recipes, setRecipes] = useState([]);
+  // const [recipes, setRecipes] = useState([]);
+  const recipes = useContext(recipesContext);
   const [favoriteIds, setFavoriteIds] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchData() {
-      const res = await fetch(`${BASE_URL}/recipes`);
-      const allRecipes = await res.json();
-      setRecipes(allRecipes);
       if (isLoaded && isSignedIn) {
         const favIds = await getFavorites(user.id);
         setFavoriteIds(favIds);
