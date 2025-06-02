@@ -14,8 +14,13 @@ const RecipesContextProvider = ({children}) => {
             .catch(err => console.error("Error fetching recipes:", err))
     }, []);
 
+    async function deleteRecipe(recipeId) {
+        await fetch(`${BASE_URL}/recipes/${recipeId}`, { method: 'DELETE' });
+        setRecipes(recipes.filter(r => r.id !== recipeId));
+    }
+
     return (
-        <recipesContext.Provider value={recipes}>
+        <recipesContext.Provider value={{recipes, deleteRecipe}}>
             {children}
         </recipesContext.Provider>
     );

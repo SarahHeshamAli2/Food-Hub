@@ -2,7 +2,7 @@ import { Navbar } from "react-bootstrap";
 import Hero from "../../components/LandingPage/Hero";
 import RecipeList from "../../components/LandingPage/RecipeList";
 import Banner from "../../components/LandingPage/Banner";
-import MealType from "../../components/LandingPage/mealType";
+import MealType from "../../components/LandingPage/MealType";
 
 export default function LandingPage() {
   return (

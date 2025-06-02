@@ -7,10 +7,8 @@ import {recipesContext} from '../../context/RecipesContextProvider';
 
 export default function RecipesList() {
   const { user, isLoaded, isSignedIn } = useUser();
-  console.log(isSignedIn);
-  
-  
-  const [recipes, setRecipes] = useState([]);
+  // const [recipes, setRecipes] = useState([]);
+  const {recipes, deleteRecipe} = useContext(recipesContext);
   const [favoriteIds, setFavoriteIds] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -18,14 +16,7 @@ export default function RecipesList() {
 
   useEffect(() => {
     async function fetchData() {
-<<<<<<< HEAD
       if (isLoaded && isSignedIn) {
-=======
-      const res = await fetch(`${BASE_URL}/recipes`);
-      const allRecipes = await res.json();
-      setRecipes(allRecipes);
-      if (isLoaded && isSignedIn && !isAdmin) {
->>>>>>> origin/master
         const favIds = await getFavorites(user.id);
         setFavoriteIds(favIds);
       }
@@ -47,8 +38,7 @@ export default function RecipesList() {
 
   const handleDelete = async (recipeId) => {
     if (!window.confirm('Are you sure you want to delete this recipe?')) return;
-    await fetch(`${BASE_URL}/recipes/${recipeId}`, { method: 'DELETE' });
-    setRecipes(recipes.filter(r => r.id !== recipeId));
+    deleteRecipe(recipeId);
   };
 
   const handleUpdate = (recipeId) => {
