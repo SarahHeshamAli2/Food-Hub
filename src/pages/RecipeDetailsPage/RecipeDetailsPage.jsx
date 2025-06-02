@@ -1,11 +1,11 @@
 import { useContext, useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom'
-import {recipesContext} from '../../context/RecipesContextProvider';
 import IngredientCard from '../../components/IngredientCard/IngredientCard';
+import { RecipesContext } from '../../context/RecipesContextProvider';
 
 const RecipeDetailsPage = () => {
     const { id } = useParams();
-    const {recipes} = useContext(recipesContext);
+    const {recipes} = useContext(RecipesContext);
     const [recipe, setRecipe] = useState(null);
 
     useEffect(() => {

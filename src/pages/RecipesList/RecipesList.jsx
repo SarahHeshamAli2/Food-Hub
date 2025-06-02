@@ -3,11 +3,11 @@ import { useEffect, useState, useContext } from 'react';
 import { getFavorites, addFavorite, removeFavorite, BASE_URL } from '../../services/api';
 import styles from './recipesList.module.css';
 import RecipesListView from './RecipesListView';
-import {recipesContext} from '../../context/RecipesContextProvider';
+import {RecipesContext} from '../../context/RecipesContextProvider';
 
 export default function RecipesList() {
   const { user, isLoaded, isSignedIn } = useUser();
-  const {recipes, deleteRecipe} = useContext(recipesContext);
+  const {recipes, deleteRecipe} = useContext(RecipesContext);
   const [favoriteIds, setFavoriteIds] = useState([]);
   const [loading, setLoading] = useState(true);
 
