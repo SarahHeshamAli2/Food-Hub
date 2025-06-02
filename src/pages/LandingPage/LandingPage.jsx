@@ -5,6 +5,7 @@ import Banner from "../../components/LandingPage/Banner";
 import MealType from "../../components/LandingPage/mealType";
 import NewsletterSection from "../../components/LandingPage/NewsletterSection";
 import PopularCategories from "../../components/LandingPage/PopularCategories";
+import Brand from "../../components/LandingPage/Brand";
 
 export default function LandingPage() {
   return (
@@ -25,6 +26,7 @@ export default function LandingPage() {
     </diV>
     <NewsletterSection/>
     <PopularCategories/>
+  
 
     
     </div>
