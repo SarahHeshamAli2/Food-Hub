@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { RecipesContext } from '../../context/RecipesContextProvider';
 import RecipeCard from './RecipeCard';
-import Marquee from 'react-fast-marquee'; // ✅ use this instead of react-slick
+import Marquee from 'react-fast-marquee'; 
 
 const Section = ({ title, recipes }) => {
   const CARD_WIDTH=390

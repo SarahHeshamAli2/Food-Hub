@@ -16,9 +16,10 @@ export default function RecipeList() {
     dispatch(fetchRecipes());
   }, [dispatch]);
 
-  const visibleRecipes = showAll ? recipes : recipes.slice(0, 6);
+  const visibleRecipes = showAll ? recipes : recipes.slice(0, 8);
 
   return (
+
     <section className="py-12 px-4 md:px-12">
       <div className="w-full text-center my-4 ">
         <h2 className="text-2xl font-semibold">Trending Recipes</h2>
@@ -31,8 +32,8 @@ export default function RecipeList() {
         </button>
       </div>
 
-      {loading && <p>Loading...</p>}
-      {error && <p className="text-red-500">{error}</p>}
+      {loading && <p className="text-center">Loading...</p>}
+      {error && <p className="text-center text-red-500">{error}</p>}
 
 <div className="max-w-6xl mx-auto">
   <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
@@ -49,6 +50,7 @@ export default function RecipeList() {
     ))}
   </div>
 </div>
+
 
     </section>
   );

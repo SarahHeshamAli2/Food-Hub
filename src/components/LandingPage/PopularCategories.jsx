@@ -27,7 +27,7 @@ const PopularCategories = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          Trending Recipes
+          Popular Categories
         </motion.h2>
       </div>
 
