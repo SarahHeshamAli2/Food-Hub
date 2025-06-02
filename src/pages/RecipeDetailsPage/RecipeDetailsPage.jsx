@@ -5,7 +5,7 @@ import IngredientCard from '../../components/IngredientCard/IngredientCard';
 
 const RecipeDetailsPage = () => {
     const { id } = useParams();
-    const recipes = useContext(recipesContext);
+    const {recipes} = useContext(recipesContext);
     const [recipe, setRecipe] = useState(null);
 
     useEffect(() => {
@@ -158,9 +158,9 @@ const RecipeDetailsPage = () => {
                     <div>
                         <h3>Recent Recipes</h3>
                         {
-                            recipes.slice(0, 3).map((recipe) => (
+                            recipes.slice(0, 3).map((item) => (
                                 
-                                <IngredientCard key={recipe?.id} recipe={recipe}>
+                                <IngredientCard key={item?.id} recipe={item}>
                                 </IngredientCard>
                             ))
                         }
