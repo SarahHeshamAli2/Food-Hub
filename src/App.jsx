@@ -15,6 +15,8 @@ import RecipeDetailsPage from './pages/RecipeDetailsPage/RecipeDetailsPage';
 
 import RecipesContextProvider from './context/RecipesContextProvider';
 import RecipesList from './pages/RecipesList/RecipesList';
+import AllPendingRequests from "./pages/AllPendingRequests/AllPendingRequests";
+
 
 function App() {
   const routes = createBrowserRouter([
@@ -26,11 +28,12 @@ function App() {
         { path: 'login', element: <Login /> },
         { path: 'login/*', element: <Login /> },
         { path: 'register', element: <Register /> },
-        { path:'recipes', element: <UserProtected> <RecipesList /> </UserProtected> },
-        { path: 'add-recipe', element: <AddRecipe /> },
         { path: 'register/*', element: <Register /> },
+        { path: 'recipes', element:  <RecipesList /> },
+        { path: 'add-recipe', element: <AddRecipe /> },
         { path: 'pending-request', element: <PendingRequest /> },
         { path: 'unauthorized', element: <Unauthorized /> },
+        { path: 'all-pending-requests', element: <AllPendingRequests /> },
         { path: '*', element: <NotFound /> },
         { path: 'recipes/:id', element: <RecipeDetailsPage /> },
       ]
@@ -39,9 +42,12 @@ function App() {
 
   return (
     <>
+
+      
       <RecipesContextProvider>
         <RouterProvider router={routes} />
       </RecipesContextProvider>
+
     </>
   )
 }

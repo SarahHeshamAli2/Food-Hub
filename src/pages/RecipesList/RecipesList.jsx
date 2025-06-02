@@ -7,24 +7,35 @@ import {recipesContext} from '../../context/RecipesContextProvider';
 
 export default function RecipesList() {
   const { user, isLoaded, isSignedIn } = useUser();
-  // const [recipes, setRecipes] = useState([]);
-  const recipes = useContext(recipesContext);
+  console.log(isSignedIn);
+  
+  
+  const [recipes, setRecipes] = useState([]);
   const [favoriteIds, setFavoriteIds] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const isAdmin = isSignedIn && user?.id === import.meta.env.VITE_ADMIN_ID;
+
   useEffect(() => {
     async function fetchData() {
+<<<<<<< HEAD
       if (isLoaded && isSignedIn) {
+=======
+      const res = await fetch(`${BASE_URL}/recipes`);
+      const allRecipes = await res.json();
+      setRecipes(allRecipes);
+      if (isLoaded && isSignedIn && !isAdmin) {
+>>>>>>> origin/master
         const favIds = await getFavorites(user.id);
         setFavoriteIds(favIds);
       }
       setLoading(false);
     }
     fetchData();
-  }, [isLoaded, isSignedIn, user]);
+  }, [isLoaded, isSignedIn, user, isAdmin]);
 
   const handleToggleFavorite = async (recipeId) => {
-    if (!isSignedIn) return;
+    if (!isSignedIn || isAdmin) return;
     if (favoriteIds.includes(recipeId)) {
       await removeFavorite(user.id, recipeId);
       setFavoriteIds(favoriteIds.filter(id => id !== recipeId));
@@ -32,6 +43,16 @@ export default function RecipesList() {
       await addFavorite(user.id, recipeId);
       setFavoriteIds([...favoriteIds, recipeId]);
     }
+  };
+
+  const handleDelete = async (recipeId) => {
+    if (!window.confirm('Are you sure you want to delete this recipe?')) return;
+    await fetch(`${BASE_URL}/recipes/${recipeId}`, { method: 'DELETE' });
+    setRecipes(recipes.filter(r => r.id !== recipeId));
+  };
+
+  const handleUpdate = (recipeId) => {
+    alert('Update recipe ' + recipeId);
   };
 
   if (loading) {
@@ -46,8 +67,11 @@ export default function RecipesList() {
     <RecipesListView
       recipes={recipes}
       isSignedIn={isSignedIn}
+      isAdmin={isAdmin}
       favoriteIds={favoriteIds}
       onToggleFavorite={handleToggleFavorite}
+      onDelete={handleDelete}
+      onUpdate={handleUpdate}
     />
   );
 }
