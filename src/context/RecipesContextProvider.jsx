@@ -42,8 +42,14 @@ const RecipesContextProvider = ({ children }) => {
         setLoading(false);
       });
   }, []);
+  
+  async function deleteRecipe(recipeId) {
+        await fetch(`${BASE_URL}/recipes/${recipeId}`, { method: 'DELETE' });
+        setRecipes(recipes.filter(r => r.id !== recipeId));
+    }
 
   return (
+
     <RecipesContext.Provider value={{ recipes, loading, error ,getAcceptedRecipes,acceptedRecipe,getDeclinedRecipes,declinedRecipe }}>
       {children}
     </RecipesContext.Provider>

@@ -33,6 +33,8 @@ function App() {
         { path: 'pending-request', element: <PendingRequest /> },
         { path: 'unauthorized', element: <Unauthorized /> },
         { path: 'all-pending-requests', element: <AllPendingRequests /> },
+        { path: 'recipes', element: <RecipesList /> },
+        { path: 'recipes/:id', element: <RecipeDetailsPage /> },
         { path: 'all-pending-requests', element: <AllPendingRequests /> },
     {
     path: '/profile',
@@ -58,7 +60,6 @@ function App() {
     ]
   },
         { path: '*', element: <NotFound /> },
-        { path: 'recipes/:id', element: <RecipeDetailsPage /> },
       ]
     }
   ])

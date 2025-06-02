@@ -1,14 +1,13 @@
 import { useUser } from '@clerk/clerk-react';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { getFavorites, addFavorite, removeFavorite, BASE_URL } from '../../services/api';
 import styles from './recipesList.module.css';
 import RecipesListView from './RecipesListView';
+import {recipesContext} from '../../context/RecipesContextProvider';
 
 export default function RecipesList() {
   const { user, isLoaded, isSignedIn } = useUser();
-  
-  
-  const [recipes, setRecipes] = useState([]);
+  const {recipes, deleteRecipe} = useContext(recipesContext);
   const [favoriteIds, setFavoriteIds] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -18,10 +17,7 @@ const userId=user?.id
   
   useEffect(() => {
     async function fetchData() {
-      const res = await fetch(`${BASE_URL}/recipes`);
-      const allRecipes = await res.json();
-      setRecipes(allRecipes);
-      if (isLoaded && isSignedIn && !isAdmin) {
+      if (isLoaded && isSignedIn) {
         const favIds = await getFavorites(user.id);
         setFavoriteIds(favIds);
       }
@@ -43,8 +39,7 @@ const userId=user?.id
 
   const handleDelete = async (recipeId) => {
     if (!window.confirm('Are you sure you want to delete this recipe?')) return;
-    await fetch(`${BASE_URL}/recipes/${recipeId}`, { method: 'DELETE' });
-    setRecipes(recipes.filter(r => r.id !== recipeId));
+    deleteRecipe(recipeId);
   };
 
   const handleUpdate = (recipeId) => {
