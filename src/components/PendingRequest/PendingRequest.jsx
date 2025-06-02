@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 export default function PendingRequest() {
 return <>
 <div className={styles.container}>
-    <img src={chef1} alt="chef vector" className='w-50' />
+    <img src={chef1} alt="chef vector" className='w-50 mx-auto' />
       <h1 className={styles.title}>Your Recipe Has Been Submitted!</h1>
       <p className={styles.message}>
         Thank you for sharing your recipe with us!  
