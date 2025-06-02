@@ -9,6 +9,7 @@ const SlideUp = (delay) => ({
     opacity: 1,
     transition: { duration: 0.6, delay: delay },
   },
+  
 });
 
 export default function Hero() {
@@ -17,6 +18,8 @@ export default function Hero() {
       
       {/* background shape */}
 <motion.div
+              viewport={{once:true}}
+
   initial={{ opacity: 0, y: 100 }}
   whileInView={{ opacity: 1, y: 0 }}
   transition={{ duration: 0.8 }}
@@ -47,6 +50,7 @@ export default function Hero() {
           <div className='space-y-3 mt-14 text-center md:text-left md:mt-0'>
             <motion.h1
               variants={SlideUp(0.5)}
+              viewport={{once:true}}
               initial="hidden"
               whileInView="show"
               className='relative text-4xl lg:text-5xl xl:text-6xl font-bold text-outline text-transparent'>
@@ -54,6 +58,8 @@ export default function Hero() {
             
             </motion.h1>
             <motion.h1
+                          viewport={{once:true}}
+
               variants={SlideUp(1)}
               initial="initial"
               whileInView="animate"
@@ -61,6 +67,8 @@ export default function Hero() {
               A Food Journey
             </motion.h1>
             <motion.p
+                          viewport={{once:true}}
+
               variants={SlideUp(1.5)}
               initial="hidden"
               whileInView="show"
@@ -68,6 +76,8 @@ export default function Hero() {
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem veniam molestiae modi obcaecati rem doloremque corporis cum ducimus eligendi quam, architecto repellat aliquam adipisci culpa sunt, sed temporibus quibusdam magni!
             </motion.p>
             <motion.button
+                          viewport={{once:true}}
+
               variants={SlideUp(2)}
               initial="hidden"
               whileInView="show"
@@ -79,6 +89,8 @@ export default function Hero() {
           {/* food image */}
           <div className="relative z-10">
             <motion.img
+                          viewport={{once:true}}
+
               initial={{ opacity: 0, rotate: 20, x: 200, y: 100 }}
               whileInView={{ opacity: 1, rotate: 0, x: 0, y: 0 }}
               transition={{ duration: 0.8 }}

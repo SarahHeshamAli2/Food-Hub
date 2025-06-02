@@ -7,13 +7,21 @@ import {recipesContext} from '../../context/RecipesContextProvider';
 
 export default function RecipesList() {
   const { user, isLoaded, isSignedIn } = useUser();
+<<<<<<< HEAD
   // const [recipes, setRecipes] = useState([]);
   const {recipes, deleteRecipe} = useContext(recipesContext);
+=======
+  
+  
+  const [recipes, setRecipes] = useState([]);
+>>>>>>> origin/master
   const [favoriteIds, setFavoriteIds] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const isAdmin = isSignedIn && user?.id === import.meta.env.VITE_ADMIN_ID;
-
+const isRegularUser = isSignedIn && !isAdmin;
+const userId=user?.id
+  
   useEffect(() => {
     async function fetchData() {
       if (isLoaded && isSignedIn) {
@@ -58,10 +66,12 @@ export default function RecipesList() {
       recipes={recipes}
       isSignedIn={isSignedIn}
       isAdmin={isAdmin}
+      isRegularUser={isRegularUser}
       favoriteIds={favoriteIds}
       onToggleFavorite={handleToggleFavorite}
       onDelete={handleDelete}
       onUpdate={handleUpdate}
+      userId={userId}
     />
   );
 }
