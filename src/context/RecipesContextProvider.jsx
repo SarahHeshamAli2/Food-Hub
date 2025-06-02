@@ -1,24 +1,33 @@
 import axios from 'axios';
-import {  createContext, useState, useEffect } from 'react';
+import { createContext, useState, useEffect } from 'react';
 import { BASE_URL } from '../services/api';
 
-export const recipesContext = createContext();
+// ✅ أنشئ السياق باسم كبير
+export const RecipesContext = createContext();
 
-const RecipesContextProvider = ({children}) => {
+const RecipesContextProvider = ({ children }) => {
+  const [recipes, setRecipes] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-    const [recipes, setRecipes] = useState([]);
+  useEffect(() => {
+    axios.get(`${BASE_URL}/recipes`)
+      .then(res => {
+        setRecipes(res.data);
+        setLoading(false);
+      })
+      .catch(err => {
+        console.error("Error fetching recipes:", err);
+        setError("Failed to load recipes");
+        setLoading(false);
+      });
+  }, []);
 
-    useEffect(() => {
-        axios.get(BASE_URL + "/recipes")
-            .then(res => setRecipes(res.data))
-            .catch(err => console.error("Error fetching recipes:", err))
-    }, []);
-
-    return (
-        <recipesContext.Provider value={recipes}>
-            {children}
-        </recipesContext.Provider>
-    );
-}
+  return (
+    <RecipesContext.Provider value={{ recipes, loading, error }}>
+      {children}
+    </RecipesContext.Provider>
+  );
+};
 
 export default RecipesContextProvider;

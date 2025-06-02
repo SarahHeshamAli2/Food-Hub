@@ -10,10 +10,12 @@ import PendingRequest from "./components/PendingRequest/PendingRequest";
 import AdminProtected from "./components/Protected Routes/adminProtected";
 import UserProtected from "./components/Protected Routes/userProtected";
 import RecipeDetailsPage from './pages/RecipeDetailsPage/RecipeDetailsPage';
-
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 import RecipesContextProvider from './context/RecipesContextProvider';
 import RecipesList from './pages/RecipesList/RecipesList';
 import AllPendingRequests from "./pages/AllPendingRequests/AllPendingRequests";
+
 import UserNotification from "./pages/UserNotification/UserNotification";
 
 
@@ -28,9 +30,11 @@ function App() {
   
         { path: 'recipes', element:  <RecipesList /> },
         { path: 'notifications', element:  <UserNotification /> },
+        { path: 'recipes', element:  <RecipesList /> },
         { path: 'add-recipe', element: <AddRecipe /> },
         { path: 'pending-request', element: <PendingRequest /> },
         { path: 'unauthorized', element: <Unauthorized /> },
+        { path: 'all-pending-requests', element: <AllPendingRequests /> },
         { path: 'all-pending-requests', element: <AllPendingRequests /> },
         { path: '*', element: <NotFound /> },
         { path: 'recipes/:id', element: <RecipeDetailsPage /> },
@@ -40,12 +44,9 @@ function App() {
 
   return (
     <>
-
-      
       <RecipesContextProvider>
         <RouterProvider router={routes} />
       </RecipesContextProvider>
-
     </>
   )
 }
