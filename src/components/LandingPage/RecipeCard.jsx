@@ -6,12 +6,14 @@ import { motion } from "framer-motion";
 export default function RecipeCard({ id, image, title, author = "Chef Ahmed", calories, delay }) {
   return (
     <Link to={`/recipes/${id}`} className="no-underline text-inherit">
+
       <div
         // initial={{ opacity: 0, y: 50 }}
         // whileInView={{ opacity: 1, y: 0 }}
         // transition={{ duration: 0.5, delay }}
         // viewport={{ once: true }}
         className="bg-white rounded-xl shadow-md overflow-hidden w-full max-w-[300px] flex flex-col transition-transform hover:scale-[1.03]"
+
       >
         <div className="relative">
           <img src={image} alt={title} className="w-full h-[180px] object-cover" />
