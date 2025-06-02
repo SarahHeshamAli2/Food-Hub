@@ -1,12 +1,34 @@
 import axios from 'axios';
 import { createContext, useState, useEffect } from 'react';
-import { BASE_URL } from '../services/api';
+import { BASE_URL, Recipe } from '../services/api';
 export const RecipesContext = createContext();
 
 const RecipesContextProvider = ({ children }) => {
   const [recipes, setRecipes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [acceptedRecipe, setAcceptedRecipe] = useState([]);
+    const [declinedRecipe, setDeclinedRecipe] = useState([]);
+
+
+  const getAcceptedRecipes = () => {
+    axios
+      .get(BASE_URL + Recipe.GET_ACCEPTED_RECIPES)
+      .then((res) => {
+         setAcceptedRecipe(res.data);
+         setLoading(true)
+      })
+      .catch((err) => {
+        console.log(err)
+        setLoading(false)
+      });
+  };
+  const getDeclinedRecipes = () => {
+    axios
+      .get(BASE_URL + Recipe.GET_DECLINED_RECIPES)
+      .then((res) => setDeclinedRecipe(res.data))
+      .catch((err) => console.log(err));
+  };
 
   useEffect(() => {
     axios.get(`${BASE_URL}/recipes`)
@@ -27,7 +49,8 @@ const RecipesContextProvider = ({ children }) => {
     }
 
   return (
-    <RecipesContext.Provider value={{ recipes, loading, deleteRecipe, error }}>
+
+    <RecipesContext.Provider value={{ recipes, loading, error ,getAcceptedRecipes,acceptedRecipe,getDeclinedRecipes,declinedRecipe }}>
       {children}
     </RecipesContext.Provider>
   );
