@@ -6,6 +6,7 @@ export default function useSubmitRecipe(recipes, image) {
   const navigate = useNavigate();
   const{user}=useUser()
   
+  
 
   const submitRecipe = async (data, ingredients) => {
     const cleanedIngredients = ingredients.filter((ing) => ing.trim());
@@ -15,15 +16,9 @@ export default function useSubmitRecipe(recipes, image) {
       return;
     }
 
-    const maxId = recipes.reduce((max, recipe) => {
-      const idNum = parseInt(recipe.id, 10);
-      return idNum > max ? idNum : max;
-    }, 0);
 
-    const newId = (maxId + 1).toString();
 
     const payload = {
-      id: newId,
       name: data.name,
       image,
       servings: Number(data.servings),
@@ -35,7 +30,7 @@ export default function useSubmitRecipe(recipes, image) {
       difficulty: "Easy",
       caloriesPerServing: 150,
       tags: ["Tag1", "Tag2"],
-      userId: 134,
+      userId: user?.id,
       rating: 4.4,
       reviewCount: 55,
       mealType: ["Main"],

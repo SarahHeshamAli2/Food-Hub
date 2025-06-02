@@ -118,7 +118,6 @@ export default function AddRecipe() {
           </button>
         </div>
 
-        {/* Other form inputs: servings, prepTime, cookTime, cuisine */}
         <div className={styles.row}>
           <div className={styles.col}>
             <label htmlFor="servings" className={styles.label}>
