@@ -17,6 +17,7 @@ import RecipesContextProvider from './context/RecipesContextProvider';
 import RecipesList from './pages/RecipesList/RecipesList';
 import AllPendingRequests from "./pages/AllPendingRequests/AllPendingRequests";
 
+
 function App() {
   const routes = createBrowserRouter([
     {
@@ -41,9 +42,12 @@ function App() {
 
   return (
     <>
+
+      
       <RecipesContextProvider>
         <RouterProvider router={routes} />
       </RecipesContextProvider>
+
     </>
   )
 }
