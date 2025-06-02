@@ -11,7 +11,7 @@ export default function RecipeCard({ id, image, title, author = "Chef Ahmed", ca
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay }}
         viewport={{ once: true }}
-className="bg-white rounded-xl max-w-[290px] shadow-md overflow-hidden  h-full flex flex-col transition-transform hover:scale-[1.03]"
+className="bg-white rounded-xl lg:max-w-[290px] shadow-md overflow-hidden  h-full flex flex-col transition-transform hover:scale-[1.03]"
       >
         <div className="relative">
           <img src={image} alt={title} className="w-full h-[180px] object-cover" />
