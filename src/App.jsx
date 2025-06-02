@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom"
+import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom"
 import Layout from './components/Layout/Layout';
 import LandingPage from "./pages/LandingPage/LandingPage";
 import FavoriteList from './pages/FavoriteList/FavoriteList';
@@ -15,6 +15,10 @@ import RecipesContextProvider from './context/RecipesContextProvider';
 import RecipesList from './pages/RecipesList/RecipesList';
 import AllPendingRequests from "./pages/AllPendingRequests/AllPendingRequests";
 import UserNotification from "./pages/UserNotification/UserNotification";
+import Profile from "./pages/ProfilePage/Profile";
+import AcceptedRequests from "./pages/AcceptedRequests/AcceptedRequests";
+import RejectedRequests from "./pages/RejectedRequests/RejectedRequests";
+import CreatedRecipes from "./pages/CreatedRecipes/CreatedRecipes";
 function App() {
   const routes = createBrowserRouter([
     {
@@ -30,6 +34,29 @@ function App() {
         { path: 'unauthorized', element: <Unauthorized /> },
         { path: 'all-pending-requests', element: <AllPendingRequests /> },
         { path: 'all-pending-requests', element: <AllPendingRequests /> },
+    {
+    path: '/profile',
+    element: <Profile />,
+    children: [
+      {
+        index: true,
+        element: <Navigate to="accepted-requests" replace />
+      },
+      {
+        path: 'accepted-requests',
+        element: <AcceptedRequests />
+      },
+      {
+        path: 'rejected-requests',
+        element: <RejectedRequests />
+      },
+      {
+        path: 'created-recipes',
+        element: <CreatedRecipes />
+      }
+   
+    ]
+  },
         { path: '*', element: <NotFound /> },
         { path: 'recipes/:id', element: <RecipeDetailsPage /> },
       ]

@@ -43,10 +43,11 @@ export default function NotificationBell({ userId, onClick }) {
     }
   };
 
-  const handleClick = async () => {
-    await markAllAsRead();      
-    onClick?.();               
-  };
+const handleClick = async (e) => {
+  e.stopPropagation(); 
+  await markAllAsRead();
+  onClick?.(e); 
+};
 
   return (
     <button

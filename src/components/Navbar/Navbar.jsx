@@ -336,7 +336,7 @@ function NotificationList({ userId }) {
     return <div className="p-4 text-center text-gray-500">No notifications</div>;
 
   return (
-    <ul className="divide-y divide-gray-200 max-h-96 overflow-auto">
+    <ul className="divide-y divide-gray-200 max-h-96 overflow-hidden">
       {notifications.map((notif) => (
         <li
           key={notif.id}
