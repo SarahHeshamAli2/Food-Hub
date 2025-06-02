@@ -1,8 +1,6 @@
 import axios from 'axios';
 import { createContext, useState, useEffect } from 'react';
 import { BASE_URL } from '../services/api';
-
-// ✅ أنشئ السياق باسم كبير
 export const RecipesContext = createContext();
 
 const RecipesContextProvider = ({ children }) => {
