@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { createContext, useState, useEffect } from 'react';
 import { BASE_URL, Recipe } from '../services/api';
+import { toast } from 'react-toastify';
 export const RecipesContext = createContext();
 
 const RecipesContextProvider = ({ children }) => {
@@ -43,14 +44,25 @@ const RecipesContextProvider = ({ children }) => {
       });
   }, []);
   
-  async function deleteRecipe(recipeId) {
-        await fetch(`${BASE_URL}/recipes/${recipeId}`, { method: 'DELETE' });
-        setRecipes(recipes.filter(r => r.id !== recipeId));
+   function deleteRecipe(recipeId) {
+    try {
+               fetch(`${BASE_URL}/recipes/${recipeId}`, { method: 'DELETE' }).then(res=>{
+ setRecipes(recipes.filter(r => r.id !== recipeId));
+ toast.success('recipe has been deleted !')
+               });
+
+    } catch (error) {
+      console.log(error);
+      
+      
+    }
+    
+       
     }
 
   return (
 
-    <RecipesContext.Provider value={{ recipes, loading, error ,getAcceptedRecipes,acceptedRecipe,getDeclinedRecipes,declinedRecipe }}>
+    <RecipesContext.Provider value={{ deleteRecipe,recipes, loading, error ,getAcceptedRecipes,acceptedRecipe,getDeclinedRecipes,declinedRecipe }}>
       {children}
     </RecipesContext.Provider>
   );

@@ -11,8 +11,8 @@ const RecipeMenu = ({ recipeId, onDelete, onUpdate, closeMenu}) => {
         onUpdate && onUpdate(recipeId);
     }
     return (
-        <div>
-            <div className={styles.contextMenu}>
+        <div >
+            <div className={`${styles.contextMenu} flex flex-col `}>
                 <button onClick={handleDelete} className={styles.contextMenuItem}>Delete</button>
                 <button onClick={handleUpdate} className={styles.contextMenuItem}>Update</button>
             </div>
