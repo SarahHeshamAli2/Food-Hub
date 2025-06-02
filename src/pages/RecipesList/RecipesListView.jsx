@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import styles from './recipesList.module.css';
 import { useState } from 'react';
 
-export default function RecipesListView({ recipes, isSignedIn, isAdmin, favoriteIds, onToggleFavorite, onDelete, onUpdate }) {
+export default function RecipesListView({ recipes, isSignedIn, isRegularUser,isAdmin, favoriteIds, onToggleFavorite, onDelete, onUpdate ,userId}) {
   const [menuOpenId, setMenuOpenId] = useState(null);
 
   const handleMenuToggle = (id) => {
@@ -25,6 +25,7 @@ export default function RecipesListView({ recipes, isSignedIn, isAdmin, favorite
       <ul className={styles.list}>
         {recipes.map(recipe => (
           <li key={recipe.id} className={styles.item}>
+         
             <div className={styles.recipeInfo}>
               <img src={recipe.image} alt={recipe.name} className={styles.recipeImage} />
               <div>
@@ -50,6 +51,28 @@ export default function RecipesListView({ recipes, isSignedIn, isAdmin, favorite
                 )}
               </div>
             )}
+
+{isRegularUser && recipe?.userId === userId && (
+  <div className={styles.menuWrapper}>
+    <button
+      className={styles.menuBtn}
+      onClick={() => handleMenuToggle(recipe.id)}
+      aria-label="Open admin menu"
+      title="Admin actions"
+    >
+      <i className="fas fa-ellipsis-v"></i>
+    </button>
+    {menuOpenId === recipe.id && (
+      <div className={styles.contextMenu}>
+        <button onClick={() => handleDelete(recipe.id)} className={styles.contextMenuItem}>Delete</button>
+        <button onClick={() => handleUpdate(recipe.id)} className={styles.contextMenuItem}>Update</button>
+      </div>
+    )}
+  </div>
+)}
+
+
+            
             {!isAdmin && isSignedIn && (
               <button
                 onClick={() => onToggleFavorite(recipe.id)}

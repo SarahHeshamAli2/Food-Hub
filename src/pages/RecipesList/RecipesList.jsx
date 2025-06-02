@@ -6,7 +6,6 @@ import RecipesListView from './RecipesListView';
 
 export default function RecipesList() {
   const { user, isLoaded, isSignedIn } = useUser();
-  console.log(isSignedIn);
   
   
   const [recipes, setRecipes] = useState([]);
@@ -14,7 +13,9 @@ export default function RecipesList() {
   const [loading, setLoading] = useState(true);
 
   const isAdmin = isSignedIn && user?.id === import.meta.env.VITE_ADMIN_ID;
-
+const isRegularUser = isSignedIn && !isAdmin;
+const userId=user?.id
+  
   useEffect(() => {
     async function fetchData() {
       const res = await fetch(`${BASE_URL}/recipes`);
@@ -63,10 +64,12 @@ export default function RecipesList() {
       recipes={recipes}
       isSignedIn={isSignedIn}
       isAdmin={isAdmin}
+      isRegularUser={isRegularUser}
       favoriteIds={favoriteIds}
       onToggleFavorite={handleToggleFavorite}
       onDelete={handleDelete}
       onUpdate={handleUpdate}
+      userId={userId}
     />
   );
 }

@@ -1,12 +1,15 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { BASE_URL, Recipe } from "../../services/api";
-import { Button, Badge } from "react-bootstrap";
+import { Table, Badge } from "react-bootstrap";
+import { useUser } from "@clerk/clerk-react";
 
 export default function AllPendingRequests() {
   const [pendingRecipe, setPendingRecipe] = useState([]);
   const [acceptedRecipe, setAcceptedRecipe] = useState([]);
+  const [declinedRecipe, setDeclinedRecipe] = useState([]);
   const [activeTab, setActiveTab] = useState("inQueue");
+ const{user}= useUser()
 
   const getPendingRecipe = () => {
     axios
@@ -14,102 +17,131 @@ export default function AllPendingRequests() {
       .then((res) => setPendingRecipe(res.data))
       .catch((err) => console.log(err));
   };
+
   const getAcceptedRecipes = () => {
     axios
       .get(BASE_URL + Recipe.GET_ACCEPTED_RECIPES)
       .then((res) => setAcceptedRecipe(res.data))
       .catch((err) => console.log(err));
   };
+
+  const getDeclinedRecipes = () => {
+    axios
+      .get(BASE_URL + Recipe.GET_DECLINED_RECIPES)
+      .then((res) => setDeclinedRecipe(res.data))
+      .catch((err) => console.log(err));
+  };
+
   useEffect(() => {
     getPendingRecipe();
-    getAcceptedRecipes()
+    getAcceptedRecipes();
+    getDeclinedRecipes();
   }, []);
-
 const handleApprove = (recipe) => {
   axios
-    .post(BASE_URL + Recipe.GET_ALL, recipe)
+    .post(BASE_URL + Recipe.CREATE, recipe) 
+    .then(() => axios.post(BASE_URL + Recipe.GET_ACCEPTED_RECIPES, recipe)) 
+    .then(() => axios.delete(`${BASE_URL + Recipe.GET_PENDING_RECIPES}/${recipe.id}`)) 
     .then(() => {
-      return axios.post(BASE_URL + Recipe.GET_ACCEPTED_RECIPES, recipe);
+      return axios.post(BASE_URL + "/notifications", {
+        userId: user?.id, 
+        message: `Your recipe '${recipe.name}' has been accepted.`,
+        status: "unread",
+        timestamp: new Date().toISOString(),
+      });
     })
     .then(() => {
-      return axios.delete(`${BASE_URL + Recipe.GET_PENDING_RECIPES}/${recipe.id}`);
-    })
-    .then(() => {
-      setAcceptedRecipe((prev) => [...prev, recipe]);
-      setPendingRecipe((prev) => prev.filter((r) => r.id !== recipe.id));
+      getPendingRecipe();   
+      getAcceptedRecipes();
       setActiveTab("accepted");
     })
     .catch((err) => console.error("Approval failed:", err));
 };
 
-  const handleReject = (id) => {
-    axios
-      .delete(`${BASE_URL + Recipe.GET_PENDING_RECIPES}/${id}`)
-      .then(() => getPendingRecipe());
-  };
+const handleReject = (recipe) => {
+  axios
+    .post(BASE_URL + Recipe.GET_DECLINED_RECIPES, recipe) 
+    .then(() => axios.delete(`${BASE_URL + Recipe.GET_PENDING_RECIPES}/${recipe.id}`)) 
+    .then(() => {
+      return axios.post(BASE_URL + "/notifications", {
+        userId: user?.id, 
+        message: `Your recipe '${recipe.name}' has been declined.`,
+        status: "unread",
+        timestamp: new Date().toISOString(),
+      });
+    })
+    .then(() => {
+      getPendingRecipe();   
+      getDeclinedRecipes(); 
+      setActiveTab("declined");
+    })
+    .catch((err) => console.error("Rejection failed:", err));
+};
 
 
 
-  const renderRecipeCards = (recipes, isPending = true) => (
-    <div className="row g-4">
-      {recipes.map((recipe, index) => (
-        <div className="col-md-6 col-xl-4" key={index}>
-          <div className="border rounded shadow-sm p-3">
-            <div className="d-flex justify-content-between align-items-center mb-2">
-       
-            </div>
-            <hr className="my-2" />
-            <div className="d-flex align-items-center mb-3">
-              <img
-                src={recipe.image}
-                alt={recipe.name}
-                className="rounded-circle me-3"
-                style={{ width: "80px", height: "80px", objectFit: "cover" }}
-              />
-              <div>
-                <div className="fw-semibold">Recipe Name</div>
-                <div>{recipe.name}</div>
+  const renderRecipeTable = (recipes, status = "pending") => (
+    <Table responsive bordered hover className="text-center align-middle">
+      <thead className="table-light">
+        <tr>
+          <th>#</th>
+          <th>Recipe</th>
+          <th>Cuisine</th>
+          <th>Servings</th>
+          <th>Creator</th>
+          <th>Status</th>
+          {status === "pending" && <th>Actions</th>}
+        </tr>
+      </thead>
+      <tbody>
+        {recipes.map((recipe, index) => (
+          <tr key={recipe.id || index}>
+         
+            <td>{index + 1}</td>
+            <td>
+              <div className="d-flex align-items-center justify-content-center gap-2">
+                <img
+                  src={recipe.image}
+                  alt={recipe.name}
+                  className="rounded-circle"
+                  style={{ width: "50px", height: "50px", objectFit: "cover" }}
+                />
+                <span>{recipe.name}</span>
               </div>
-            </div>
-          
-            <div className="mb-2">
-              <div >Cuisine: <span className="fw-bold">{recipe.cuisine}</span></div>
-              
-            </div>
-            <div className="mb-2">
-              <div >Servings: <span className="fw-semibold">{recipe.servings}</span></div>
-            </div>
-            <div className="mb-2">
-              <div >Creator : <span className="fw-semibold"> {recipe.creator || "Unknown"}</span></div>
-            </div>
-          
-            {isPending && (
-              <div className="d-flex justify-content-end gap-2">
-                <Button
-                  variant="outline-secondary"
-                  size="sm"
-                  className="w-50"
-                  onClick={() => handleReject(recipe.id)}
-                >
-                  ✕ Decline
-                </Button>
-                <Button
-                  variant="primary"
-                  size="sm"
-                     className="w-50"
+            </td>
+            <td>{recipe.cuisine}</td>
+            <td>{recipe.servings}</td>
+            <td>{recipe.creator || "Unknown"}</td>
+            <td>
+              <Badge bg={status === "pending" ? "warning" : status === "accepted" ? "success" : "danger"}>
+                {status === "pending" ? "Processing" : status === "accepted" ? "Accepted" : "Declined"}
+              </Badge>
+            </td>
+            {status === "pending" && (
+              <td>
+                <i
+                  className="fa fa-check-circle text-success me-3"
+                  style={{ cursor: "pointer", fontSize: "1.2rem" }}
                   onClick={() => handleApprove(recipe)}
-                >
-                  ✓ Approve
-                </Button>
-              </div>
+                ></i>
+                <i
+                  className="fa fa-times-circle text-danger"
+                  style={{ cursor: "pointer", fontSize: "1.2rem" }}
+                  onClick={() => handleReject(recipe)}
+                ></i>
+              </td>
             )}
-          </div>
-        </div>
-      ))}
-      {recipes.length === 0 && (
-        <p className="text-center text-muted">No {isPending ? "pending" : "accepted"} requests.</p>
-      )}
-    </div>
+          </tr>
+        ))}
+        {recipes.length === 0 && (
+          <tr>
+            <td colSpan={status === "pending" ? 7 : 6} className="text-muted">
+              No {status} requests.
+            </td>
+          </tr>
+        )}
+      </tbody>
+    </Table>
   );
 
   return (
@@ -129,10 +161,17 @@ const handleApprove = (recipe) => {
         >
           In Queue
         </div>
-    
+        <div
+          className={`fw-bold ${activeTab === "declined" ? "text-primary border-bottom border-primary pb-2" : "text-muted"}`}
+          onClick={() => setActiveTab("declined")}
+          style={{ cursor: "pointer" }}
+        >
+          Declined
+        </div>
       </div>
-      {activeTab === "inQueue" && renderRecipeCards(pendingRecipe, true)}
-      {activeTab === "accepted" && renderRecipeCards(acceptedRecipe, false)}
+      {activeTab === "inQueue" && renderRecipeTable(pendingRecipe, "pending")}
+      {activeTab === "accepted" && renderRecipeTable(acceptedRecipe, "accepted")}
+      {activeTab === "declined" && renderRecipeTable(declinedRecipe, "declined")}
     </div>
   );
 }

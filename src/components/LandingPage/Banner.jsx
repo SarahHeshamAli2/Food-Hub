@@ -22,6 +22,7 @@ const Banner = () => {
           <div className='relative w-[360px] h-[360px]'>
             {/* Orange Circle in Background */}
             <motion.div
+            viewport={{once:true}}
              initial={{opacity:0}}
               whileInView={{opacity:1}}
               transition={{duration: 0.6 , delay:0.5}}
@@ -29,6 +30,8 @@ const Banner = () => {
 
             {/* Image in Front */}
             <motion.img
+                        viewport={{once:true}}
+
             initial={{opacity:0 , x:-100 ,y:100 }}
             whileInView={{ opacity: 1, x: 0, y: 0 }}
             whileHover={{ scale: 1.2, rotate:15, x: 50 , y:-50 }}
@@ -46,6 +49,8 @@ const Banner = () => {
           {/* Text Section */}
           <div className='space-y-5 lg:max-w-[400px]'>
             <motion.h1 
+                        viewport={{once:true}}
+
              variants={SlideUp(1)}
               initial="hidden"
               whileInView="show"
@@ -53,6 +58,8 @@ const Banner = () => {
               The Best Yummy food in the Town
             </motion.h1>
             <motion.p  
+                        viewport={{once:true}}
+
             variants={SlideUp(1.3)}
               initial="hidden"
               whileInView="show">

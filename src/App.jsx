@@ -1,8 +1,6 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import Layout from './components/Layout/Layout';
 import LandingPage from "./pages/LandingPage/LandingPage";
-import Login from "./pages/Login/Login";
-import Register from "./pages/Register/Register";
 import FavoriteList from './pages/FavoriteList/FavoriteList';
 import UsersList from "./pages/UsersList/UsersList";
 import NotFound from './components/NotFound/NotFound';
@@ -18,6 +16,8 @@ import RecipesContextProvider from './context/RecipesContextProvider';
 import RecipesList from './pages/RecipesList/RecipesList';
 import AllPendingRequests from "./pages/AllPendingRequests/AllPendingRequests";
 
+import UserNotification from "./pages/UserNotification/UserNotification";
+
 
 function App() {
   const routes = createBrowserRouter([
@@ -26,14 +26,15 @@ function App() {
         { index: true, element: <LandingPage /> },
         { path: 'favorites', element: <UserProtected> <FavoriteList /> </UserProtected> },
         { path: 'users', element: <AdminProtected> <UsersList /> </AdminProtected> },
-        { path: 'login', element: <Login /> },
-        { path: 'login/*', element: <Login /> },
-        { path: 'register', element: <Register /> },
-        { path: 'register/*', element: <Register /> },
+
+  
+        { path: 'recipes', element:  <RecipesList /> },
+        { path: 'notifications', element:  <UserNotification /> },
         { path: 'recipes', element:  <RecipesList /> },
         { path: 'add-recipe', element: <AddRecipe /> },
         { path: 'pending-request', element: <PendingRequest /> },
         { path: 'unauthorized', element: <Unauthorized /> },
+        { path: 'all-pending-requests', element: <AllPendingRequests /> },
         { path: 'all-pending-requests', element: <AllPendingRequests /> },
         { path: '*', element: <NotFound /> },
         { path: 'recipes/:id', element: <RecipeDetailsPage /> },

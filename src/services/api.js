@@ -7,7 +7,8 @@ export const Recipe = {
   CREATE: "/recipes",     
   UPDATE: (id) => `/recipes/${id}` ,
   GET_PENDING_RECIPES : '/pendingRecipes',
-  GET_ACCEPTED_RECIPES:'/acceptedRecipes'
+  GET_ACCEPTED_RECIPES:'/acceptedRecipes',
+  GET_DECLINED_RECIPES:'/declinedRecipes'
 };
 
 export const Favorites = {

@@ -7,9 +7,12 @@ export default function Layout() {
   const hideNavAndFooter = location.pathname === "/login" || location.pathname === "/register";
   return (
     <>
-       {!hideNavAndFooter && <NavbarPage />} 
-      <Outlet />
-      {!hideNavAndFooter && <Footer />}
-    </>
+  {!hideNavAndFooter && <NavbarPage />}
+  <div className="pt-20 px-4">
+    <Outlet />
+    {!hideNavAndFooter && <Footer />}
+  </div>
+</>
+
   );
 }
