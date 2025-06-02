@@ -3,6 +3,10 @@ import Hero from "../../components/LandingPage/Hero";
 import RecipeList from "../../components/LandingPage/RecipeList";
 import Banner from "../../components/LandingPage/Banner";
 import MealType from "../../components/LandingPage/MealType";
+import MealType from "../../components/LandingPage/mealType";
+import NewsletterSection from "../../components/LandingPage/NewsletterSection";
+import PopularCategories from "../../components/LandingPage/PopularCategories";
+
 
 export default function LandingPage() {
   return (
@@ -17,7 +21,13 @@ export default function LandingPage() {
     </div>
     
     <Banner/>
-    <MealType/>
+
+    <div className="bg-gray-50 min-h-screen">
+       <MealType/>
+    </div>
+    <NewsletterSection/>
+    <PopularCategories/>
+
     
     </div>
   )
