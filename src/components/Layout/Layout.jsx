@@ -7,7 +7,7 @@ export default function Layout() {
   const hideNavAndFooter = location.pathname === "/login" || location.pathname === "/register";
   return (
     <>
-      {!hideNavAndFooter && <NavbarPage />}
+       {!hideNavAndFooter && <NavbarPage />} 
       <Outlet />
       {!hideNavAndFooter && <Footer />}
     </>

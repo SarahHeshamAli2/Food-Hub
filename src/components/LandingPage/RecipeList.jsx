@@ -16,15 +16,18 @@ export default function RecipeList() {
 
   return (
     <section className="py-12 px-4 md:px-12">
-      <div className="flex justify-between items-center mb-6">
-        <h2 className="text-2xl font-semibold">Trending Recipes</h2>
-        <button
-          onClick={() => setShowAll(!showAll)}
-          className="text-[#FF7F50] hover:underline"
-        >
-          {showAll ? "Show less" : "Show more"}
-        </button>
-      </div>
+      <div className="w-full text-center my-4 ">
+  <h2 className="text-2xl font-semibold">Trending Recipes</h2>
+</div>
+<div className="flex justify-end mb-6">
+  <button
+    onClick={() => setShowAll(!showAll)}
+    className="text-[#FF7F50] hover:underline"
+  >
+    {showAll ? "Show less" : "Show more"}
+  </button>
+</div>
+
 
       {loading && <p>Loading...</p>}
       {error && <p className="text-red-500">{error}</p>}
@@ -32,10 +35,10 @@ export default function RecipeList() {
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-10 place-items-center">
         {visibleRecipes.map((recipe, index) => (
           <RecipeCard
-            key={recipe.id}
+            id={recipe.id}
             image={recipe.image}
             title={recipe.name}
-            author={`By User ${recipe.userId}`}
+            author="Chef Ahmed"
             calories={recipe.caloriesPerServing}
             delay={index * 0.1}
           />

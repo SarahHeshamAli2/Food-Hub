@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { UserButton } from "@clerk/clerk-react";
-import logo from "../../assets/images/logo.png";
+import logo from "../../assets/images/logo1.png";
 import { IoCartOutline } from "react-icons/io5";
 import { FiMenu, FiX } from "react-icons/fi";
+import { FaUtensils } from "react-icons/fa";
 import { motion } from "framer-motion";
 import './Navbar.css';
 
@@ -31,14 +32,19 @@ export default function NavbarPage() {
       <nav className="bg-white fixed w-full z-50">
         <div className="container mx-auto px-4 py-2 flex justify-between items-center font-league">
           {/* logo */}
-          <motion.img
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.5 }}
-            src={logo}
-            alt="logo"
-            className="w-32"
-          />
+            className="flex items-center gap-2"
+          >
+            <FaUtensils className="text-2xl text-black" />
+            <span className="text-xl font-bold">
+              <span className="text-black">Food</span>
+              <span className="text-[#FF7F50]">Hub</span>
+            </span>
+          </motion.div>
+
 
           {/* Desktop menu */}
           <div className="hidden md:block">
