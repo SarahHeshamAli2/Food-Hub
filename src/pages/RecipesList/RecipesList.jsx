@@ -7,14 +7,7 @@ import {recipesContext} from '../../context/RecipesContextProvider';
 
 export default function RecipesList() {
   const { user, isLoaded, isSignedIn } = useUser();
-<<<<<<< HEAD
-  // const [recipes, setRecipes] = useState([]);
   const {recipes, deleteRecipe} = useContext(recipesContext);
-=======
-  
-  
-  const [recipes, setRecipes] = useState([]);
->>>>>>> origin/master
   const [favoriteIds, setFavoriteIds] = useState([]);
   const [loading, setLoading] = useState(true);
 
