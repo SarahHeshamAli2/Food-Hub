@@ -33,15 +33,9 @@ export default function Hero() {
           
           {/* text content */}
           <div className='space-y-3 mt-14 text-center md:text-left md:mt-0'>
-            <motion.h1
-              variants={SlideUp(0.5)}
-              viewport={{once:true}}
-              initial="hidden"
-              whileInView="show"
-              className='relative text-4xl lg:text-5xl xl:text-6xl font-bold text-outline text-transparent'>
-              Yummy <span className="inline-block text-green-600">🍃</span>
+          
             
-            </motion.h1>
+         
             <motion.h1
                           viewport={{once:true}}
 

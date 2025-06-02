@@ -10,15 +10,11 @@ import PendingRequest from "./components/PendingRequest/PendingRequest";
 import AdminProtected from "./components/Protected Routes/adminProtected";
 import UserProtected from "./components/Protected Routes/userProtected";
 import RecipeDetailsPage from './pages/RecipeDetailsPage/RecipeDetailsPage';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
+
 import RecipesContextProvider from './context/RecipesContextProvider';
 import RecipesList from './pages/RecipesList/RecipesList';
 import AllPendingRequests from "./pages/AllPendingRequests/AllPendingRequests";
-
 import UserNotification from "./pages/UserNotification/UserNotification";
-
-
 function App() {
   const routes = createBrowserRouter([
     {
@@ -26,8 +22,6 @@ function App() {
         { index: true, element: <LandingPage /> },
         { path: 'favorites', element: <UserProtected> <FavoriteList /> </UserProtected> },
         { path: 'users', element: <AdminProtected> <UsersList /> </AdminProtected> },
-
-  
         { path: 'recipes', element:  <RecipesList /> },
         { path: 'notifications', element:  <UserNotification /> },
         { path: 'recipes', element:  <RecipesList /> },
