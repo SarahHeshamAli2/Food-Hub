@@ -19,12 +19,12 @@ export default function useSubmitRecipe(recipes, image) {
 
 
     const payload = {
-      name: data.name,
+      name: data?.name,
       image,
       servings: Number(data.servings),
       prepTimeMinutes: Number(data.prepTime),
       cookTimeMinutes: Number(data.cookTime),
-      cuisine: data.cuisine,
+      cuisine: data?.cuisine,
       ingredients: cleanedIngredients,
       instructions: ["Instruction 1", "Instruction 2", "Instruction 3"],
       difficulty: "Easy",
@@ -35,7 +35,7 @@ export default function useSubmitRecipe(recipes, image) {
       reviewCount: 55,
       mealType: ["Main"],
       isCreated:true,
-      creator:user.fullName
+      creator:user?.fullName
     };
 
     try {

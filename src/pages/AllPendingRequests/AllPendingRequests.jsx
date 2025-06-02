@@ -2,12 +2,14 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { BASE_URL, Recipe } from "../../services/api";
 import { Table, Badge } from "react-bootstrap";
+import { useUser } from "@clerk/clerk-react";
 
 export default function AllPendingRequests() {
   const [pendingRecipe, setPendingRecipe] = useState([]);
   const [acceptedRecipe, setAcceptedRecipe] = useState([]);
   const [declinedRecipe, setDeclinedRecipe] = useState([]);
   const [activeTab, setActiveTab] = useState("inQueue");
+ const{user}= useUser()
 
   const getPendingRecipe = () => {
     axios
@@ -35,26 +37,39 @@ export default function AllPendingRequests() {
     getAcceptedRecipes();
     getDeclinedRecipes();
   }, []);
-
 const handleApprove = (recipe) => {
   axios
-    .post(BASE_URL + Recipe.CREATE, recipe) // Add to main recipes
-    .then(() => axios.post(BASE_URL + Recipe.GET_ACCEPTED_RECIPES, recipe)) // Add to accepted recipes
-    .then(() => axios.delete(`${BASE_URL + Recipe.GET_PENDING_RECIPES}/${recipe.id}`)) // Remove from pending recipes
+    .post(BASE_URL + Recipe.CREATE, recipe) 
+    .then(() => axios.post(BASE_URL + Recipe.GET_ACCEPTED_RECIPES, recipe)) 
+    .then(() => axios.delete(`${BASE_URL + Recipe.GET_PENDING_RECIPES}/${recipe.id}`)) 
     .then(() => {
-      getPendingRecipe();   // refresh pending list
-      getAcceptedRecipes(); // refresh accepted list
+      return axios.post(BASE_URL + "/notifications", {
+        userId: user?.id, 
+        message: `Your recipe '${recipe.name}' has been accepted.`,
+        status: "unread",
+        timestamp: new Date().toISOString(),
+      });
+    })
+    .then(() => {
+      getPendingRecipe();   
+      getAcceptedRecipes();
       setActiveTab("accepted");
     })
     .catch((err) => console.error("Approval failed:", err));
 };
 
-
-
 const handleReject = (recipe) => {
   axios
     .post(BASE_URL + Recipe.GET_DECLINED_RECIPES, recipe) 
     .then(() => axios.delete(`${BASE_URL + Recipe.GET_PENDING_RECIPES}/${recipe.id}`)) 
+    .then(() => {
+      return axios.post(BASE_URL + "/notifications", {
+        userId: user?.id, 
+        message: `Your recipe '${recipe.name}' has been declined.`,
+        status: "unread",
+        timestamp: new Date().toISOString(),
+      });
+    })
     .then(() => {
       getPendingRecipe();   
       getDeclinedRecipes(); 
@@ -62,6 +77,7 @@ const handleReject = (recipe) => {
     })
     .catch((err) => console.error("Rejection failed:", err));
 };
+
 
 
   const renderRecipeTable = (recipes, status = "pending") => (
@@ -80,8 +96,7 @@ const handleReject = (recipe) => {
       <tbody>
         {recipes.map((recipe, index) => (
           <tr key={recipe.id || index}>
-            {console.log(recipe.id)
-            }
+         
             <td>{index + 1}</td>
             <td>
               <div className="d-flex align-items-center justify-content-center gap-2">

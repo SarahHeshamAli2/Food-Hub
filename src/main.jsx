@@ -5,12 +5,19 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css'
 import App from './App.jsx'
 import { ClerkProvider } from '@clerk/clerk-react';
+import { store } from './redux/store/store.js';
+import { Provider } from 'react-redux';
+
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <ClerkProvider publishableKey={import.meta.env.VITE_CLERK_PUBLISHABLE_KEY} afterSignOutUrl='/'>
-    <App />
+     <Provider store={store}>
+      <App />
+    </Provider>
   </ClerkProvider>
   </StrictMode>,
   
 )
+
+
