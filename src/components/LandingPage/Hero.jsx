@@ -54,15 +54,7 @@ export default function Hero() {
               className='text-sm'>
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem veniam molestiae modi obcaecati rem doloremque corporis cum ducimus eligendi quam, architecto repellat aliquam adipisci culpa sunt, sed temporibus quibusdam magni!
             </motion.p>
-            <motion.button
-                          viewport={{once:true}}
-
-              variants={SlideUp(2)}
-              initial="hidden"
-              whileInView="show"
-              className='btn-primary inline-block !mt-10'>
-              Sign Up
-            </motion.button>
+ 
           </div>
 
           {/* food image */}
