@@ -32,7 +32,7 @@ export default function RecipeList() {
       {loading && <p>Loading...</p>}
       {error && <p className="text-red-500">{error}</p>}
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-10 place-items-center">
+<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {visibleRecipes.map((recipe, index) => (
           <RecipeCard
             id={recipe.id}
@@ -41,6 +41,7 @@ export default function RecipeList() {
             author="Chef Ahmed"
             calories={recipe.caloriesPerServing}
             delay={index * 0.1}
+            key={recipe?.id}
           />
         ))}
       </div>
