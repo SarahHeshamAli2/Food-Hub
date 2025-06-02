@@ -44,10 +44,9 @@ const Section = ({ title, recipes }) => {
 };
 
 export default function MealType() {
-  const { recipes, loading, error } = useContext(RecipesContext);
+  const { recipes } = useContext(RecipesContext);
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error}</p>;
+
 
   const breakfast = recipes.filter(r => r.mealType?.includes('Breakfast'));
   const lunch = recipes.filter(r => r.mealType?.includes('Lunch'));

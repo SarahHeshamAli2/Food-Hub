@@ -1,16 +1,15 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { BASE_URL, Recipe } from "../../services/api";
 import { Table, Badge } from "react-bootstrap";
 import { useUser } from "@clerk/clerk-react";
+import { RecipesContext } from "../../context/RecipesContextProvider";
 
 export default function AllPendingRequests() {
   const [pendingRecipe, setPendingRecipe] = useState([]);
-  const [acceptedRecipe, setAcceptedRecipe] = useState([]);
-  const [declinedRecipe, setDeclinedRecipe] = useState([]);
   const [activeTab, setActiveTab] = useState("inQueue");
  const{user}= useUser()
-
+   const{getAcceptedRecipes,acceptedRecipe,getDeclinedRecipes,declinedRecipe}= useContext(RecipesContext)
   const getPendingRecipe = () => {
     axios
       .get(BASE_URL + Recipe.GET_PENDING_RECIPES)
@@ -18,19 +17,6 @@ export default function AllPendingRequests() {
       .catch((err) => console.log(err));
   };
 
-  const getAcceptedRecipes = () => {
-    axios
-      .get(BASE_URL + Recipe.GET_ACCEPTED_RECIPES)
-      .then((res) => setAcceptedRecipe(res.data))
-      .catch((err) => console.log(err));
-  };
-
-  const getDeclinedRecipes = () => {
-    axios
-      .get(BASE_URL + Recipe.GET_DECLINED_RECIPES)
-      .then((res) => setDeclinedRecipe(res.data))
-      .catch((err) => console.log(err));
-  };
 
   useEffect(() => {
     getPendingRecipe();
@@ -111,6 +97,8 @@ const handleReject = (recipe) => {
             </td>
             <td>{recipe.cuisine}</td>
             <td>{recipe.servings}</td>
+            {console.log(recipe.creator)
+            }
             <td>{recipe.creator || "Unknown"}</td>
             <td>
               <Badge bg={status === "pending" ? "warning" : status === "accepted" ? "success" : "danger"}>

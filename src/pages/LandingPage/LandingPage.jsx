@@ -2,10 +2,11 @@ import { Navbar } from "react-bootstrap";
 import Hero from "../../components/LandingPage/Hero";
 import RecipeList from "../../components/LandingPage/RecipeList";
 import Banner from "../../components/LandingPage/Banner";
-import MealType from "../../components/LandingPage/mealType";
+import MealType from "../../components/LandingPage/MealType";
 import NewsletterSection from "../../components/LandingPage/NewsletterSection";
 import PopularCategories from "../../components/LandingPage/PopularCategories";
 import Brand from "../../components/LandingPage/Brand";
+
 
 export default function LandingPage() {
   return (
@@ -21,9 +22,9 @@ export default function LandingPage() {
     
     <Banner/>
 
-    <diV className="bg-gray-50 min-h-screen">
+    <div className="bg-gray-50 min-h-screen">
        <MealType/>
-    </diV>
+    </div>
     <NewsletterSection/>
     <PopularCategories/>
   
