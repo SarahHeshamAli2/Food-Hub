@@ -43,7 +43,7 @@ export default function RecipeList() {
         id={recipe.id}
         image={recipe.image}
         title={recipe.name}
-        author="Chef Ahmed"
+        author= {recipe.auther}
         calories={recipe.caloriesPerServing}
         delay={index * 0.1}
         key={recipe?.id}

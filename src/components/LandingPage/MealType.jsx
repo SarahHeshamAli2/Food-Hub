@@ -32,7 +32,7 @@ const Section = ({ title, recipes }) => {
               id={recipe.id}
               image={recipe.image}
               title={recipe.name}
-              author="Chef Ahmed"
+              author={recipe.auther}
               calories={recipe.caloriesPerServing}
             />
           </div>
