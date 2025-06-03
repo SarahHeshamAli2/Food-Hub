@@ -31,9 +31,9 @@ export default function NavbarPage() {
   const isAdmin = isSignedIn && user?.id === import.meta.env.VITE_ADMIN_ID;
 
   const { signOut, openSignIn, openSignUp } = useClerk();
-  const handleSignOut = () => {
-    signOut({ redirectUrl: "/" });
-  };
+const handleSignOut = () => {
+  signOut({ redirectUrl: "/Food-Hub/" });  
+};
   // Scroll state
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
