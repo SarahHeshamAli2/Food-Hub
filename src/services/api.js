@@ -1,4 +1,4 @@
-export const BASE_URL = "http://localhost:3001";
+export const BASE_URL = "food-hub-api-production.up.railway.app";
 
 export const Recipe = {
   GET_ALL: "/recipes",
