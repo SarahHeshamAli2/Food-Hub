@@ -284,6 +284,7 @@ export async function getFavorites(userId) { /* ... */ }
 2. **Additional User Roles**: Modify the role checking logic
 3. **Enhanced Notifications**: Expand the notification system
 4. **Recipe Ratings**: Implement user rating functionality
+5. **Advanced Filtering**: Implement global search across the website
 
 ### Styling Customization
 - **Theme Configuration**: Modify CSS custom properties in root styles
@@ -301,50 +302,6 @@ The current json-server setup can be easily replaced with:
 - **Frontend**: Vercel, Netlify, GitHub Pages
 - **Backend**: Railway, Render, Heroku
 - **Database**: MongoDB Atlas, Supabase, PlanetScale
-
----
-
-## 📊 Data Models
-
-### Recipe Schema
-```json
-{
-  "id": "string",
-  "name": "string",
-  "ingredients": ["array of strings"],
-  "instructions": ["array of strings"],
-  "prepTimeMinutes": "number",
-  "cookTimeMinutes": "number",
-  "servings": "number",
-  "difficulty": "Easy|Medium|Hard",
-  "cuisine": "string",
-  "caloriesPerServing": "number",
-  "tags": ["array"],
-  "userId": "number",
-  "image": "string (URL)",
-  "rating": "number",
-  "reviewCount": "number",
-  "mealType": ["array"]
-}
-```
-
-### Favorites Schema
-```json
-{
-  "id": "string",
-  "userId": "string",
-  "favoriteRecipeId": ["array of recipe IDs"]
-}
-```
-
----
-
-## Folder Structure
-
-- `src/pages/` — All main pages (RecipesList, FavoriteList, AddRecipe, etc.)
-- `src/components/` — Layout, Navbar, Footer, Protected Routes, etc.
-- `src/services/api.js` — API functions for recipes and favorites
-- `db.json` — Mock database for recipes and favorites
 
 ---
 
@@ -378,7 +335,7 @@ We welcome contributions to Food Hub! Here's how you can help:
 
 ### Areas for Contribution
 - 🐛 Bug fixes and improvements
-- ✨ New features (recipe search, advanced filtering)
+- ✨ New features
 - 🎨 UI/UX enhancements
 - 📚 Documentation improvements
 - 🧪 Test coverage expansion
@@ -438,12 +395,12 @@ MIT License - Free to use, modify, and distribute
 **Hazem Abdulrahman**
 - 🔗 **GitHub**: [@hazemabdo15](https://github.com/hazemabdo15)
 - 📧 **Email**: [hazemabdulrahman99@gmail.com](mailto:hazemabdulrahman99@gmail.com)
-- 💼 **LinkedIn**: [in/hazem-abdulrahman/](www.linkedin.com/in/hazem-abdulrahman/)
+- 💼 **LinkedIn**: [in/hazem-abdulrahman/](https://www.linkedin.com/in/hazem-abdulrahman/)
 
 **Sarah Hesham Ali**
 - 🔗 **GitHub**: [@SarahHeshamAli2](https://github.com/SarahHeshamAli2)
 - 📧 **Email**: [N/A]
-- 💼 **LinkedIn**: [in/sarah-hesham-8594bb190](linkedin.com/in/sarah-hesham-8594bb190)
+- 💼 **LinkedIn**: [in/sarah-hesham-8594bb190](https://www.linkedin.com/in/sarah-hesham-8594bb190)
 
 **Esraa Ahmed Ali**
 - 🔗 **GitHub**: [@EsraaAhmedAli](https://github.com/EsraaAhmedAli)
@@ -459,7 +416,7 @@ MIT License - Free to use, modify, and distribute
 - ⭐ **Stars**: Help us grow by starring the repository
 - 🍴 **Forks**: Feel free to fork and customize
 - 📈 **Version**: v1.0.0 (Stable Release)
-- 📅 **Last Updated**: [June 3, 2025]
+- 📅 **Last Updated**: June 3, 2025
 
 ---
 
