@@ -64,7 +64,9 @@ if (!isLoaded) return null;
     >
       <div className="container mx-auto px-4 py-2 flex justify-between items-center font-league">
         {/* Logo */}
-        <motion.div
+      <Link to={'/'}>
+         <motion.div
+        
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.5 }}
@@ -76,6 +78,7 @@ if (!isLoaded) return null;
             <span className="text-[#FF7F50]">Hub</span>
           </span>
         </motion.div>
+      </Link>
 
         {/* Desktop Nav */}
         <div className="hidden md:flex items-center gap-6">
@@ -95,8 +98,7 @@ if (!isLoaded) return null;
             ))}
           </ul>
 
-          {/* Notification */}
-          {isSignedIn && (
+          {isSignedIn && !isAdmin &&(
             <div className="relative" ref={notifRef}>
               <NotificationBell
                 onClick={(e) => {
@@ -149,25 +151,38 @@ if (!isLoaded) return null;
                       transition={{ duration: 0.2 }}
                       className="absolute right-0 mt-2 w-44 bg-white shadow-md rounded-md border z-50"
                     >
+
                       <ul className="text-sm">
                         <li>
-                          <Link
+                        {isSignedIn && isAdmin && (
+                                      <Link
+                            to="/all-pending-requests"
+                            className="block px-4 py-2 hover:bg-gray-100"
+                            onClick={() => setUserMenuOpen(false)}
+                          >
+                            pending requests
+                          </Link>
+                        )}
+                        </li>
+                        <li>
+                          {isSignedIn && !isAdmin && (
+                            <>
+                              <Link
                             to="/profile"
                             className="block px-4 py-2 hover:bg-gray-100"
                             onClick={() => setUserMenuOpen(false)}
                           >
                             Profile
                           </Link>
-                        </li>
-                        <li>
-                          {isSignedIn && !isAdmin && (
-                            <Link
+                                     <Link
                               to="/favorites"
                               className="block px-4 py-2 hover:bg-gray-100"
                               onClick={() => setUserMenuOpen(false)}
                             >
                               favorites
                             </Link>
+                            </>
+                 
                           )}
                         </li>
                         <li>

@@ -1,8 +1,9 @@
 import {
-  createBrowserRouter,
+createHashRouter,
   Navigate,
   RouterProvider,
 } from "react-router-dom";
+
 import Layout from "./components/Layout/Layout";
 import LandingPage from "./pages/LandingPage/LandingPage";
 import FavoriteList from "./pages/FavoriteList/FavoriteList";
@@ -26,7 +27,7 @@ import RejectedRequests from "./pages/RejectedRequests/RejectedRequests";
 import CreatedRecipes from "./pages/CreatedRecipes/CreatedRecipes";
 import CommentContextProvider from "./context/CommentsContext";
 function App() {
-  const routes = createBrowserRouter([
+  const routes = createHashRouter([
     
     {
       path: "",
@@ -58,7 +59,7 @@ function App() {
         { path: "pending-request", element: <PendingRequest /> },
         { path: "unauthorized", element: <Unauthorized /> },
         { path: "recipes/:id", element: <CommentContextProvider><RecipeDetailsPage /></CommentContextProvider> },
-        { path: "all-pending-requests", element: <AllPendingRequests /> },
+        { path: "all-pending-requests", element:<AdminProtected> <AllPendingRequests /></AdminProtected> },
         {
           path: "/profile",
           element: <Profile />,
@@ -84,9 +85,7 @@ function App() {
         { path: "*", element: <NotFound /> },
       ],
     },
-  ] , {
-    basename: "/Food-Hub"
-  });
+  ]);
 
   return (
     <>

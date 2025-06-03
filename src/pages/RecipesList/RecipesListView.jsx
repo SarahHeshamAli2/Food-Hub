@@ -36,12 +36,14 @@ export default function RecipesListView({
   const [searchTerm, setSearchTerm] = useState('');
   const navigate = useNavigate();
 
-  const handleCardClick = (id, e) => {
-    const isActionClick = e.target.closest(`.${styles.actionsContainer}`);
-    if (!isActionClick) {
-      navigate(`/recipes/${id}`);
-    }
-  };
+const handleCardClick = (id, e) => {
+  console.log("Clicked target:", e.target); 
+  const isActionClick = e.target.closest(`.${styles.actionsContainer}`);
+  if (!isActionClick) {
+    navigate(`/recipes/${id}`);
+  }
+};
+
 
   const toggleMenu = (id) => {
     setMenuOpenId(menuOpenId === id ? null : id);

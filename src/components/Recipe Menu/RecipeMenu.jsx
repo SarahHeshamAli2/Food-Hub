@@ -2,6 +2,8 @@ import { useNavigate } from 'react-router-dom';
 import styles from '../../pages/RecipesList/recipesList.module.css';
 
 const RecipeMenu = ({ recipeId, onDelete, closeMenu}) => {
+
+
     const navigate= useNavigate()
     const handleDelete = () => {
         closeMenu();
@@ -13,7 +15,7 @@ const RecipeMenu = ({ recipeId, onDelete, closeMenu}) => {
         closeMenu();
     }
     return (
-        <div >
+        <div   >
             <div className={`${styles.contextMenu} flex flex-col `}>
                 <button onClick={handleDelete} className={styles.contextMenuItem}>Delete</button>
                 <button onClick={handleUpdate} className={styles.contextMenuItem}>Update</button>
