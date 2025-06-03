@@ -1,4 +1,5 @@
-export const BASE_URL = "food-hub-api-production.up.railway.app";
+export const BASE_URL = "https://food-hub-api-production.up.railway.app";
+
 
 export const Recipe = {
   GET_ALL: "/recipes",
