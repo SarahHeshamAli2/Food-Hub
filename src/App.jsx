@@ -27,6 +27,7 @@ import CreatedRecipes from "./pages/CreatedRecipes/CreatedRecipes";
 import CommentContextProvider from "./context/CommentsContext";
 function App() {
   const routes = createBrowserRouter([
+    
     {
       path: "",
       element: <Layout />,
@@ -83,7 +84,9 @@ function App() {
         { path: "*", element: <NotFound /> },
       ],
     },
-  ]);
+  ] , {
+    basename: "/Food-Hub"
+  });
 
   return (
     <>
