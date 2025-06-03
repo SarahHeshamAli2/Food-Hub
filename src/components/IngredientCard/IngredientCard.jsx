@@ -1,8 +1,10 @@
 import Card from 'react-bootstrap/Card';
+import { Link } from 'react-router-dom';
 
 function IngredientCard({recipe, children}) {
   return (
-    <Card key={recipe.id} className='border-0 rounded-0 m-2'>
+    <Link to={`/recipes/${recipe?.id}`}>
+        <Card key={recipe.id} className='border-0 rounded-0 m-2'>
           <div className='row g-0'>
             <div className='col-md-4'>
               <Card.Img 
@@ -35,6 +37,8 @@ function IngredientCard({recipe, children}) {
             </div>
           </div>
         </Card>
+    </Link>
+
   );
 }
 
