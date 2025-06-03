@@ -1,6 +1,7 @@
 import { Outlet, useLocation } from "react-router-dom";
 import NavbarPage from "../Navbar/Navbar";
 import Footer from "../Footer/Footer";
+import BackToTopButton from './../BackToTop/BackToTop';
 
 export default function Layout() {
   const location = useLocation();
@@ -10,6 +11,8 @@ export default function Layout() {
   {!hideNavAndFooter && <NavbarPage />}
   <div className="pt-20 px-4">
     <Outlet />
+      <BackToTopButton/>
+
     {!hideNavAndFooter && <Footer />}
   </div>
 </>
