@@ -25,7 +25,9 @@ import Profile from "./pages/ProfilePage/Profile";
 import AcceptedRequests from "./pages/AcceptedRequests/AcceptedRequests";
 import RejectedRequests from "./pages/RejectedRequests/RejectedRequests";
 import CreatedRecipes from "./pages/CreatedRecipes/CreatedRecipes";
+import TagRecipes from "./pages/TagRecipes/TagRecipes";
 import CommentContextProvider from "./context/CommentsContext";
+
 function App() {
   const routes = createHashRouter([
     
@@ -58,8 +60,16 @@ function App() {
         { path: "add-recipe/:id", element: <AddRecipe /> },
         { path: "pending-request", element: <PendingRequest /> },
         { path: "unauthorized", element: <Unauthorized /> },
+
+        { path: "all-pending-requests", element: <AllPendingRequests /> },
+        { path: "recipes", element: <RecipesList /> },
+        { path: "recipes/:id", element: <RecipeDetailsPage /> },
+        { path: "all-pending-requests", element: <AllPendingRequests /> },
+        { path:  "tags/:tag" , element: <TagRecipes /> },
+
         { path: "recipes/:id", element: <CommentContextProvider><RecipeDetailsPage /></CommentContextProvider> },
         { path: "all-pending-requests", element:<AdminProtected> <AllPendingRequests /></AdminProtected> },
+
         {
           path: "/profile",
           element: <Profile />,
