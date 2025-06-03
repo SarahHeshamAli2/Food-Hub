@@ -1,6 +1,6 @@
 import Card from 'react-bootstrap/Card';
 
-function IngredientCard({recipe}) {
+function IngredientCard({recipe, children}) {
   return (
     <Card key={recipe.id} className='border-0 rounded-0 m-2'>
           <div className='row g-0'>
@@ -26,6 +26,11 @@ function IngredientCard({recipe}) {
                     <i className="fas fa-fire text-danger"></i> {recipe.caloriesPerServing || 300} cal
                   </span>
                 </div>
+                {children && (
+                  <div className="d-flex gap-2">
+                    {children}
+                  </div>
+                )}
               </Card.Body>
             </div>
           </div>
