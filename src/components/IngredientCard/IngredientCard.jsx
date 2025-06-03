@@ -2,7 +2,7 @@ import Card from 'react-bootstrap/Card';
 
 function IngredientCard({recipe, children}) {
   return (
-    <Card key={recipe.id} className='border-0 rounded-0 m-2'>
+    <Card key={recipe.id} className='border-0 rounded-0 m-2 shadow-lg'>
           <div className='row g-0'>
             <div className='col-md-4'>
               <Card.Img 
