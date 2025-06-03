@@ -40,14 +40,18 @@ export default function useSubmitRecipe(recipes, image,setRecipes) {
     };
 
 try {
-  if (id) {
-    await axios.patch(`${BASE_URL}${Recipe.GET_ALL}/${id}`, payload);
-    navigate("/recipes");
-    toast.success('Recipe updated!');
-    setRecipes((prev) =>
-      prev.map((r) => (r.id === id ? { ...r, ...payload } : r))
-    );
-  } else {
+ if (id) {
+  const res = await axios.patch(`${BASE_URL}${Recipe.GET_ALL}/${id}`, payload);
+  const updatedRecipe = res?.data; 
+
+
+  setRecipes((prev) =>
+    prev.map((r) => (r.id == id ? updatedRecipe : r))
+  );
+
+  toast.success('Recipe updated!');
+  navigate("/recipes");
+} else {
      const res = await axios.post(`${BASE_URL}/pendingRecipes`, payload);
   setPendingRecipe?.((prev) => [...prev, res.data]);
         setRecipes(prev => prev.filter(r => r.id !== res.data.id));
