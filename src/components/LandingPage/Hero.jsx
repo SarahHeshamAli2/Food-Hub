@@ -42,8 +42,8 @@ export default function Hero() {
               variants={SlideUp(1)}
               initial="initial"
               whileInView="animate"
-              className='text-4xl lg:text-5xl xl:text-6xl font-bold uppercase'>
-              A Food Journey
+              className='text-4xl lg:text-5xl xl:text-6xl font-bold'>
+             Enjoy The Delicious Food Experience
             </motion.h1>
             <motion.p
                           viewport={{once:true}}
@@ -52,7 +52,7 @@ export default function Hero() {
               initial="hidden"
               whileInView="show"
               className='text-sm'>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem veniam molestiae modi obcaecati rem doloremque corporis cum ducimus eligendi quam, architecto repellat aliquam adipisci culpa sunt, sed temporibus quibusdam magni!
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem veniam molestiae modi obcaecati rem doloremqu  sunt, sed temporibus quibusdam magni!
             </motion.p>
  
           </div>
@@ -67,7 +67,7 @@ export default function Hero() {
               transition={{ duration: 0.8 }}
               src={food}
               alt="food"
-              className='w-full max-w-[500px] md:max-w-[600px] lg:max-w-[700px]'
+              className='w-full max-w-[500px] md:max-w-[700px] lg:max-w-[800px]'
             />
           </div>
         </div>

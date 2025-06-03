@@ -26,9 +26,10 @@ const PopularCategories = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          Popular Categories
+          Popular Categories 
         </motion.h2>
       </div>
+      <br></br>
 
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 text-center">
         {categories.map((cat, index) => (
@@ -49,6 +50,7 @@ const PopularCategories = () => {
           </motion.div>
         ))}
       </div>
+      <br></br>
     </section>
   );
 };
