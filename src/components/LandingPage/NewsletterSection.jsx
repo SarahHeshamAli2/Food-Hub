@@ -1,4 +1,19 @@
 import React from 'react';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+function handleSubmit(e) {
+  e.preventDefault();
+  const email = e.target.elements.email.value;
+
+  if (!email) {
+    toast.error("Please enter a valid email");
+    return;
+  }
+
+  toast.success("Subscribed successfully!");
+  e.target.reset();
+}
+
 
 export default function NewsletterSection() {
   return (
@@ -8,9 +23,10 @@ export default function NewsletterSection() {
         Join our newsletter, so that we reach out to you with our news and offers.
       </p>
       
-      <form className="flex flex-col sm:flex-row justify-center items-center gap-4 max-w-xl mx-auto">
+      <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row justify-center items-center gap-4 max-w-xl mx-auto">
         <input
           type="email"
+          name='email'
           placeholder="Enter Your Email"
           className="px-4 py-2 rounded-md border border-gray-300 w-full sm:w-2/3 focus:outline-none focus:ring-2 focus:ring-[#d36e5b]"
         />
@@ -21,6 +37,7 @@ export default function NewsletterSection() {
           Subscribe
         </button>
       </form>
+        <ToastContainer />
     </section>
   );
 }
