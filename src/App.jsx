@@ -52,7 +52,7 @@ function App() {
         { path: "recipes", element: <RecipesList /> },
         { path: "notifications", element: <UserNotification /> },
         { path: "recipes", element: <RecipesList /> },
-        { path: "add-recipe", element: <AddRecipe /> },
+        { path: "add-recipe/:id", element: <AddRecipe /> },
         { path: "pending-request", element: <PendingRequest /> },
         { path: "unauthorized", element: <Unauthorized /> },
         { path: "all-pending-requests", element: <AllPendingRequests /> },

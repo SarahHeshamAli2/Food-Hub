@@ -14,7 +14,7 @@ return <>
       <p className={styles.note}>
         Please be patient — we’ll notify you as soon as it’s live!
       </p>
-      <Link to="/" className={styles.backButton}>
+      <Link to="/recipes" className={styles.backButton}>
         ← Back to Recipes
       </Link>
     </div>

@@ -54,9 +54,11 @@ export default function RecipesListView({
   return (
     <div className={styles.container}>
       <h2 className={styles.title}>Explore Recipes</h2>
+      
 
      
 <div className="flex justify-center mb-6">
+  
   <div className="relative w-full max-w-md">
     <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
       <FaSearch />
@@ -68,6 +70,7 @@ export default function RecipesListView({
       onChange={(e) => setSearchTerm(e.target.value)}
       className="w-full pl-10 pr-4 py-2 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#FF7F50] focus:border-transparent transition-all duration-300"
     />
+
     {searchTerm && filteredRecipes.length > 0 && (
   <ul className="absolute left-0 right-0 bg-white border border-gray-200 mt-2 rounded-lg shadow-lg z-10 overflow-hidden">
     {filteredRecipes.slice(0, 4).map((recipe) => (
@@ -96,6 +99,19 @@ export default function RecipesListView({
         </div>
       ) : (
         <>
+        {
+          isSignedIn &&        <div className="flex justify-end mb-4">
+ 
+  <button
+    onClick={() => navigate('/add-recipe/new-recipe')}
+    className="bg-[#FF7F50] hover:bg-orange-500 text-white px-4 py-2 rounded-full font-semibold shadow transition duration-300"
+  >
+    + Add New Recipe
+  </button>
+</div>
+        }
+
+
           <ul className={styles.list}>
             {filteredRecipes.slice(0, visibleCount).map((recipe) => (
               <li
@@ -103,55 +119,55 @@ export default function RecipesListView({
                 className={styles.item}
                 onClick={(e) => handleCardClick(recipe.id, e)}
               >
-                <IngredientCard recipe={recipe} />
-
-                <div
-                  className={styles.actionsContainer}
-                  onClick={(e) => e.stopPropagation()}
-                >
-                  {!isAdmin && isSignedIn && (
-                    <button
-                      onClick={() => onToggleFavorite(recipe.id)}
-                      className={`${styles.favoriteBtn} ${
-                        favoriteIds.includes(recipe.id) ? '' : styles.notFavorited
-                      }`}
-                      aria-label={
-                        favoriteIds.includes(recipe.id)
-                          ? 'Remove from favorites'
-                          : 'Add to favorites'
-                      }
-                    >
-                      <i
-                        className={
-                          favoriteIds.includes(recipe.id)
-                            ? 'fas fa-heart'
-                            : 'far fa-heart'
-                        }
-                      ></i>
-                    </button>
-                  )}
-
-                  {(isAdmin || (isRegularUser && recipe.userId === userId)) && (
-                    <>
+                <IngredientCard recipe={recipe}>
+                  <div
+                    className={styles.actionsContainer}
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    {!isAdmin && isSignedIn && (
                       <button
-                        className={styles.menuBtn}
-                        onClick={() => toggleMenu(recipe.id)}
-                        aria-expanded={menuOpenId === recipe.id}
+                        onClick={() => onToggleFavorite(recipe.id)}
+                        className={`${styles.favoriteBtn} ${
+                          favoriteIds.includes(recipe.id) ? '' : styles.notFavorited
+                        }`}
+                        aria-label={
+                          favoriteIds.includes(recipe.id)
+                            ? 'Remove from favorites'
+                            : 'Add to favorites'
+                        }
                       >
-                        <i className="fas fa-ellipsis-v"></i>
+                        <i
+                          className={
+                            favoriteIds.includes(recipe.id)
+                              ? 'fas fa-heart'
+                              : 'far fa-heart'
+                          }
+                        ></i>
                       </button>
+                    )}
 
-                      {menuOpenId === recipe.id && (
-                        <RecipeMenu
-                          recipeId={recipe.id}
-                          onDelete={onDelete}
-                          onUpdate={onUpdate}
-                          closeMenu={() => setMenuOpenId(null)}
-                        />
-                      )}
-                    </>
-                  )}
-                </div>
+                    {(isAdmin || (isRegularUser && recipe.userId === userId)) && (
+                      <>
+                        <button
+                          className={styles.menuBtn}
+                          onClick={() => toggleMenu(recipe.id)}
+                          aria-expanded={menuOpenId === recipe.id}
+                        >
+                          <i className="fas fa-ellipsis-v"></i>
+                        </button>
+
+                        {menuOpenId === recipe.id && (
+                          <RecipeMenu
+                            recipeId={recipe.id}
+                            onDelete={onDelete}
+                            onUpdate={onUpdate}
+                            closeMenu={() => setMenuOpenId(null)}
+                          />
+                        )}
+                      </>
+                    )}
+                  </div>
+                </ IngredientCard>
               </li>
             ))}
           </ul>

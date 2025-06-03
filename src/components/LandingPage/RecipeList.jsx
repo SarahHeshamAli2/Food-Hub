@@ -18,6 +18,7 @@ export default function RecipeList() {
 
   const visibleRecipes = showAll ? recipes : recipes.slice(0, 9);
 
+
   return (
 
     <section className="py-12 px-4 md:px-12">

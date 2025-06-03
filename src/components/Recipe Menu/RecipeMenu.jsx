@@ -1,14 +1,16 @@
+import { useNavigate } from 'react-router-dom';
 import styles from '../../pages/RecipesList/recipesList.module.css';
 
-const RecipeMenu = ({ recipeId, onDelete, onUpdate, closeMenu}) => {
+const RecipeMenu = ({ recipeId, onDelete, closeMenu}) => {
+    const navigate= useNavigate()
     const handleDelete = () => {
         closeMenu();
         onDelete && onDelete(recipeId);
     }
 
     const handleUpdate = () => {
+        navigate(`/add-recipe/${recipeId}`)
         closeMenu();
-        onUpdate && onUpdate(recipeId);
     }
     return (
         <div >
