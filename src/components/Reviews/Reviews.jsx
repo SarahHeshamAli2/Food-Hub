@@ -1,4 +1,4 @@
-import { useUser } from "@clerk/clerk-react";
+import { useClerk, useUser } from "@clerk/clerk-react";
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { BASE_URL, Review } from "../../services/api";
@@ -8,6 +8,7 @@ import Swal from "sweetalert2";
 
 export default function Reviews({id}) {
   const { user } = useUser();
+ const{openSignIn}= useClerk()
   const{setReviews,comment,rating,setComment,setRating,reviews,hoveredRating,setHoveredRating}= useContext(CommentContext)
 
   const [visibleCount, setVisibleCount] = useState(2);
@@ -36,7 +37,8 @@ export default function Reviews({id}) {
       rateCount: rating,
       userName: user?.fullName,
       createdAt: new Date().toISOString(),
-      recipeId : id
+      recipeId : id,
+      userImage: user?.imageUrl
     };
 
     axios
@@ -70,7 +72,7 @@ Swal.fire({
           <div className="flex justify-between items-start gap-4">
             <div className="flex items-center gap-4">
               <img
-                src={user?.imageUrl}
+                src={rev.userImage}
                 alt="User avatar"
                 className="w-12 h-12 rounded-full object-cover"
               />
@@ -112,46 +114,65 @@ Swal.fire({
       )}
     </div>
 
+{user ? (
+  <div className="pt-4">
+    <p className="text-base font-medium text-gray-800 mb-2">
+      Rate this recipe and share your opinion
+    </p>
 
-      <div className="pt-4">
-        <p className="text-base font-medium text-gray-800 mb-2">
-          Rate this recipe and share your opinion
-        </p>
-
-        <div className="flex gap-1 mb-3">
-          {[1, 2, 3, 4, 5].map((value) => (
-            <span
-              key={value}
-              className={`cursor-pointer text-2xl ${
-                (hoveredRating || rating) >= value
-                  ? "text-yellow-400"
-                  : "text-gray-300"
-              }`}
-              onClick={() => handleRatingClick(value)}
-              onMouseEnter={() => setHoveredRating(value)}
-              onMouseLeave={() => setHoveredRating(0)}
-            >
-              ★
-            </span>
-          ))}
-        </div>
-
-        <textarea
-          className="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-300 focus:outline-none"
-          rows="4"
-          placeholder="Write your comment here..."
-          value={comment}
-          onChange={(e) => {setComment(e.target.value) ;setError(false)}}
-        ></textarea>
-        {error && <div className="alert alert-danger">{error}</div>
-}
-        <button
-          className="mt-3 px-6 py-2 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition"
-          onClick={addReview}
+    <div className="flex gap-1 mb-3">
+      {[1, 2, 3, 4, 5].map((value) => (
+        <span
+          key={value}
+          className={`cursor-pointer text-2xl ${
+            (hoveredRating || rating) >= value
+              ? "text-yellow-400"
+              : "text-gray-300"
+          }`}
+          onClick={() => handleRatingClick(value)}
+          onMouseEnter={() => setHoveredRating(value)}
+          onMouseLeave={() => setHoveredRating(0)}
         >
-          Submit
-        </button>
-      </div>
+          ★
+        </span>
+      ))}
+    </div>
+
+    <textarea
+      className="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-300 focus:outline-none"
+      rows="4"
+      placeholder="Write your comment here..."
+      value={comment}
+      onChange={(e) => {
+        setComment(e.target.value);
+        setError(false);
+      }}
+    ></textarea>
+    {error && <div className="text-red-500 mt-2">{error}</div>}
+
+    <button
+      className="mt-3 px-6 py-2 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition"
+      onClick={addReview}
+    >
+      Submit
+    </button>
+  </div>
+) : (
+  <div className="mt-6 p-4 bg-yellow-50 border border-yellow-300 text-yellow-700 rounded-lg text-center">
+    <p className="font-medium mb-1">Want to leave a review?</p>
+    <p className="text-sm">
+      Please{" "}
+      <span
+        onClick={() => openSignIn()}
+        className="text-blue-600 hover:underline cursor-pointer"
+      >
+        sign in
+      </span>{" "}
+      to rate and comment on this recipe.
+    </p>
+  </div>
+)}
+
     </div>
   );
 }

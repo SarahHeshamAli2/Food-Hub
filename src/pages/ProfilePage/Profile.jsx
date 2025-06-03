@@ -46,14 +46,7 @@ export default function Profile() {
             </nav>
           </div>
 
-          <div>
-            <h4 className="text-xs text-gray-400 uppercase mb-2">Account</h4>
-            <nav className="space-y-2">
-              <NavLink to="info" className={linkClass}>
-                <FaInfoCircle /> Info
-              </NavLink>
-            </nav>
-          </div>
+      
         </div>
       </aside>
 
