@@ -8,7 +8,7 @@ import { RecipesContext } from "../../context/RecipesContextProvider";
 export default function AllPendingRequests() {
   const [activeTab, setActiveTab] = useState("inQueue");
  const{user}= useUser()
- const { pendingRecipe,setRecipes, setDeclinedRecipe,getPendingRecipe,setPendingRecipe,setAcceptedRecipe, getAcceptedRecipes, getDeclinedRecipes ,acceptedRecipe,declinedRecipe,recipes} = useContext(RecipesContext);
+ const { pendingRecipe,setRecipes, setDeclinedRecipe,getNotifications,getPendingRecipe,setPendingRecipe,setAcceptedRecipe, getAcceptedRecipes, getDeclinedRecipes ,acceptedRecipe,declinedRecipe,recipes} = useContext(RecipesContext);
 
 
   useEffect(() => {
@@ -33,11 +33,14 @@ const handleApprove = async (recipe) => {
       getAcceptedRecipes(),
     ]);
     
-    await axios.post(`${BASE_URL}/notifications`, {
-      userId: user?.id,
-      message: `Your recipe '${recipe.name}' has been accepted.`,
-      status: "unread"
-    });
+await axios.post(`${BASE_URL}/notifications`, {
+  userId: recipe.userId, 
+  message: `Your recipe '${recipe.name}' has been accepted.`,
+  status: "unread"
+});
+
+await getNotifications(recipe.userId); 
+
     
   } catch (err) {
     console.error("Approval failed:", err);
@@ -59,20 +62,18 @@ const handleReject = async (recipe) => {
       getDeclinedRecipes()
     ]);
     
-    // 4. Notification
-    await axios.post(`${BASE_URL}/notifications`, {
-      userId: user?.id,
-      message: `Your recipe '${recipe.name}' has been declined.`,
-      status: "unread"
-    });
-    
+await axios.post(`${BASE_URL}/notifications`, {
+  userId: recipe.userId, 
+  message: `Your recipe '${recipe.name}' has been rejected.`,
+  status: "unread"
+});
+await getNotifications(recipe.userId); 
+
   } catch (err) {
     console.error("Rejection failed:", err);
-    // Revert all optimistic updates
     setPendingRecipe(prev => [...prev, recipe]);
     setDeclinedRecipe(prev => prev.filter(r => r.id !== recipe.id));
     
-    // Optional: Show error to user
     alert("Failed to reject recipe. Please try again.");
   }
 };

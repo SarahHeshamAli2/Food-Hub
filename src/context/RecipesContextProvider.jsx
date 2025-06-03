@@ -11,6 +11,32 @@ const RecipesContextProvider = ({ children }) => {
   const [acceptedRecipe, setAcceptedRecipe] = useState([]);
     const [declinedRecipe, setDeclinedRecipe] = useState([]);
       const [pendingRecipe, setPendingRecipe] = useState([]);
+  const [notifications, setNotifications] = useState([]);
+const getNotifications = async (userId) => {
+  try {
+    const res = await axios.get(`${BASE_URL}/notifications?userId=${userId}`);
+    setNotifications(res.data);
+  } catch (err) {
+    console.error("Failed to fetch notifications:", err);
+  }
+};
+const markNotificationsAsRead = async () => {
+  try {
+    const unread = notifications.filter(n => n.status === "unread");
+
+    await Promise.all(
+      unread.map(n =>
+        axios.patch(`${BASE_URL}/notifications/${n.id}`, { status: "read" })
+      )
+    );
+
+    setNotifications(prev =>
+      prev.map(n => ({ ...n, status: "read" }))
+    );
+  } catch (err) {
+    console.error("Failed to mark notifications as read:", err);
+  }
+};
 
 
 const getPendingRecipe = async () => {
@@ -67,7 +93,9 @@ const getPendingRecipe = async () => {
 
   return (
 
-    <RecipesContext.Provider value={{ setRecipes,deleteRecipe,recipes,setDeclinedRecipe,setAcceptedRecipe, getPendingRecipe,loading,pendingRecipe, setPendingRecipe, error ,getAcceptedRecipes,acceptedRecipe,getDeclinedRecipes,declinedRecipe }}>
+    <RecipesContext.Provider value={{     notifications,
+      getNotifications,
+      markNotificationsAsRead, setRecipes,deleteRecipe,recipes,setDeclinedRecipe,setAcceptedRecipe, getPendingRecipe,loading,pendingRecipe, setPendingRecipe, error ,getAcceptedRecipes,acceptedRecipe,getDeclinedRecipes,declinedRecipe }}>
       {children}
     </RecipesContext.Provider>
   );
