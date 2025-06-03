@@ -28,7 +28,7 @@ export default function AcceptedRequests() {
               <img
                 src={recipe.image || "/fallback.jpg"}
                 alt={recipe.title}
-                className="w-full h-48 object-fill"
+                className="w-full h-72 "
               />
               <div className="p-4">
                 <h3 className="text-lg font-semibold mb-2">{recipe.name}</h3>

@@ -1,5 +1,6 @@
 {
   "name": "react-final-project",
+  "homepage": "https://SarahHeshamAli2.github.io/Food-Hub",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -8,7 +9,9 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "start:server": "json-server --watch db.json --port 3001"
+    "start:server": "json-server --watch db.json --port 3001",
+    "predeploy":"npm run build",
+    "deploy" :"gh-pages -d dist"
   },
   "dependencies": {
     "@clerk/clerk-react": "^5.31.8",
@@ -17,8 +20,10 @@
     "@tailwindcss/vite": "^4.1.8",
     "axios": "^1.9.0",
     "bootstrap": "^5.3.6",
+    "date-fns": "^4.1.0",
     "formik": "^2.4.6",
     "framer-motion": "^12.15.0",
+    "gh-pages": "^6.3.0",
     "json-server": "^1.0.0-beta.3",
     "lucide-react": "^0.511.0",
     "react": "^19.1.0",
@@ -33,6 +38,7 @@
     "react-slick": "^0.30.3",
     "react-toastify": "^11.0.5",
     "slick-carousel": "^1.8.1",
+    "sweetalert2": "^11.22.0",
     "tailwind-scrollbar-hide": "^4.0.0"
   },
   "devDependencies": {

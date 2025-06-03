@@ -1,4 +1,5 @@
-export const BASE_URL = "http://localhost:3001";
+export const BASE_URL = "https://food-hub-api-production.up.railway.app";
+
 
 export const Recipe = {
   GET_ALL: "/recipes",
@@ -16,7 +17,10 @@ export const Favorites = {
   ADD_OR_UPDATE: (userId) => `/favorites?userId=${userId}`,
   REMOVE: (userId, recipeId) => `/favorites?userId=${userId}&favoriteRecipeId_like=${recipeId}`,
 };
-
+export const Review = {
+  ADD_REVIEW :'/reviews',
+  GET_ALL : '/reviews'
+}
 
 export async function addFavorite(userId, recipeId) {
   const res = await fetch(`${BASE_URL}/favorites?userId=${userId}`);
