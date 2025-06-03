@@ -9,7 +9,7 @@ import Swal from "sweetalert2";
 export default function Reviews({id}) {
   const { user } = useUser();
  const{openSignIn}= useClerk()
-  const{setReviews,comment,rating,setComment,setRating,reviews,hoveredRating,setHoveredRating}= useContext(CommentContext)
+  const{setReviews,comment,rating,setComment,setRating,reviews,hoveredRating,setHoveredRating}= useContext(CommentContext) || {}
 
   const [visibleCount, setVisibleCount] = useState(2);
   const filteredReviews = reviews.filter(rev => rev.recipeId === id);
