@@ -2,8 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Bookmark, Flame, UserCircle } from "lucide-react";
 import { motion } from "framer-motion";
-
-export default function RecipeCard({ id, image, title, author = "Chef Ahmed", calories, delay }) {
+export default function RecipeCard({ id, image, title, author , calories, delay }) {
   return (
     <Link to={`/recipes/${id}`} className="no-underline text-inherit">
 
