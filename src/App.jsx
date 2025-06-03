@@ -29,7 +29,7 @@ import TagRecipes from "./pages/TagRecipes/TagRecipes";
 import CommentContextProvider from "./context/CommentsContext";
 
 function App() {
-  const routes = createHashRouter([
+  const routes = createHashRouter( [
     
     {
       path: "",
@@ -95,13 +95,16 @@ function App() {
         { path: "*", element: <NotFound /> },
       ],
     },
-  ]);
+  ], );
 
   return (
     <>
       <RecipesContextProvider>
+        <CommentContextProvider>
         <RouterProvider router={routes} />
+        </CommentContextProvider>
       </RecipesContextProvider>
+      
       <ToastContainer position="top-right"  />
     </>
   );
