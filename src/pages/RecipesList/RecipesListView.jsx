@@ -103,55 +103,55 @@ export default function RecipesListView({
                 className={styles.item}
                 onClick={(e) => handleCardClick(recipe.id, e)}
               >
-                <IngredientCard recipe={recipe} />
-
-                <div
-                  className={styles.actionsContainer}
-                  onClick={(e) => e.stopPropagation()}
-                >
-                  {!isAdmin && isSignedIn && (
-                    <button
-                      onClick={() => onToggleFavorite(recipe.id)}
-                      className={`${styles.favoriteBtn} ${
-                        favoriteIds.includes(recipe.id) ? '' : styles.notFavorited
-                      }`}
-                      aria-label={
-                        favoriteIds.includes(recipe.id)
-                          ? 'Remove from favorites'
-                          : 'Add to favorites'
-                      }
-                    >
-                      <i
-                        className={
-                          favoriteIds.includes(recipe.id)
-                            ? 'fas fa-heart'
-                            : 'far fa-heart'
-                        }
-                      ></i>
-                    </button>
-                  )}
-
-                  {(isAdmin || (isRegularUser && recipe.userId === userId)) && (
-                    <>
+                <IngredientCard recipe={recipe}>
+                  <div
+                    className={styles.actionsContainer}
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    {!isAdmin && isSignedIn && (
                       <button
-                        className={styles.menuBtn}
-                        onClick={() => toggleMenu(recipe.id)}
-                        aria-expanded={menuOpenId === recipe.id}
+                        onClick={() => onToggleFavorite(recipe.id)}
+                        className={`${styles.favoriteBtn} ${
+                          favoriteIds.includes(recipe.id) ? '' : styles.notFavorited
+                        }`}
+                        aria-label={
+                          favoriteIds.includes(recipe.id)
+                            ? 'Remove from favorites'
+                            : 'Add to favorites'
+                        }
                       >
-                        <i className="fas fa-ellipsis-v"></i>
+                        <i
+                          className={
+                            favoriteIds.includes(recipe.id)
+                              ? 'fas fa-heart'
+                              : 'far fa-heart'
+                          }
+                        ></i>
                       </button>
+                    )}
 
-                      {menuOpenId === recipe.id && (
-                        <RecipeMenu
-                          recipeId={recipe.id}
-                          onDelete={onDelete}
-                          onUpdate={onUpdate}
-                          closeMenu={() => setMenuOpenId(null)}
-                        />
-                      )}
-                    </>
-                  )}
-                </div>
+                    {(isAdmin || (isRegularUser && recipe.userId === userId)) && (
+                      <>
+                        <button
+                          className={styles.menuBtn}
+                          onClick={() => toggleMenu(recipe.id)}
+                          aria-expanded={menuOpenId === recipe.id}
+                        >
+                          <i className="fas fa-ellipsis-v"></i>
+                        </button>
+
+                        {menuOpenId === recipe.id && (
+                          <RecipeMenu
+                            recipeId={recipe.id}
+                            onDelete={onDelete}
+                            onUpdate={onUpdate}
+                            closeMenu={() => setMenuOpenId(null)}
+                          />
+                        )}
+                      </>
+                    )}
+                  </div>
+                </ IngredientCard>
               </li>
             ))}
           </ul>

@@ -31,24 +31,26 @@ export default function RecipesList() {
     }
     fetchData();
   }, [isLoaded, isSignedIn, user, isAdmin]);
-const handleToggleFavorite = async (recipeId) => {
-  if (!isSignedIn || isAdmin) return;
 
-  try {
-    if (favoriteIds.includes(recipeId)) {
-      await removeFavorite(user.id, recipeId);
-      setFavoriteIds(favoriteIds.filter(id => id !== recipeId));
-      toast.info('Recipe removed from favorites');
-    } else {
-      await addFavorite(user.id, recipeId);
-      setFavoriteIds([...favoriteIds, recipeId]);
-      toast.success('Recipe added to favorites');
-    }
-  } catch (error) {
-    toast.error('Something went wrong');
-    console.error(error);
-  }
-};
+  const handleToggleFavorite = async (recipeId) => {
+      if (!isSignedIn || isAdmin) return;
+
+      try {
+        if (favoriteIds.includes(recipeId)) {
+          await removeFavorite(user.id, recipeId);
+          setFavoriteIds(favoriteIds.filter(id => id !== recipeId));
+          toast.info('Recipe removed from favorites');
+        } else {
+          await addFavorite(user.id, recipeId);
+          setFavoriteIds([...favoriteIds, recipeId]);
+          toast.success('Recipe added to favorites');
+        }
+      } catch (error) {
+        toast.error('Something went wrong');
+        console.error(error);
+      }
+  };
+  
   const handleDelete = (recipeId) => {
     setRecipeToDelete(recipeId);
     setShowModal(true);
