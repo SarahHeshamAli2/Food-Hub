@@ -434,17 +434,32 @@ MIT License - Free to use, modify, and distribute
 - 💡 **Feature Requests**: Create an issue with the "enhancement" label
 - 💬 **Questions**: Use GitHub Discussions for general questions
 
-### Project Maintainer
+### Project Maintainers
+**Hazem Abdulrahman**
+- 🔗 **GitHub**: [@hazemabdo15](https://github.com/hazemabdo15)
+- 📧 **Email**: [hazemabdulrahman99@gmail.com](mailto:hazemabdulrahman99@gmail.com)
+- 💼 **LinkedIn**: [in/hazem-abdulrahman/](www.linkedin.com/in/hazem-abdulrahman/)
+
 **Sarah Hesham Ali**
 - 🔗 **GitHub**: [@SarahHeshamAli2](https://github.com/SarahHeshamAli2)
-- 📧 **Email**: [Your email for professional inquiries]
-- 💼 **LinkedIn**: [Your LinkedIn profile]
+- 📧 **Email**: [N/A]
+- 💼 **LinkedIn**: [in/sarah-hesham-8594bb190](linkedin.com/in/sarah-hesham-8594bb190)
+
+**Esraa Ahmed Ali**
+- 🔗 **GitHub**: [@EsraaAhmedAli](https://github.com/EsraaAhmedAli)
+- 📧 **Email**: [N/A]
+- 💼 **LinkedIn**: [in/esraa-ahmed-246a66281](https://www.linkedin.com/in/esraa-ahmed-246a66281)
+
+**Jihan Ahmed Mahmoud**
+- 🔗 **GitHub**: [@Jihan95](https://github.com/Jihan95)
+- 📧 **Email**: [N/A]
+- 💼 **LinkedIn**: [N/A]
 
 ### Project Stats
 - ⭐ **Stars**: Help us grow by starring the repository
 - 🍴 **Forks**: Feel free to fork and customize
 - 📈 **Version**: v1.0.0 (Stable Release)
-- 📅 **Last Updated**: [Current Date]
+- 📅 **Last Updated**: [June 3, 2025]
 
 ---
 
