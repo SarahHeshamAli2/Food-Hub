@@ -31,9 +31,9 @@ export default function NavbarPage() {
   const isAdmin = isSignedIn && user?.id === import.meta.env.VITE_ADMIN_ID;
 
   const { signOut, openSignIn, openSignUp } = useClerk();
-const handleSignOut = () => {
-  signOut({ redirectUrl: '/' });
-};
+  const handleSignOut = () => {
+    signOut({ redirectUrl: "/" });
+  };
   // Scroll state
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -42,11 +42,7 @@ const handleSignOut = () => {
   }, []);
 
   const handleNavClick = (e) => {
-    if (
-      notifOpen &&
-      notifRef.current &&
-      !notifRef.current.contains(e.target)
-    ) {
+    if (notifOpen && notifRef.current && !notifRef.current.contains(e.target)) {
       setNotifOpen(false);
     }
     if (
@@ -57,30 +53,27 @@ const handleSignOut = () => {
       setUserMenuOpen(false);
     }
   };
-if (!isLoaded) return null; 
+  if (!isLoaded) return null;
 
   return (
     <nav
       onClick={handleNavClick}
-      className={`bg-white fixed w-full z-50 ${scrolled ? "shadow-md" : ""}`}
-    >
+      className={`bg-white fixed w-full z-50 ${scrolled ? "shadow-md" : ""}`}>
       <div className="container mx-auto px-4 py-2 flex justify-between items-center font-league">
         {/* Logo */}
-      <Link to={'/'}>
-         <motion.div
-        
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.5 }}
-          className="flex items-center gap-2"
-        >
-          <FaUtensils className="text-2xl text-black" />
-          <span className="text-xl font-bold">
-            <span className="text-black">Food</span>
-            <span className="text-[#FF7F50]">Hub</span>
-          </span>
-        </motion.div>
-      </Link>
+        <Link to={"/"}>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.5 }}
+            className="flex items-center gap-2">
+            <FaUtensils className="text-2xl text-black" />
+            <span className="text-xl font-bold">
+              <span className="text-black">Food</span>
+              <span className="text-[#FF7F50]">Hub</span>
+            </span>
+          </motion.div>
+        </Link>
 
         {/* Desktop Nav */}
         <div className="hidden md:flex items-center gap-6">
@@ -91,8 +84,7 @@ if (!isLoaded) return null;
                 variants={SlideDown(menu.delay)}
                 initial="initial"
                 animate="animate"
-                className="nav-menu"
-              >
+                className="nav-menu">
                 <Link to={menu.path} className="inline-block px-2 py-2 text-lg">
                   {menu.title}
                 </Link>
@@ -100,7 +92,7 @@ if (!isLoaded) return null;
             ))}
           </ul>
 
-          {isSignedIn && !isAdmin &&(
+          {isSignedIn && !isAdmin && (
             <div className="relative" ref={notifRef}>
               <NotificationBell
                 onClick={(e) => {
@@ -116,8 +108,7 @@ if (!isLoaded) return null;
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
                     transition={{ duration: 0.3 }}
-                    className="absolute right-0 mt-2 w-72 bg-white shadow-lg rounded-md border z-50 max-h-96 overflow-hidden"
-                  >
+                    className="absolute right-0 mt-2 w-72 bg-white shadow-lg rounded-md border z-50 max-h-96 overflow-hidden">
                     <NotificationList userId={user?.id} />
                   </motion.div>
                 )}
@@ -135,8 +126,7 @@ if (!isLoaded) return null;
                     setUserMenuOpen((prev) => !prev);
                   }}
                   className="w-10 h-10 rounded-full overflow-hidden border border-gray-300 focus:outline-none"
-                  aria-label="User menu"
-                >
+                  aria-label="User menu">
                   <img
                     src={user?.imageUrl || "/default-avatar.png"}
                     alt="User Avatar"
@@ -151,50 +141,43 @@ if (!isLoaded) return null;
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -10 }}
                       transition={{ duration: 0.2 }}
-                      className="absolute right-0 mt-2 w-44 bg-white shadow-md rounded-md border z-50"
-                    >
-
+                      className="absolute right-0 mt-2 w-44 bg-white shadow-md rounded-md border z-50">
                       <ul className="text-sm">
                         <li>
-                        {isSignedIn && isAdmin && (
-                                      <Link
-                            to="/all-pending-requests"
-                            className="block px-4 py-2 hover:bg-gray-100"
-                            onClick={() => setUserMenuOpen(false)}
-                          >
-                            pending requests
-                          </Link>
-                        )}
+                          {isSignedIn && isAdmin && (
+                            <Link
+                              to="/all-pending-requests"
+                              className="block px-4 py-2 hover:bg-gray-100"
+                              onClick={() => setUserMenuOpen(false)}>
+                              pending requests
+                            </Link>
+                          )}
                         </li>
                         <li>
                           {isSignedIn && !isAdmin && (
                             <>
                               <Link
-                            to="/profile"
-                            className="block px-4 py-2 hover:bg-gray-100"
-                            onClick={() => setUserMenuOpen(false)}
-                          >
-                            Profile
-                          </Link>
-                                     <Link
-                              to="/favorites"
-                              className="block px-4 py-2 hover:bg-gray-100"
-                              onClick={() => setUserMenuOpen(false)}
-                            >
-                              favorites
-                            </Link>
+                                to="/profile"
+                                className="block px-4 py-2 hover:bg-gray-100"
+                                onClick={() => setUserMenuOpen(false)}>
+                                Profile
+                              </Link>
+                              <Link
+                                to="/favorites"
+                                className="block px-4 py-2 hover:bg-gray-100"
+                                onClick={() => setUserMenuOpen(false)}>
+                                favorites
+                              </Link>
                             </>
-                 
                           )}
                         </li>
                         <li>
                           <button
                             onClick={() => {
-                             handleSignOut()
+                              handleSignOut();
                               setUserMenuOpen(false);
                             }}
-                            className="w-full text-left px-4 py-2 hover:bg-gray-100 text-red-500"
-                          >
+                            className="w-full text-left px-4 py-2 hover:bg-gray-100 text-red-500">
                             Sign out
                           </button>
                         </li>
@@ -207,14 +190,12 @@ if (!isLoaded) return null;
               <div className="flex items-center gap-3">
                 <button
                   onClick={openSignIn}
-                  className="bg-[#FF7F50] text-white px-6 py-2 rounded-full text-sm font-semibold hover:bg-[#ff5722] transition-all duration-300"
-                >
+                  className="bg-[#FF7F50] text-white px-6 py-2 rounded-full text-sm font-semibold hover:bg-[#ff5722] transition-all duration-300">
                   Login
                 </button>
                 <button
                   onClick={openSignUp}
-                  className="bg-black text-white px-6 py-2 rounded-full text-sm font-semibold hover:bg-gray-800 transition-all duration-300"
-                >
+                  className="bg-black text-white px-6 py-2 rounded-full text-sm font-semibold hover:bg-gray-800 transition-all duration-300">
                   Sign up
                 </button>
               </div>
@@ -239,8 +220,7 @@ if (!isLoaded) return null;
                 <Link
                   to={menu.path}
                   className="block text-base py-1 border-b"
-                  onClick={() => setIsOpen(false)}
-                >
+                  onClick={() => setIsOpen(false)}>
                   {menu.title}
                 </Link>
               </li>
@@ -254,8 +234,7 @@ if (!isLoaded) return null;
                       setUserMenuOpen((prev) => !prev);
                     }}
                     className="w-10 h-10 rounded-full overflow-hidden border border-gray-300 focus:outline-none"
-                    aria-label="User menu"
-                  >
+                    aria-label="User menu">
                     <img
                       src={user?.imageUrl || "/default-avatar.png"}
                       alt="User Avatar"
@@ -270,30 +249,46 @@ if (!isLoaded) return null;
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -10 }}
                         transition={{ duration: 0.2 }}
-                        className="absolute right-0 mt-2 w-40 bg-white shadow-md rounded-md border z-50"
-                      >
-                        <ul className="text-sm">
+                        className="absolute right-0 mt-2 w-40 bg-white shadow-md rounded-md border z-50">
+                        {isAdmin && (
                           <li>
+                            <Link
+                              to="/all-pending-requests"
+                              className="block px-4 py-2 hover:bg-gray-100"
+                              onClick={() => {
+                                setUserMenuOpen(false);
+                                setIsOpen(false);
+                              }}>
+                              pending requests
+                            </Link>
+                          </li>
+                        )}
+                     
+                        <ul className="text-sm">
+                             {
+                          isSignedIn && !isAdmin && (
+                                 <li>
                             <Link
                               to="/profile"
                               className="block px-4 py-2 hover:bg-gray-100"
                               onClick={() => {
                                 setUserMenuOpen(false);
                                 setIsOpen(false);
-                              }}
-                            >
+                              }}>
                               Profile
                             </Link>
                           </li>
+                          )
+                        }
+                     
                           <li>
                             <button
                               onClick={() => {
-                                signOut();
+                                handleSignOut();
                                 setUserMenuOpen(false);
                                 setIsOpen(false);
                               }}
-                              className="w-full text-left px-4 py-2 hover:bg-gray-100 text-red-500"
-                            >
+                              className="w-full text-left px-4 py-2 hover:bg-gray-100 text-red-500">
                               Sign out
                             </button>
                           </li>
@@ -309,8 +304,7 @@ if (!isLoaded) return null;
                       openSignIn();
                       setIsOpen(false);
                     }}
-                    className="bg-[#FF7F50] text-white w-full py-2 rounded-full mb-2 font-semibold"
-                  >
+                    className="bg-[#FF7F50] text-white w-full py-2 rounded-full mb-2 font-semibold">
                     Login
                   </button>
                   <button
@@ -318,8 +312,7 @@ if (!isLoaded) return null;
                       openSignUp();
                       setIsOpen(false);
                     }}
-                    className="bg-black text-white w-full py-2 rounded-full font-semibold"
-                  >
+                    className="bg-black text-white w-full py-2 rounded-full font-semibold">
                     Sign up
                   </button>
                 </>
@@ -350,7 +343,9 @@ function NotificationList({ userId }) {
   }, [userId]);
 
   if (notifications.length === 0)
-    return <div className="p-4 text-center text-gray-500">No notifications</div>;
+    return (
+      <div className="p-4 text-center text-gray-500">No notifications</div>
+    );
 
   return (
     <ul className="divide-y divide-gray-200 max-h-96 overflow-auto">
@@ -359,8 +354,7 @@ function NotificationList({ userId }) {
           key={notif.id}
           className={`p-3 cursor-pointer hover:bg-gray-100 ${
             notif.status === "unread" ? "font-bold" : "font-normal"
-          }`}
-        >
+          }`}>
           <div>{notif.message}</div>
           <small className="text-gray-400">
             {new Date(notif.date).toLocaleString()}
