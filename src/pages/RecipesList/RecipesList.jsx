@@ -11,13 +11,15 @@ export default function RecipesList() {
   const { recipes, deleteRecipe } = useContext(RecipesContext);
   const [favoriteIds, setFavoriteIds] = useState([]);
   const [loading, setLoading] = useState(true);
-
   const [showModal, setShowModal] = useState(false);
   const [recipeToDelete, setRecipeToDelete] = useState(null);
+
 
   const isAdmin = isSignedIn && user?.id === import.meta.env.VITE_ADMIN_ID;
   const isRegularUser = isSignedIn && !isAdmin;
   const userId = user?.id;
+
+
 
   useEffect(() => {
     async function fetchData() {
@@ -76,6 +78,9 @@ const handleToggleFavorite = async (recipeId) => {
       </div>
     );
   }
+
+
+
 
   return (
     <>
