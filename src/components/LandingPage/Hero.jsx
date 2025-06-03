@@ -1,5 +1,5 @@
 import React from 'react'
-import food from '../../assets/images/landing.png';
+import food from '../../assets/images/edit.png';
 import { motion } from "framer-motion";
 
 const SlideUp = (delay) => ({
