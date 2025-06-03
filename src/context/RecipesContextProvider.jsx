@@ -10,8 +10,13 @@ const RecipesContextProvider = ({ children }) => {
   const [error, setError] = useState(null);
   const [acceptedRecipe, setAcceptedRecipe] = useState([]);
     const [declinedRecipe, setDeclinedRecipe] = useState([]);
+      const [pendingRecipe, setPendingRecipe] = useState([]);
 
 
+const getPendingRecipe = async () => {
+    const res = await axios.get(BASE_URL + Recipe.GET_PENDING_RECIPES);
+    setPendingRecipe(res.data);
+  };
   const getAcceptedRecipes = () => {
     axios
       .get(BASE_URL + Recipe.GET_ACCEPTED_RECIPES)
@@ -62,7 +67,7 @@ const RecipesContextProvider = ({ children }) => {
 
   return (
 
-    <RecipesContext.Provider value={{ deleteRecipe,recipes, loading, error ,getAcceptedRecipes,acceptedRecipe,getDeclinedRecipes,declinedRecipe }}>
+    <RecipesContext.Provider value={{ setRecipes,deleteRecipe,recipes,setDeclinedRecipe,setAcceptedRecipe, getPendingRecipe,loading,pendingRecipe, setPendingRecipe, error ,getAcceptedRecipes,acceptedRecipe,getDeclinedRecipes,declinedRecipe }}>
       {children}
     </RecipesContext.Provider>
   );

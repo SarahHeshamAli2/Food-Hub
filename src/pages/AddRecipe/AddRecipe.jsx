@@ -1,35 +1,71 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import styles from "./AddRecipe.module.css";
-import axios from "axios";
 import { BASE_URL, Recipe } from "../../services/api";
 import { useForm } from "react-hook-form";
 import { useImageUpload } from "../../hooks/useImageUpload";
 import { useIngredients } from "../../hooks/useIngredients";
 import useSubmitRecipe from "../../hooks/useSubmitRecipe";
+import { useParams } from "react-router-dom";
+import { RecipesContext } from "../../context/RecipesContextProvider";
+import axios from "axios";
 
 
 export default function AddRecipe() {
+  const{recipes,setRecipes}=useContext(RecipesContext)
+
+
+
+
+
+
+  const {id} = useParams()
+useEffect(() => {
+  if (id !== "new-recipe") {
+    axios.get(BASE_URL + Recipe.GET_BY_ID(id)).then(async (res) => {
+      const response = res.data;
+
+      setValue("name", response.name);
+      setValue("servings", response.servings);
+      setValue("cookTime", response.cookTimeMinutes);
+      setValue("prepTime", response.prepTimeMinutes);
+      setValue("cuisine", response.cuisine);
+
+      if (Array.isArray(response.ingredients)) {
+        setIngredients(response.ingredients);
+      }
+
+      if (response.image) {
+        try {
+          await setImageFromExistingValue(response.image);
+        } catch (err) {
+          console.error("Error setting image from value:", err);
+        }
+      }
+    });
+  }
+}, []);
+
   const {
     register,
     formState: { errors },
     handleSubmit,
+    setValue
   } = useForm({ mode: "onChange" });
 
-  const [recipes, setRecipes] = useState([]);
 
-  const { image, fileInputRef, handleImageChange, openFilePicker, handleDelete } = useImageUpload();
-  const { ingredients, addIngredient, removeIngredient, handleInputChange } = useIngredients();
-  const submitRecipe = useSubmitRecipe(recipes, image);
+const {
+  image,
+  fileInputRef,
+  handleImageChange,
+  openFilePicker,
+  handleDelete,
+  setImageFromExistingValue, 
+} = useImageUpload();const { ingredients, addIngredient, removeIngredient, handleInputChange, setIngredients } = useIngredients();
+  const submitRecipe = useSubmitRecipe(recipes, image,setRecipes);
 
-  useEffect(() => {
-    axios
-      .get(BASE_URL + Recipe.GET_ALL)
-      .then((res) => setRecipes(res.data))
-      .catch(console.error);
-  }, []);
 
   const onSubmit = (data) => {
-    submitRecipe(data, ingredients);
+  submitRecipe(data, ingredients, id !== "new-recipe" ? id : null);
   };
 
   const renderError = (field) =>
@@ -118,7 +154,6 @@ export default function AddRecipe() {
           </button>
         </div>
 
-        {/* Other form inputs: servings, prepTime, cookTime, cuisine */}
         <div className={styles.row}>
           <div className={styles.col}>
             <label htmlFor="servings" className={styles.label}>
@@ -179,7 +214,7 @@ export default function AddRecipe() {
         <select
           id="cuisine"
           className={styles.select}
-          defaultValue=""
+          
           {...register("cuisine", {
             required: "Cuisine is required",
           })}
@@ -198,7 +233,7 @@ export default function AddRecipe() {
         {renderError("cuisine")}
 
         <button type="submit" className={styles.submitBtn}>
-          Create Recipe
+         {id !='new-recipe' ? 'Update Recipe' : ' Create Recipe'}
         </button>
       </form>
     </div>

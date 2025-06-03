@@ -1,21 +1,32 @@
 import { useState } from "react";
 
 export function useIngredients() {
-  const [ingredients, setIngredients] = useState([""]);
-
-  const handleInputChange = (index, value) => {
-    const updated = [...ingredients];
-    updated[index] = value;
-    setIngredients(updated);
-  };
+  const [ingredients, setIngredientsState] = useState([]);
 
   const addIngredient = () => {
-    if (ingredients.length < 6) setIngredients([...ingredients, ""]);
+    setIngredientsState([...ingredients, ""]);
   };
 
   const removeIngredient = (index) => {
-    setIngredients(ingredients.filter((_, i) => i !== index));
+    const newIngredients = ingredients.filter((_, i) => i !== index);
+    setIngredientsState(newIngredients);
   };
 
-  return { ingredients, handleInputChange, addIngredient, removeIngredient };
+  const handleInputChange = (index, value) => {
+    const newIngredients = [...ingredients];
+    newIngredients[index] = value;
+    setIngredientsState(newIngredients);
+  };
+
+  const setIngredients = (newList) => {
+    setIngredientsState(newList);
+  };
+
+  return {
+    ingredients,
+    addIngredient,
+    removeIngredient,
+    handleInputChange,
+    setIngredients, 
+  };
 }

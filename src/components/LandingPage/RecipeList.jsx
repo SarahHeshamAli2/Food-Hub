@@ -16,7 +16,7 @@ export default function RecipeList() {
     dispatch(fetchRecipes());
   }, [dispatch]);
 
-  const visibleRecipes = showAll ? recipes : recipes.slice(0, 8);
+  const visibleRecipes = showAll ? recipes : recipes.slice(0, 6);
 
   return (
 

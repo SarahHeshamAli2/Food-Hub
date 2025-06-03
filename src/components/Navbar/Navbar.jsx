@@ -112,7 +112,7 @@ if (!isLoaded) return null;
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
                     transition={{ duration: 0.3 }}
-                    className="absolute right-0 mt-2 w-72 bg-white shadow-lg rounded-md border z-50 max-h-96 overflow-auto"
+                    className="absolute right-0 mt-2 w-72 bg-white shadow-lg rounded-md border z-50 max-h-96 overflow-hidden"
                   >
                     <NotificationList userId={user?.id} />
                   </motion.div>
@@ -336,7 +336,7 @@ function NotificationList({ userId }) {
     return <div className="p-4 text-center text-gray-500">No notifications</div>;
 
   return (
-    <ul className="divide-y divide-gray-200 max-h-96 overflow-hidden">
+    <ul className="divide-y divide-gray-200 max-h-96 overflow-auto">
       {notifications.map((notif) => (
         <li
           key={notif.id}

@@ -6,64 +6,76 @@ import { useUser } from "@clerk/clerk-react";
 import { RecipesContext } from "../../context/RecipesContextProvider";
 
 export default function AllPendingRequests() {
-  const [pendingRecipe, setPendingRecipe] = useState([]);
   const [activeTab, setActiveTab] = useState("inQueue");
  const{user}= useUser()
-   const{getAcceptedRecipes,acceptedRecipe,getDeclinedRecipes,declinedRecipe}= useContext(RecipesContext)
-  const getPendingRecipe = () => {
-    axios
-      .get(BASE_URL + Recipe.GET_PENDING_RECIPES)
-      .then((res) => setPendingRecipe(res.data))
-      .catch((err) => console.log(err));
-  };
+ const { pendingRecipe,setRecipes, setDeclinedRecipe,getPendingRecipe,setPendingRecipe,setAcceptedRecipe, getAcceptedRecipes, getDeclinedRecipes ,acceptedRecipe,declinedRecipe,recipes} = useContext(RecipesContext);
 
 
   useEffect(() => {
+
     getPendingRecipe();
     getAcceptedRecipes();
     getDeclinedRecipes();
   }, []);
-const handleApprove = (recipe) => {
-  axios
-    .post(BASE_URL + Recipe.CREATE, recipe) 
-    .then(() => axios.post(BASE_URL + Recipe.GET_ACCEPTED_RECIPES, recipe)) 
-    .then(() => axios.delete(`${BASE_URL + Recipe.GET_PENDING_RECIPES}/${recipe.id}`)) 
-    .then(() => {
-      return axios.post(BASE_URL + "/notifications", {
-        userId: user?.id, 
-        message: `Your recipe '${recipe.name}' has been accepted.`,
-        status: "unread",
-        timestamp: new Date().toISOString(),
-      });
-    })
-    .then(() => {
-      getPendingRecipe();   
-      getAcceptedRecipes();
-      setActiveTab("accepted");
-    })
-    .catch((err) => console.error("Approval failed:", err));
+const handleApprove = async (recipe) => {
+  try {
+    setPendingRecipe(prev => prev.filter(r => r.id !== recipe.id));
+    setAcceptedRecipe(prev => [...prev, recipe]);
+    setRecipes(prev => [...prev, recipe]); 
+    
+    await axios.delete(`${BASE_URL}${Recipe.GET_PENDING_RECIPES}/${recipe.id}`);
+    await axios.post(`${BASE_URL}${Recipe.GET_ALL}`, recipe); 
+    await axios.post(`${BASE_URL}${Recipe.GET_ACCEPTED_RECIPES}` , recipe)
+    
+    
+    await Promise.all([
+      getPendingRecipe(),
+      getAcceptedRecipes(),
+    ]);
+    
+    await axios.post(`${BASE_URL}/notifications`, {
+      userId: user?.id,
+      message: `Your recipe '${recipe.name}' has been accepted.`,
+      status: "unread"
+    });
+    
+  } catch (err) {
+    console.error("Approval failed:", err);
+    setPendingRecipe(prev => [...prev, recipe]);
+    setAcceptedRecipe(prev => prev.filter(r => r.id !== recipe.id));
+    setRecipes(prev => prev.filter(r => r.id !== recipe.id));
+  }
 };
-
-const handleReject = (recipe) => {
-  axios
-    .post(BASE_URL + Recipe.GET_DECLINED_RECIPES, recipe) 
-    .then(() => axios.delete(`${BASE_URL + Recipe.GET_PENDING_RECIPES}/${recipe.id}`)) 
-    .then(() => {
-      return axios.post(BASE_URL + "/notifications", {
-        userId: user?.id, 
-        message: `Your recipe '${recipe.name}' has been declined.`,
-        status: "unread",
-        timestamp: new Date().toISOString(),
-      });
-    })
-    .then(() => {
-      getPendingRecipe();   
-      getDeclinedRecipes(); 
-      setActiveTab("declined");
-    })
-    .catch((err) => console.error("Rejection failed:", err));
+const handleReject = async (recipe) => {
+  try {
+    setPendingRecipe(prev => prev.filter(r => r.id !== recipe.id));
+    setDeclinedRecipe(prev => [...prev, recipe]);
+    
+    await axios.post(`${BASE_URL}${Recipe.GET_DECLINED_RECIPES}`, recipe);
+    await axios.delete(`${BASE_URL}${Recipe.GET_PENDING_RECIPES}/${recipe.id}`);
+    
+    await Promise.all([
+      getPendingRecipe(),
+      getDeclinedRecipes()
+    ]);
+    
+    // 4. Notification
+    await axios.post(`${BASE_URL}/notifications`, {
+      userId: user?.id,
+      message: `Your recipe '${recipe.name}' has been declined.`,
+      status: "unread"
+    });
+    
+  } catch (err) {
+    console.error("Rejection failed:", err);
+    // Revert all optimistic updates
+    setPendingRecipe(prev => [...prev, recipe]);
+    setDeclinedRecipe(prev => prev.filter(r => r.id !== recipe.id));
+    
+    // Optional: Show error to user
+    alert("Failed to reject recipe. Please try again.");
+  }
 };
-
 
 
   const renderRecipeTable = (recipes, status = "pending") => (
@@ -85,6 +97,7 @@ const handleReject = (recipe) => {
          
             <td>{index + 1}</td>
             <td>
+            
               <div className="d-flex align-items-center justify-content-center gap-2">
                 <img
                   src={recipe.image}
