@@ -16,7 +16,10 @@ export const Favorites = {
   ADD_OR_UPDATE: (userId) => `/favorites?userId=${userId}`,
   REMOVE: (userId, recipeId) => `/favorites?userId=${userId}&favoriteRecipeId_like=${recipeId}`,
 };
-
+export const Review = {
+  ADD_REVIEW :'/reviews',
+  GET_ALL : '/reviews'
+}
 
 export async function addFavorite(userId, recipeId) {
   const res = await fetch(`${BASE_URL}/favorites?userId=${userId}`);

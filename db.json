@@ -1226,6 +1226,7 @@
       "mealType": [
         "Beverage"
       ]
+
     }
   ],
   "pendingRecipes": [
@@ -1259,6 +1260,7 @@
       ],
       "isCreated": true,
       "creator": "Admin"
+
     }
   ],
   "acceptedRecipes": [],
@@ -1692,6 +1694,9 @@
         "6"
       ]
     }
+  ],
+  "reviews": [
+
   ],
   "total": 50,
   "skip": 0,
