@@ -1,8 +1,9 @@
 // features/recipes/recipeSlice.js
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { BASE_URL } from './../services/api';
 
 export const fetchRecipes = createAsyncThunk('recipes/fetchRecipes', async () => {
-  const res = await fetch("http://localhost:3001/recipes");
+  const res = await fetch(`${BASE_URL}/recipes`);
   const data = await res.json();
   return data;
 });
