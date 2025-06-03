@@ -31,7 +31,9 @@ export default function NavbarPage() {
   const isAdmin = isSignedIn && user?.id === import.meta.env.VITE_ADMIN_ID;
 
   const { signOut, openSignIn, openSignUp } = useClerk();
-
+const handleSignOut = () => {
+  signOut({ redirectUrl: '/' });
+};
   // Scroll state
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -188,7 +190,7 @@ if (!isLoaded) return null;
                         <li>
                           <button
                             onClick={() => {
-                              signOut();
+                             handleSignOut()
                               setUserMenuOpen(false);
                             }}
                             className="w-full text-left px-4 py-2 hover:bg-gray-100 text-red-500"
