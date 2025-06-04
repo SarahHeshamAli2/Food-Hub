@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Bookmark, Flame, UserCircle } from "lucide-react";
 import { motion } from "framer-motion";
-export default function RecipeCard({ id, image, title, author , calories, delay }) {
+export default function RecipeCard({ id, image, title, auther , calories, delay }) {
   return (
     <Link to={`/recipes/${id}`} className="no-underline text-inherit">
 
@@ -23,7 +23,8 @@ export default function RecipeCard({ id, image, title, author , calories, delay 
           <div className="flex justify-between items-center text-xs text-gray-600">
             <div className="flex items-center gap-1">
               <UserCircle size={16} />
-              <span>{author}</span>
+              <span>{auther}</span>
+           
             </div>
             <div className="flex items-center gap-1">
               <Flame size={16} className="text-red-500" />

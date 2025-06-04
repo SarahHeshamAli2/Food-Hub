@@ -25,6 +25,7 @@ const Section = ({ title, recipes }) => {
       >
         {recipes.map((recipe) => (
           <div
+         
             key={recipe.id}
             style={{ width: CARD_WIDTH, flex: '0 0 auto', padding: '0 8px' }}
           >
@@ -32,10 +33,13 @@ const Section = ({ title, recipes }) => {
               id={recipe.id}
               image={recipe.image}
               title={recipe.name}
-              author={recipe.auther}
+              author={recipe?.auther}
               calories={recipe.caloriesPerServing}
             />
+             {console.log(recipe.auther)
+          }
           </div>
+          
         ))}
       </Marquee>
     </div>
