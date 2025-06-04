@@ -1,19 +1,17 @@
 import { useUser } from '@clerk/clerk-react';
 import { useEffect, useState, useContext } from 'react';
 import { getFavorites, addFavorite, removeFavorite } from '../../services/api';
-import styles from './recipesList.module.css';
 import RecipesListView from './RecipesListView';
 import { RecipesContext } from '../../context/RecipesContextProvider';
 import { toast } from 'react-toastify';
 import RecipeLoader from '../../components/Loader/RecipeLoader';
+import DeleteModal from '../../components/DeleteModal/DeleteModal';
 
 export default function RecipesList() {
   const { user, isLoaded, isSignedIn } = useUser();
-  const { recipes, deleteRecipe } = useContext(RecipesContext);
+  const { recipes,handleDelete } = useContext(RecipesContext);
   const [favoriteIds, setFavoriteIds] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [showModal, setShowModal] = useState(false);
-  const [recipeToDelete, setRecipeToDelete] = useState(null);
 
 
   const isAdmin = isSignedIn && user?.id === import.meta.env.VITE_ADMIN_ID;
@@ -52,23 +50,8 @@ export default function RecipesList() {
       }
   };
   
-  const handleDelete = (recipeId) => {
-    setRecipeToDelete(recipeId);
-    setShowModal(true);
-  };
-
-  const confirmDelete = () => {
-    if (recipeToDelete) {
-      deleteRecipe(recipeToDelete);
-      setShowModal(false);
-      setRecipeToDelete(null);
-    }
-  };
-
-  const cancelDelete = () => {
-    setShowModal(false);
-    setRecipeToDelete(null);
-  };
+  
+;
 
   const handleUpdate = (recipeId) => {
     alert('Update recipe ' + recipeId);
@@ -89,17 +72,7 @@ export default function RecipesList() {
         isLoading={loading}
       />
 
-      {showModal && (
-        <div className={styles.modalOverlay}>
-          <div className={styles.modal}>
-            <p>Are you sure you want to delete this recipe?</p>
-            <div className={styles.modalActions}>
-              <button onClick={confirmDelete} className={styles.confirmButton}>Yes, Delete</button>
-              <button onClick={cancelDelete} className={styles.cancelButton}>Cancel</button>
-            </div>
-          </div>
-        </div>
-      )}
+<DeleteModal/>
     </>
   );
 }
