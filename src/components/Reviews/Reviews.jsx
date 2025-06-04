@@ -7,17 +7,31 @@ import { CommentContext } from "../../context/CommentsContext";
 import Swal from "sweetalert2";
 
 export default function Reviews({ id }) {
-  const { user } = useUser();
+  const { user, isSignedIn } = useUser();
   const { openSignIn } = useClerk()
-  const { setReviews, comment, rating, setComment, setRating, reviews, hoveredRating, setHoveredRating } = useContext(CommentContext) || {}
+  const { setReviews,
+    comment,
+    rating,
+    setComment,
+    setRating,
+    reviews,
+    hoveredRating,
+    setHoveredRating
+  } = useContext(CommentContext) || {}
 
   const [visibleCount, setVisibleCount] = useState(2);
   const filteredReviews = reviews.filter(rev => rev.recipeId === id);
   const visibleReviews = filteredReviews.slice(0, visibleCount);
   const [error, setError] = useState()
+  const [openMenuIndex, setOpenMenuIndex] = useState(null);
+  //state to track which review is being editted
+  const [editingReviewId, setEditingReviewId] = useState(null);
+  //state to store the new comment being typed updated when the user types at text area
+  const [editedComment, setEditedComment] = useState('');
+  const isAdmin = isSignedIn && user?.id === import.meta.env.VITE_ADMIN_ID;
+
+
   useEffect(() => {
-
-
     axios
       .get(BASE_URL + Review.GET_ALL)
       .then((res) => setReviews(res.data))
@@ -59,6 +73,58 @@ export default function Reviews({ id }) {
       .catch((err) => console.log(err));
   };
 
+  const handleDelete = (reviewId) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Yes, delete it!"
+    }).then ((result) =>{
+      if (result.isConfirmed) {
+      axios
+        .delete(`${BASE_URL + Review.DELETE_REVIEW}/${reviewId}`)
+        .then(() => {
+          setReviews((prev) => prev.filter((r) => r.id !== reviewId));
+          Swal.fire("Deleted!", "Your review has been removed.", "success");
+        })
+        .catch((err) => {
+          console.error("Failed to delete", err);
+          Swal.fire("Error", "Could not delete review", "error");
+        });
+    }
+    });
+  };
+
+  const handleEdit = (review) => {
+    setEditingReviewId(review.id);
+    setEditedComment(review.comment);
+  };
+
+  //called when user press save button
+  const handleUpdate = (id) => {
+    axios
+    .put(`${BASE_URL}${Review.UPDATE_REVIEW}/${id}`, {
+      comment: editedComment
+    })
+    .then(() => {
+      setReviews((prev) =>
+        prev.map((r) =>
+          r.id === id ? { ...r, comment: editedComment } : r
+        )
+      );
+      setEditingReviewId(null);
+      setEditedComment('');
+      Swal.fire("Updated!", "Your review has been updated.", "success");
+    })
+    .catch((err) => {
+      console.log(err);
+      Swal.fire("Error", "Failed to update review", "error");
+    });
+  };
+
   const handleRatingClick = (value) => {
     setRating(value);
   };
@@ -87,9 +153,30 @@ export default function Reviews({ id }) {
                   </p>
                 </div>
               </div>
-              <div className="text-gray-400 hover:text-gray-600 cursor-pointer text-xl">
-                •••
-              </div>
+              {(user?.id === rev.userId || isAdmin)&& (
+                <div className="relative">
+                  <div
+                    className="text-gray-400 hover:text-gray-600 cursor-pointer text-xl"
+                    onClick={() => setOpenMenuIndex(openMenuIndex === i ? null : i)}
+                  >
+                    •••
+                  </div>
+                  {openMenuIndex === i && (
+                    <div className="absolute right-0 mt-1 w-28 bg-white border rounded-md shadow-lg z-10">
+                      <button className="block w-full px-4 py-2 text-left hover:bg-gray-100 text-sm"
+                      onClick = {() => handleEdit(rev)}
+                      >
+                        Update
+                      </button>
+                      <button className="block w-full px-4 py-2 text-left hover:bg-gray-100 text-sm text-red-500"
+                      onClick={() => handleDelete(rev.id)}
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
 
             <div className="flex gap-1 text-yellow-400 text-xl">
@@ -99,8 +186,36 @@ export default function Reviews({ id }) {
             </div>
 
             <div className="bg-gray-50 p-4 rounded-xl text-gray-700">
-              {rev.comment}
-            </div>
+              {editingReviewId === rev.id ? (
+                <div>
+                  <textarea
+                    value={editedComment}
+                    onChange={(e) => setEditedComment(e.target.value)}
+                    className="w-full p-2 border border-gray-300 rounded"
+                  ></textarea>
+                  <div className="mt-2 flex gap-2">
+                    <button
+                      className="px-4 py-1 bg-green-500 text-white rounded"
+                      onClick={() => handleUpdate(rev.id)}
+                    >
+                      Save
+                    </button>
+                    <button
+                      className="px-4 py-1 bg-gray-300 rounded"
+                      onClick={() => {
+                        setEditingReviewId(null);
+                        setEditedComment('');
+                      }}
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                rev.comment
+              )}
+          </div>
+
           </div>
         ))}
 
