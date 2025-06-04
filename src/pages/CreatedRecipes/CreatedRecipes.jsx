@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { RecipesContext } from "../../context/RecipesContextProvider";
 import { useUser } from "@clerk/clerk-react";
+import RecipeLoader from "../../components/Loader/RecipeLoader";
 
 export default function CreatedRecipes() {
   const { recipes } = useContext(RecipesContext);
@@ -13,7 +14,7 @@ export default function CreatedRecipes() {
       <h2 className="text-2xl font-bold mb-4 text-black">My Created Recipes</h2>
 
       {!recipes.length ? (
-        <p className="text-gray-500">Loading recipes...</p>
+          <RecipeLoader/>
       ) : myRecipes.length === 0 ? (
         <p className="text-gray-500">You haven't created any recipes yet.</p>
       ) : (

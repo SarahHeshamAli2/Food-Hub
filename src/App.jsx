@@ -4,6 +4,7 @@ createHashRouter,
   RouterProvider,
 } from "react-router-dom";
 
+import { Suspense } from 'react';
 import Layout from "./components/Layout/Layout";
 import LandingPage from "./pages/LandingPage/LandingPage";
 import FavoriteList from "./pages/FavoriteList/FavoriteList";
@@ -27,6 +28,7 @@ import RejectedRequests from "./pages/RejectedRequests/RejectedRequests";
 import CreatedRecipes from "./pages/CreatedRecipes/CreatedRecipes";
 import TagRecipes from "./pages/TagRecipes/TagRecipes";
 import CommentContextProvider from "./context/CommentsContext";
+import RecipeLoader from "./components/Loader/RecipeLoader";
 
 function App() {
   const routes = createHashRouter( [
@@ -101,7 +103,9 @@ function App() {
     <>
       <RecipesContextProvider>
         <CommentContextProvider>
-        <RouterProvider router={routes} />
+          <Suspense fallback={<RecipeLoader/>}>
+            <RouterProvider router={routes} />
+          </Suspense>
         </CommentContextProvider>
       </RecipesContextProvider>
       

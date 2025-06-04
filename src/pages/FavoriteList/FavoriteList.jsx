@@ -1,9 +1,9 @@
 import { useEffect, useState, useContext } from 'react';
 import { useUser } from '@clerk/clerk-react';
 import { getFavorites, removeFavorite } from '../../services/api';
-import styles from './favoriteList.module.css';
 import FavoriteListView from './FavoriteListView';
 import { RecipesContext } from '../../context/RecipesContextProvider';
+import RecipeLoader from '../../components/Loader/RecipeLoader';
 
 export default function FavoriteList() {
   const { user, isLoaded, isSignedIn } = useUser();
@@ -29,9 +29,7 @@ export default function FavoriteList() {
 
   if (!isLoaded || loading || favoritesLoading) {
     return (
-      <div className={styles.spinnerContainer}>
-        <div className={styles.spinner} />
-      </div>
+      <RecipeLoader/>
     );
   }
 
