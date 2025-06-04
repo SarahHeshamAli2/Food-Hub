@@ -1,5 +1,5 @@
 import {
-createHashRouter,
+  createHashRouter,
   Navigate,
   RouterProvider,
 } from "react-router-dom";
@@ -29,24 +29,12 @@ const AcceptedRequests = lazy(() => import('./pages/AcceptedRequests/AcceptedReq
 const RejectedRequests = lazy(() => import('./pages/RejectedRequests/RejectedRequests'));
 const CreatedRecipes = lazy(() => import('./pages/CreatedRecipes/CreatedRecipes'));
 const TagRecipes = lazy(() => import('./pages/TagRecipes/TagRecipes'));
-// import RecipeDetailsPage from "./pages/RecipeDetailsPage/RecipeDetailsPage";
-// import LandingPage from "./pages/LandingPage/LandingPage";
-// import FavoriteList from "./pages/FavoriteList/FavoriteList";
-// import UsersList from "./pages/UsersList/UsersList";
-// import RecipesList from "./pages/RecipesList/RecipesList";
-// import AllPendingRequests from "./pages/AllPendingRequests/AllPendingRequests";
-// import UserNotification from "./pages/UserNotification/UserNotification";
-// import Profile from "./pages/ProfilePage/Profile";
-// import AcceptedRequests from "./pages/AcceptedRequests/AcceptedRequests";
-// import RejectedRequests from "./pages/RejectedRequests/RejectedRequests";
-// import CreatedRecipes from "./pages/CreatedRecipes/CreatedRecipes";
-// import TagRecipes from "./pages/TagRecipes/TagRecipes";
 
 
 
 function App() {
-  const routes = createHashRouter( [
-    
+  const routes = createHashRouter([
+
     {
       path: "",
       element: <Layout />,
@@ -81,10 +69,10 @@ function App() {
         { path: "recipes", element: <RecipesList /> },
         { path: "recipes/:id", element: <RecipeDetailsPage /> },
         { path: "all-pending-requests", element: <AllPendingRequests /> },
-        { path:  "tags/:tag" , element: <TagRecipes /> },
+        { path: "tags/:tag", element: <TagRecipes /> },
 
         { path: "recipes/:id", element: <CommentContextProvider><RecipeDetailsPage /></CommentContextProvider> },
-        { path: "all-pending-requests", element:<AdminProtected> <AllPendingRequests /></AdminProtected> },
+        { path: "all-pending-requests", element: <AdminProtected> <AllPendingRequests /></AdminProtected> },
 
         {
           path: "/profile",
@@ -111,19 +99,19 @@ function App() {
         { path: "*", element: <NotFound /> },
       ],
     },
-  ], );
+  ],);
 
   return (
     <>
       <RecipesContextProvider>
         <CommentContextProvider>
-          <Suspense fallback={<RecipeLoader/>}>
+          <Suspense fallback={<RecipeLoader />}>
             <RouterProvider router={routes} />
           </Suspense>
         </CommentContextProvider>
       </RecipesContextProvider>
-      
-      <ToastContainer position="top-right"  />
+
+      <ToastContainer position="top-right" />
     </>
   );
 }
