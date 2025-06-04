@@ -11,6 +11,9 @@ export default {
         White2: "#fffbf2",
         darkgreen: "#05ab54",
         dark: "#333333", // corrected to a valid hex
+        primary: "var(--primary-color)",
+        "primary-dark": "var(--primary-color-dark)",
+        "primary-rgb": "rgb(var(--primary-color-rgb))",
       },
       fontFamily: {
         popins: ["Poppins", "sans-serif"],
