@@ -143,7 +143,6 @@ npm run start:server
 - Fork & branch from `main`
 - Follow React best practices and code style
 - Add PropTypes, error handling, and tests
-- See [CONTRIBUTING](CONTRIBUTING.md) for more
 
 ---
 
