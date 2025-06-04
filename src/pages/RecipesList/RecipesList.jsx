@@ -5,6 +5,7 @@ import styles from './recipesList.module.css';
 import RecipesListView from './RecipesListView';
 import { RecipesContext } from '../../context/RecipesContextProvider';
 import { toast } from 'react-toastify';
+import RecipeLoader from '../../components/Loader/RecipeLoader';
 
 export default function RecipesList() {
   const { user, isLoaded, isSignedIn } = useUser();
@@ -73,17 +74,6 @@ export default function RecipesList() {
     alert('Update recipe ' + recipeId);
   };
 
-  if (loading) {
-    return (
-      <div className={styles.spinnerContainer}>
-        <div className={styles.spinner} />
-      </div>
-    );
-  }
-
-
-
-
   return (
     <>
       <RecipesListView
@@ -96,6 +86,7 @@ export default function RecipesList() {
         onDelete={handleDelete}
         onUpdate={handleUpdate}
         userId={userId}
+        isLoading={loading}
       />
 
       {showModal && (

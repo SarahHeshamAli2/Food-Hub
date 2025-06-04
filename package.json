@@ -10,8 +10,8 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "start:server": "json-server --watch db.json --port 3001",
-    "predeploy":"npm run build",
-    "deploy" :"gh-pages -d dist"
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@clerk/clerk-react": "^5.31.8",
@@ -38,7 +38,7 @@
     "react-slick": "^0.30.3",
     "react-toastify": "^11.0.5",
     "slick-carousel": "^1.8.1",
-    "sweetalert2": "^11.22.0",
+    "sweetalert2": "^11.6.13",
     "tailwind-scrollbar-hide": "^4.0.0"
   },
   "devDependencies": {

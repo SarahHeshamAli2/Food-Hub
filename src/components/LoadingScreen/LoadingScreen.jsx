@@ -1,7 +1,7 @@
-import React from 'react'
+import RecipeLoader from '../Loader/RecipeLoader'
 
 export default function LoadingScreen() {
   return (
-    <div>LoadingScreen</div>
+    <RecipeLoader/>
   )
 }
