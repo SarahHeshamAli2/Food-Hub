@@ -31,7 +31,6 @@ export default function Hero() {
       <div className="container min-h-[600px] flex justify-center relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-24 place-items-center justify-between">
           
-          {/* text content */}
           <div className='space-y-3 mt-14 text-center md:text-left md:mt-0'>
           
             
@@ -58,7 +57,7 @@ export default function Hero() {
           </div>
 
           {/* food image */}
-          <div className="relative z-10">
+          <div className="relative z-10 ">
             <motion.img
                           viewport={{once:true}}
 
@@ -67,7 +66,7 @@ export default function Hero() {
               transition={{ duration: 0.8 }}
               src={food}
               alt="food"
-              className='w-full max-w-[500px] md:max-w-[700px] lg:max-w-[800px]'
+              className='w-full max-w-[500px] md:max-w-[700px] lg:max-w-[800px] '
             />
           </div>
         </div>
