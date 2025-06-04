@@ -5,11 +5,12 @@ import { RecipesContext } from "../../context/RecipesContextProvider";
 import Reviews from "../../components/Reviews/Reviews";
 import { CommentContext } from "../../context/CommentsContext";
 import RecipeDetailAccordion from "./RecipeDetailAccordion";
+import RecipeLoader from '../../components/Loader/RecipeLoader';
 
 const RecipeDetailsPage = () => {
   const { id } = useParams();
   const { recipes } = useContext(RecipesContext);
-const { reviews = [] } = useContext(CommentContext) || {};
+  const { reviews = [] } = useContext(CommentContext) || {};
   const [recipe, setRecipe] = useState(null);
 
   const reviewCount = reviews?.filter((review) => review.recipeId === id).length;
@@ -21,7 +22,7 @@ const { reviews = [] } = useContext(CommentContext) || {};
     }
   }, [id, recipes]);
 
-  if (!recipes.length) return <div>Loading recipes...</div>;
+  if (!recipes.length) return <RecipeLoader/>;
   if (!recipe) return <div>Recipe not found</div>;
 
   const ingredients = recipe.ingredients;

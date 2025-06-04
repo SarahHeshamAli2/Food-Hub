@@ -19,7 +19,9 @@ export const Favorites = {
 };
 export const Review = {
   ADD_REVIEW :'/reviews',
-  GET_ALL : '/reviews'
+  GET_ALL : '/reviews',
+  DELETE_REVIEW: '/reviews',
+  UPDATE_REVIEW: '/reviews',
 }
 
 export async function addFavorite(userId, recipeId) {
