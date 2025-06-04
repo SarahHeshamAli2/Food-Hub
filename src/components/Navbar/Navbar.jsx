@@ -10,7 +10,7 @@ import { BASE_URL } from "../../services/api";
 const NavMenu = [
   { id: 1, title: "Home", path: "/", delay: 0.1 },
   { id: 2, title: "Recipe", path: "/recipes", delay: 0.2 },
-  { id: 4, title: "About us", path: "/about", delay: 0.4 },
+  { id: 4, title: "About us", path: "/about-us", delay: 0.4 },
 ];
 
 const SlideDown = (delay) => ({

@@ -17,6 +17,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import RecipesContextProvider from "./context/RecipesContextProvider";
 import CommentContextProvider from "./context/CommentsContext";
+import AboutUs from "./components/AboutUs/AboutUs";
 const RecipeDetailsPage = lazy(() => import('./pages/RecipeDetailsPage/RecipeDetailsPage'));
 const LandingPage = lazy(() => import('./pages/LandingPage/LandingPage'));
 const FavoriteList = lazy(() => import('./pages/FavoriteList/FavoriteList'));
@@ -63,6 +64,7 @@ function App() {
         { path: "recipes", element: <RecipesList /> },
         { path: "add-recipe/:id", element: <AddRecipe /> },
         { path: "pending-request", element: <PendingRequest /> },
+        { path: "about-us", element: <AboutUs /> },
         { path: "unauthorized", element: <Unauthorized /> },
 
         { path: "all-pending-requests", element: <AllPendingRequests /> },
