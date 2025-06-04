@@ -4,31 +4,45 @@ createHashRouter,
   RouterProvider,
 } from "react-router-dom";
 
-import { Suspense } from 'react';
+import { Suspense, lazy } from 'react';
 import Layout from "./components/Layout/Layout";
-import LandingPage from "./pages/LandingPage/LandingPage";
-import FavoriteList from "./pages/FavoriteList/FavoriteList";
-import UsersList from "./pages/UsersList/UsersList";
 import NotFound from "./components/NotFound/NotFound";
 import Unauthorized from "./components/NotFound/Unauthorized";
 import AddRecipe from "./pages/AddRecipe/AddRecipe";
 import PendingRequest from "./components/PendingRequest/PendingRequest";
 import AdminProtected from "./components/Protected Routes/adminProtected";
 import UserProtected from "./components/Protected Routes/userProtected";
-import RecipeDetailsPage from "./pages/RecipeDetailsPage/RecipeDetailsPage";
+import RecipeLoader from "./components/Loader/RecipeLoader";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import RecipesContextProvider from "./context/RecipesContextProvider";
-import RecipesList from "./pages/RecipesList/RecipesList";
-import AllPendingRequests from "./pages/AllPendingRequests/AllPendingRequests";
-import UserNotification from "./pages/UserNotification/UserNotification";
-import Profile from "./pages/ProfilePage/Profile";
-import AcceptedRequests from "./pages/AcceptedRequests/AcceptedRequests";
-import RejectedRequests from "./pages/RejectedRequests/RejectedRequests";
-import CreatedRecipes from "./pages/CreatedRecipes/CreatedRecipes";
-import TagRecipes from "./pages/TagRecipes/TagRecipes";
 import CommentContextProvider from "./context/CommentsContext";
-import RecipeLoader from "./components/Loader/RecipeLoader";
+const RecipeDetailsPage = lazy(() => import('./pages/RecipeDetailsPage/RecipeDetailsPage'));
+const LandingPage = lazy(() => import('./pages/LandingPage/LandingPage'));
+const FavoriteList = lazy(() => import('./pages/FavoriteList/FavoriteList'));
+const UsersList = lazy(() => import('./pages/UsersList/UsersList'));
+const RecipesList = lazy(() => import('./pages/RecipesList/RecipesList'));
+const AllPendingRequests = lazy(() => import('./pages/AllPendingRequests/AllPendingRequests'));
+const UserNotification = lazy(() => import('./pages/UserNotification/UserNotification'));
+const Profile = lazy(() => import('./pages/ProfilePage/Profile'));
+const AcceptedRequests = lazy(() => import('./pages/AcceptedRequests/AcceptedRequests'));
+const RejectedRequests = lazy(() => import('./pages/RejectedRequests/RejectedRequests'));
+const CreatedRecipes = lazy(() => import('./pages/CreatedRecipes/CreatedRecipes'));
+const TagRecipes = lazy(() => import('./pages/TagRecipes/TagRecipes'));
+// import RecipeDetailsPage from "./pages/RecipeDetailsPage/RecipeDetailsPage";
+// import LandingPage from "./pages/LandingPage/LandingPage";
+// import FavoriteList from "./pages/FavoriteList/FavoriteList";
+// import UsersList from "./pages/UsersList/UsersList";
+// import RecipesList from "./pages/RecipesList/RecipesList";
+// import AllPendingRequests from "./pages/AllPendingRequests/AllPendingRequests";
+// import UserNotification from "./pages/UserNotification/UserNotification";
+// import Profile from "./pages/ProfilePage/Profile";
+// import AcceptedRequests from "./pages/AcceptedRequests/AcceptedRequests";
+// import RejectedRequests from "./pages/RejectedRequests/RejectedRequests";
+// import CreatedRecipes from "./pages/CreatedRecipes/CreatedRecipes";
+// import TagRecipes from "./pages/TagRecipes/TagRecipes";
+
+
 
 function App() {
   const routes = createHashRouter( [
