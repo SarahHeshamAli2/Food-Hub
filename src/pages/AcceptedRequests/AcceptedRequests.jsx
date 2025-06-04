@@ -11,7 +11,7 @@ export default function AcceptedRequests() {
     getAcceptedRecipes();
   }, []);
 
-  return (
+  return (  
     <div className="container mx-auto px-4 py-6">
       
       <h2 className="text-2xl font-bold mb-4 text-black"> Accepted Recipes</h2>

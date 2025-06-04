@@ -5,11 +5,12 @@ import { BASE_URL, Recipe } from "../services/api";
 import { toast } from "react-toastify";
 import { useContext } from "react";
 import { RecipesContext } from "../context/RecipesContextProvider";
+import { v4 as uuidv4 } from "uuid"; 
 
-export default function useSubmitRecipe(recipes, image,setRecipes) {
+export default function useSubmitRecipe(recipes, image, setRecipes) {
   const navigate = useNavigate();
   const { user } = useUser();
-  const{setPendingRecipe,getPendingRecipe}=useContext(RecipesContext)
+  const { setPendingRecipe, getPendingRecipe } = useContext(RecipesContext);
 
   const submitRecipe = async (data, ingredients, id = null) => {
     const cleanedIngredients = ingredients.filter((ing) => ing.trim());
@@ -20,6 +21,7 @@ export default function useSubmitRecipe(recipes, image,setRecipes) {
     }
 
     const payload = {
+      id: id || uuidv4(), // 
       name: data?.name,
       image,
       servings: Number(data.servings),
@@ -39,34 +41,35 @@ export default function useSubmitRecipe(recipes, image,setRecipes) {
       creator: user?.fullName,
     };
 
-try {
- if (id) {
-  const res = await axios.patch(`${BASE_URL}${Recipe.GET_ALL}/${id}`, payload);
-  const updatedRecipe = res?.data; 
+    try {
+      if (id) {
+        const res = await axios.patch(
+          `${BASE_URL}${Recipe.GET_ALL}/${id}`,
+          payload
+        );
+        const updatedRecipe = res?.data;
 
+        setRecipes((prev) =>
+          prev.map((r) => (r.id === id ? updatedRecipe : r))
+        );
 
-  setRecipes((prev) =>
-    prev.map((r) => (r.id == id ? updatedRecipe : r))
-  );
+        toast.success("Recipe updated!");
+        navigate("/recipes");
+      } else {
+        const res = await axios.post(`${BASE_URL}/pendingRecipes`, payload);
 
-  toast.success('Recipe updated!');
-  navigate("/recipes");
-} else {
-     const res = await axios.post(`${BASE_URL}/pendingRecipes`, payload);
-  setPendingRecipe?.((prev) => [...prev, res.data]);
-        setRecipes(prev => prev.filter(r => r.id !== res.data.id));
+        setPendingRecipe?.((prev) => [...prev, res.data]);
+        setRecipes((prev) => prev.filter((r) => r.id !== res.data.id));
 
-  await getPendingRecipe();
+        await getPendingRecipe();
 
-  navigate("/pending-request");
-  toast.success("Recipe submitted!");
-
-  }
-} catch (err) {
-  alert("Failed to submit recipe for approval.");
-  console.error(err);
-}
-
+        navigate("/pending-request");
+        toast.success("Recipe submitted!");
+      }
+    } catch (err) {
+      alert("Failed to submit recipe for approval.");
+      console.error(err);
+    }
   };
 
   return submitRecipe;

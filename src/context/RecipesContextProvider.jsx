@@ -12,6 +12,9 @@ const RecipesContextProvider = ({ children }) => {
     const [declinedRecipe, setDeclinedRecipe] = useState([]);
       const [pendingRecipe, setPendingRecipe] = useState([]);
   const [notifications, setNotifications] = useState([]);
+    const [showModal, setShowModal] = useState(false);
+  const [recipeToDelete, setRecipeToDelete] = useState(null);
+
 const getNotifications = async (userId) => {
   try {
     const res = await axios.get(`${BASE_URL}/notifications?userId=${userId}`);
@@ -37,6 +40,24 @@ const markNotificationsAsRead = async () => {
     console.error("Failed to mark notifications as read:", err);
   }
 };
+
+const handleDelete = (recipeId) => {
+    setRecipeToDelete(recipeId);
+    setShowModal(true);
+  };
+
+  const cancelDelete = () => {
+    setShowModal(false);
+    setRecipeToDelete(null);
+  }
+
+  const confirmDelete = () => {
+    if (recipeToDelete) {
+      deleteRecipe(recipeToDelete);
+      setShowModal(false);
+      setRecipeToDelete(null);
+    }
+  };
 
 
 const getPendingRecipe = async () => {
@@ -75,27 +96,30 @@ const getPendingRecipe = async () => {
       });
   }, []);
   
-   function deleteRecipe(recipeId) {
-    try {
-               fetch(`${BASE_URL}/recipes/${recipeId}`, { method: 'DELETE' }).then(res=>{
- setRecipes(recipes.filter(r => r.id !== recipeId));
- toast.success('recipe has been deleted !')
-               });
+async function deleteRecipe(recipeId) {
+  try {
+    const response = await fetch(`${BASE_URL}/recipes/${recipeId}`, {
+      method: "DELETE",
+    });
 
-    } catch (error) {
-      console.log(error);
-      
-      
+    if (!response.ok) {
+      throw new Error("Failed to delete recipe");
     }
-    
-       
-    }
+
+    setRecipes((prevRecipes) => prevRecipes.filter((r) => r.id !== recipeId));
+    toast.success("Recipe has been deleted!");
+  } catch (error) {
+    console.error("Delete recipe error:", error);
+    toast.error("Failed to delete recipe");
+  }
+}
+
 
   return (
 
     <RecipesContext.Provider value={{     notifications,
       getNotifications,
-      markNotificationsAsRead, setRecipes,deleteRecipe,recipes,setDeclinedRecipe,setAcceptedRecipe, getPendingRecipe,loading,pendingRecipe, setPendingRecipe, error ,getAcceptedRecipes,acceptedRecipe,getDeclinedRecipes,declinedRecipe }}>
+      markNotificationsAsRead,handleDelete,cancelDelete,confirmDelete,showModal, setRecipes,deleteRecipe,recipes,setDeclinedRecipe,setAcceptedRecipe, getPendingRecipe,loading,pendingRecipe, setPendingRecipe, error ,getAcceptedRecipes,acceptedRecipe,getDeclinedRecipes,declinedRecipe }}>
       {children}
     </RecipesContext.Provider>
   );
