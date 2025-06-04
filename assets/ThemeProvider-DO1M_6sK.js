@@ -1,0 +1,5 @@
+import{l as x,r as u}from"./index-BfOoBtXQ.js";var i={exports:{}};/*!
+	Copyright (c) 2018 Jed Watson.
+	Licensed under the MIT License (MIT), see
+	http://jedwatson.github.io/classnames
+*/var c;function l(){return c||(c=1,function(n){(function(){var o={}.hasOwnProperty;function s(){for(var t="",r=0;r<arguments.length;r++){var e=arguments[r];e&&(t=a(t,p(e)))}return t}function p(t){if(typeof t=="string"||typeof t=="number")return t;if(typeof t!="object")return"";if(Array.isArray(t))return s.apply(null,t);if(t.toString!==Object.prototype.toString&&!t.toString.toString().includes("[native code]"))return t.toString();var r="";for(var e in t)o.call(t,e)&&t[e]&&(r=a(r,e));return r}function a(t,r){return r?t?t+" "+r:t+r:t}n.exports?(s.default=s,n.exports=s):window.classNames=s})()}(i)),i.exports}var m=l();const y=x(m),v=["xxl","xl","lg","md","sm","xs"],E="xs",f=u.createContext({prefixes:{},breakpoints:v,minBreakpoint:E}),{Consumer:A,Provider:C}=f;function N(n,o){const{prefixes:s}=u.useContext(f);return n||s[o]||o}export{y as c,N as u};
