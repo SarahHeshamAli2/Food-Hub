@@ -8,72 +8,70 @@ import {
   FaUtensils,
 } from "react-icons/fa6";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
+import "./Footer.css";
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-100 text-gray-700 px-4 py-12">
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:justify-between gap-10">
-        {/* Left Side: Logo + Description */}
-        <div className="md:w-1/3 space-y-4">
+    <footer className="footer dark:bg-gray-800 w-full">
+      <div className="footer-container">
+        <div className="footer-brand">
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="flex items-center gap-3"
+            className="logo"
           >
-            <FaUtensils className="text-4xl text-black" />
-            <span className="text-3xl font-extrabold">
-              <span className="text-black">Food</span>
-              <span className="text-[#FF7F50]">Hub</span>
+            <FaUtensils className="logo-icon dark:text-white" />
+            <span className="logo-text dark:text-white">
+              <span >Food</span>
+              <span>Hub</span>
             </span>
           </motion.div>
-          <p className="text-base text-gray-600 leading-relaxed">
+          <p className="dark:text-white">
             The purpose of lorem ipsum is to create a natural looking block of
             text that doesn't distract from the layout.
           </p>
         </div>
 
-        {/* Center: Links */}
-        <div className="flex flex-wrap gap-12">
+        <div className="footer-links dark:text-white">
           <div>
-            <h4 className="font-semibold text-lg mb-2">Quick links</h4>
-            <ul className="space-y-2 text-base">
-              <li><a href="/" className="hover:text-rose-500">Home</a></li>
-              <li><a href="/recipes" className="hover:text-rose-500">Recipes</a></li>
-             
+            <h4>Quick links</h4>
+            <ul>
+              <li><Link to="/">Home</Link></li>
+              <li><Link to="/recipes">Recipes</Link></li>
             </ul>
           </div>
 
-          <div>
-            <h4 className="font-semibold text-lg mb-2">Quick links</h4>
-            <ul className="space-y-2 text-base">
-              <li><a href="#" className="hover:text-rose-500">Share Recipe</a></li>
-              <li><a href="#" className="hover:text-rose-500">About Us</a></li>
-              <li><a href="#" className="hover:text-rose-500">Contact</a></li>
+          <div className="dark:text-white">
+            <h4>Quick links</h4>
+            <ul>
+              <li><Link to="#">Share Recipe</Link></li>
+              <li><Link to="/about-us">About Us</Link></li>
+              <li><Link to="#">Contact</Link></li>
             </ul>
           </div>
 
-          <div>
-            <h4 className="font-semibold text-lg mb-2">Legal</h4>
-            <ul className="space-y-2 text-base">
-              <li><a href="#" className="hover:text-rose-500">Terms Of Use</a></li>
-              <li><a href="#" className="hover:text-rose-500">Privacy & Cookies</a></li>
+          <div className="dark:text-white">
+            <h4>Legal</h4>
+            <ul>
+              <li><Link to="#">Terms Of Use</Link></li>
+              <li><Link to="#">Privacy & Cookies</Link></li>
             </ul>
           </div>
         </div>
       </div>
 
-      <hr className="my-8 border-gray-300" />
+      <hr className="footer-divider" />
 
-      {/* Bottom Section */}
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center text-base gap-4">
+      <div className="footer-bottom dark:text-white">
         <p>© 2025 Food Hub. All Right Reserved</p>
-        <div className="flex space-x-5 text-2xl">
-          <FaTiktok className="hover:text-rose-500 cursor-pointer" />
-          <FaXTwitter className="hover:text-rose-500 cursor-pointer" />
-          <FaFacebookF className="hover:text-rose-500 cursor-pointer" />
-          <FaInstagram className="hover:text-rose-500 cursor-pointer" />
-          <FaPinterestP className="hover:text-rose-500 cursor-pointer" />
+        <div className="social-icons">
+          <FaTiktok />
+          <FaXTwitter />
+          <FaFacebookF />
+          <FaInstagram />
+          <FaPinterestP />
         </div>
       </div>
     </footer>

@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 export default {
+  darkMode: 'class',
   content: [
     "./index.html",
     "./src/**/*.{js,jsx,ts,tsx}",
@@ -10,7 +11,7 @@ export default {
         LightYellow: "#f6d876",
         White2: "#fffbf2",
         darkgreen: "#05ab54",
-        dark: "#333333", // corrected to a valid hex
+        dark: "#333333", 
         primary: "var(--primary-color)",
         "primary-dark": "var(--primary-color-dark)",
         "primary-rgb": "rgb(var(--primary-color-rgb))",
