@@ -1,0 +1,76 @@
+.section {
+  padding: 3rem 1rem;
+}
+
+@media (min-width: 768px) {
+  .section {
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+}
+
+.headingContainer {
+  width: 100%;
+  text-align: center;
+  margin: 1rem 0;
+}
+
+.heading {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #111827; 
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 1.5rem;
+}
+
+.toggleButton {
+  color: #FF7F50;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s ease-in-out;
+  padding: 0;
+}
+
+.toggleButton:hover {
+  text-decoration: underline;
+}
+
+.loading,
+.error {
+  text-align: center;
+  font-size: 1rem;
+}
+
+.error {
+  color: #ef4444; 
+}
+
+.gridWrapper {
+  max-width: 72rem; 
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

@@ -6,6 +6,8 @@ import { useClerk, useUser } from "@clerk/clerk-react";
 import { Link } from "react-router-dom";
 import NotificationBell from "../NotificationBell/NotificationBell";
 import { BASE_URL } from "../../services/api";
+import Darkmode from '../Darkmode/Darkmode';
+
 
 const NavMenu = [
   { id: 1, title: "Home", path: "/", delay: 0.1 },
@@ -57,21 +59,25 @@ const handleSignOut = () => {
 
   return (
     <nav
+ 
       onClick={handleNavClick}
-      className={`bg-white fixed w-full z-50 ${scrolled ? "shadow-md" : ""}`}>
-      <div className="container mx-auto px-4 py-2 flex justify-between items-center font-league">
+      className={`bg-white dark:bg-gray-800 fixed w-full z-50 ${scrolled ? "shadow-md" : ""}`} >
+      <div className="container mx-auto px-4 py-2 flex justify-between items-center font-league dark:bg-gray-800 ">
         {/* Logo */}
+     
         <Link to={"/"}>
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.5 }}
-            className="flex items-center gap-2">
-            <FaUtensils className="text-2xl text-black" />
-            <span className="text-xl font-bold">
-              <span className="text-black">Food</span>
-              <span className="text-[#FF7F50]">Hub</span>
-            </span>
+            className="flex items-center gap-2 dark:text-white">
+            <FaUtensils className="text-2xl dark:text-white " />
+           <span className="text-xl font-bold text-black">
+  <span className="dark:text-white">Food</span>
+  <span className="text-[#FF7F50]">Hub</span>
+</span>
+ <Darkmode/>
+
           </motion.div>
         </Link>
 
@@ -85,12 +91,13 @@ const handleSignOut = () => {
                 initial="initial"
                 animate="animate"
                 className="nav-menu">
-                <Link to={menu.path} className="inline-block px-2 py-2 text-lg">
+                <Link to={menu.path} className="inline-block px-2 py-2 text-lg  dark:text-white">
                   {menu.title}
                 </Link>
               </motion.li>
             ))}
           </ul>
+         
 
           {isSignedIn && !isAdmin && (
             <div className="relative" ref={notifRef}>
@@ -125,7 +132,7 @@ const handleSignOut = () => {
                     e.stopPropagation();
                     setUserMenuOpen((prev) => !prev);
                   }}
-                  className="w-10 h-10 rounded-full overflow-hidden border border-gray-300 focus:outline-none"
+                  className="w-10 h-10 rounded-full overflow-hidden border border-gray-300 dark:text-white focus:outline-none"
                   aria-label="User menu">
                   <img
                     src={user?.imageUrl || "/default-avatar.png"}

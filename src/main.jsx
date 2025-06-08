@@ -11,7 +11,9 @@ import { ClerkProvider } from '@clerk/clerk-react';
 import { store } from './redux/store/store.js';
 import { Provider } from 'react-redux';
 
-
+if (localStorage.getItem("theme") === "dark") {
+  document.documentElement.classList.add("dark");
+}
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <ClerkProvider publishableKey={import.meta.env.VITE_CLERK_PUBLISHABLE_KEY} afterSignOutUrl='/'>

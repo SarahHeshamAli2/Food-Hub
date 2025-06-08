@@ -44,7 +44,7 @@ const RecipeDetailsPage = () => {
         <div className="row justify-between">
           <div className="w-100">
             <div className="recipe-header mb-2">
-              <h1 className="mb-3 fw-bolder">{recipe.name}</h1>
+              <h1 className="mb-3 fw-bolder dark:text-white">{recipe.name}</h1>
 
               {/* Metadata */}
               <div className="d-flex flex-wrap align-items-center gap-3 mb-4">
@@ -53,7 +53,7 @@ const RecipeDetailsPage = () => {
                   <span className="badge bg-warning text-dark me-2">
                     <i className="fas fa-star me-1"></i> {recipe.rating}
                   </span>
-                  <small>({reviewCount} reviews)</small>
+                  <small className="dark:text-white">({reviewCount} reviews)</small>
                 </div>
 
                 {/* Difficulty */}
@@ -113,7 +113,7 @@ const RecipeDetailsPage = () => {
             />
 
             <div className="comment-section border-t-2">
-              <h1 className="fs-2 my-2">Comments</h1>
+              <h1 className="fs-2 my-2 dark:text-white">Comments</h1>
               <Reviews id={id} />
             </div>
           </div>
