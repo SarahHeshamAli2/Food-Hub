@@ -140,7 +140,7 @@ const RecipeDetailsPage = () => {
 
             {/* Recent Recipes */}
             <div>
-              <h3 className="my-4 fw-bolder">Recent Recipes</h3>
+              <h3 className="my-1 p-2 rounded mt-3 fw-bolder bg-secondary">Recent Recipes</h3>
               {recipes.slice(0, 3).map((item) => (
                 <IngredientCard key={item?.id} recipe={item} />
               ))}
@@ -148,7 +148,7 @@ const RecipeDetailsPage = () => {
 
             {/* Tags */}
             <div className="mt-4">
-              <h4 className="mb-3">Tags</h4>
+              <h4 className="my-1 p-2 rounded mt-3 fw-bolder bg-secondary">Tags</h4>
               <div className="d-flex flex-wrap gap-2">
                 {recipe.tags?.map((tag, index) => (
                   <Link
