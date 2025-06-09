@@ -120,9 +120,9 @@ const RecipeDetailsPage = () => {
 
           {/* Sidebar */}
           <div className="col-md-4">
-            <div className="card shadow-sm bg-secondary">
+            <div className="card shadow-sm bg-secondary mb-2">
               <div className="card-header border-0 pb-0">
-                <h2 className="h5 mb-0">Nutrition Facts</h2>
+                <h2 className="h5 mb-1">Nutrition Facts</h2>
               </div>
               <div className="card-body px-0 py-2 mb-3">
                 <table className="table table-borderless mb-0">
@@ -140,15 +140,15 @@ const RecipeDetailsPage = () => {
 
             {/* Recent Recipes */}
             <div>
-              <h3 className="my-4 fw-bolder">Recent Recipes</h3>
+              <h3 className="p-2 bg-secondary rounded">Recent Recipes</h3>
               {recipes.slice(0, 3).map((item) => (
-                <IngredientCard key={item?.id} recipe={item} />
+                <IngredientCard  className="w-full" key={item?.id} recipe={item} />
               ))}
             </div>
 
             {/* Tags */}
             <div className="mt-4">
-              <h4 className="mb-3">Tags</h4>
+              <h4 className="my-1 p-2 bg-secondary rounded">Tags</h4>
               <div className="d-flex flex-wrap gap-2">
                 {recipe.tags?.map((tag, index) => (
                   <Link
