@@ -107,9 +107,15 @@ function App() {
     <>
       <RecipesContextProvider>
         <CommentContextProvider>
-          <Suspense fallback={<RecipeLoader />}>
-            <RouterProvider router={routes} />
-          </Suspense>
+          <Suspense
+  fallback={
+    <div className="vh-100 flex items-center justify-center">
+      <RecipeLoader />
+    </div>
+  }
+>
+  <RouterProvider router={routes} />
+</Suspense>
         </CommentContextProvider>
       </RecipesContextProvider>
 
