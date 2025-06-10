@@ -7,8 +7,7 @@ import { CommentContext } from "../../context/CommentsContext";
 import Swal from "sweetalert2";
 
 export default function Reviews({ id }) {
-  
-  const {  isSignedIn,user } = useUser();
+  const { user, isSignedIn } = useUser();
   const { openSignIn } = useClerk()
   const { setReviews,
     comment,
@@ -16,7 +15,6 @@ export default function Reviews({ id }) {
     setComment,
     setRating,
     reviews,
-    isReady,
     hoveredRating,
     setHoveredRating
   } = useContext(CommentContext) || {}
@@ -38,42 +36,43 @@ export default function Reviews({ id }) {
       .get(BASE_URL + Review.GET_ALL)
       .then((res) => setReviews(res.data))
       .catch((err) => console.log("Error fetching reviews", err));
-  }, [setReviews,user]);
+  }, [setReviews]);
 
-  const addReview = () => {
-    if (comment == '') {
-      setError('please enter review !')
-      return
-    }
+const addReview = () => {
+  if (comment === '') {
+    setError('please enter review !');
+    return;
+  }
 
-
-    const newReview = {
-      comment,
-      userId: user?.id,
-      rateCount: rating,
-      userName: user?.fullName,
-      createdAt: new Date().toISOString(),
-      recipeId: id,
-      userImage: user?.imageUrl
-    };
-
-    axios
-      .post(BASE_URL + Review.ADD_REVIEW, newReview)
-      .then(() => {
-        setReviews((prev) => [...prev, newReview]);
-        setComment("");
-        setRating(0);
-
-        Swal.fire({
-          position: "center",
-          icon: "success",
-          title: "Thanks for your feedback !",
-          showConfirmButton: false,
-          timer: 1500
-        });
-      })
-      .catch((err) => console.log(err));
+  const newReview = {
+    comment,
+    userId: user?.id,
+    rateCount: rating,
+    userName: user?.fullName,
+    createdAt: new Date().toISOString(),
+    recipeId: id,
+    userImage: user?.imageUrl
   };
+
+  axios
+    .post(BASE_URL + Review.ADD_REVIEW, newReview)
+    .then((res) => {
+      // Use the returned review from backend (assuming it returns the saved review with id)
+      setReviews((prev) => [...prev, res.data]);
+      setComment("");
+      setRating(0);
+
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "Thanks for your feedback !",
+        showConfirmButton: false,
+        timer: 1500
+      });
+    })
+    .catch((err) => console.log(err));
+};
+
 
   const handleDelete = (reviewId) => {
     Swal.fire({
@@ -105,6 +104,7 @@ export default function Reviews({ id }) {
     setEditedComment(review.comment);
   };
 
+  //called when user press save button
   const handleUpdate = (id) => {
     axios
     .put(`${BASE_URL}${Review.UPDATE_REVIEW}/${id}`, {
@@ -132,7 +132,7 @@ export default function Reviews({ id }) {
 
   return (
     <div className="space-y-6 p-6 bg-white rounded-2xl shadow-md max-w-2xl mx-auto">
-     
+
       <div>
         {visibleReviews.map((rev, i) => (
           <div key={i} className="space-y-3 border-b pb-4">
@@ -230,12 +230,12 @@ export default function Reviews({ id }) {
         )}
       </div>
 
-      {isReady  ? (
+      {user ? (
         <div className="pt-4">
           <p className="text-base font-medium text-gray-800 mb-2">
             Rate this recipe and share your opinion
           </p>
-      
+
           <div className="flex gap-1 mb-3">
             {[1, 2, 3, 4, 5].map((value) => (
               <span

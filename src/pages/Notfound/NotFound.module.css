@@ -1,0 +1,42 @@
+/* NotFound.module.css */
+
+.container {
+  text-align: center;
+  padding: 60px 20px;
+  font-family: 'Cairo', sans-serif;
+  color: #444;
+  background-color: #fff8f2;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.image {
+  max-width: 250px;
+  margin: 0 auto 20px;
+}
+
+.title {
+  font-size: 2.5rem;
+  color: #FF7F50;
+  margin-bottom: 10px;
+}
+
+.text {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+}
+
+.button {
+  padding: 12px 24px;
+  background-color: #ff5722;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.button:hover {
+  background-color: #e64a19;
+}

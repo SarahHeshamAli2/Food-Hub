@@ -7,18 +7,45 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
+# Dependency directories
+node_modules/
+dist/
+dist-ssr/
+coverage/
+
+# System files
+.DS_Store
+*.swp
+
+# Environment files
+.env
+.env.*.local
 *.local
 
 # Editor directories and files
-.vscode/*
+.vscode/
 !.vscode/extensions.json
-.idea
-.DS_Store
+.idea/
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
-*.sw?
+
+# Optional: Ignore Lottie or media files if needed
+*.mp4
+*.webm
+*.mov
+*.avi
+*.psd
+*.ai
+*.sketch
+*.zip
+*.rar
+*.7z
+
+# Build or temp files
+*.bak
+*.tmp
+
+# Optional: Ignore Lottie animation JSONs if added externally
+# public/animations/
