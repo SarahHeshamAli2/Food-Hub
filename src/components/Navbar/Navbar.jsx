@@ -312,6 +312,7 @@ const handleSignOut = () => {
                     onClick={() => {
                       openSignIn();
                       setIsOpen(false);
+                      
                     }}
                     className="bg-[#FF7F50] text-white w-full py-2 rounded-full mb-2 font-semibold">
                     Login
@@ -320,6 +321,8 @@ const handleSignOut = () => {
                     onClick={() => {
                       openSignUp();
                       setIsOpen(false);
+                                           
+
                     }}
                     className="bg-black text-white w-full py-2 rounded-full font-semibold">
                     Sign up
