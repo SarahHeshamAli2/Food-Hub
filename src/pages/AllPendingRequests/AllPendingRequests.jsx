@@ -51,32 +51,30 @@ await getNotifications(recipe.userId);
 };
 const handleReject = async (recipe) => {
   try {
+    await axios.delete(`${BASE_URL}${Recipe.GET_PENDING_RECIPES}/${recipe.id}`);
+
+    await axios.post(`${BASE_URL}${Recipe.GET_DECLINED_RECIPES}`, recipe);
+
     setPendingRecipe(prev => prev.filter(r => r.id !== recipe.id));
     setDeclinedRecipe(prev => [...prev, recipe]);
-    
-    await axios.post(`${BASE_URL}${Recipe.GET_DECLINED_RECIPES}`, recipe);
-    await axios.delete(`${BASE_URL}${Recipe.GET_PENDING_RECIPES}/${recipe.id}`);
-    
-    await Promise.all([
-      getPendingRecipe(),
-      getDeclinedRecipes()
-    ]);
-    
-await axios.post(`${BASE_URL}/notifications`, {
-  userId: recipe.userId, 
-  message: `Your recipe '${recipe.name}' has been rejected.`,
-  status: "unread"
-});
-await getNotifications(recipe.userId); 
 
+    await getPendingRecipe();
+    await getDeclinedRecipes();
+
+    await axios.post(`${BASE_URL}/notifications`, {
+      userId: recipe.userId,
+      message: `Your recipe '${recipe.name}' has been rejected.`,
+      status: "unread",
+    });
+    await getNotifications(recipe.userId);
   } catch (err) {
     console.error("Rejection failed:", err);
+    alert("Failed to reject recipe. Please try again.");
     setPendingRecipe(prev => [...prev, recipe]);
     setDeclinedRecipe(prev => prev.filter(r => r.id !== recipe.id));
-    
-    alert("Failed to reject recipe. Please try again.");
   }
 };
+;
 
 
   const renderRecipeTable = (recipes, status = "pending") => (

@@ -207,3 +207,8 @@
   border-radius: 4px;
   font-size: 0.875rem;
 }
+
+.submitBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
