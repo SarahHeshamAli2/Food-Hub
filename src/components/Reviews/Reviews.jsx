@@ -1,13 +1,14 @@
-import { useClerk, useUser } from "@clerk/clerk-react";
+import { SignInButton, useClerk, useUser } from "@clerk/clerk-react";
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { BASE_URL, Review } from "../../services/api";
 import { formatDistanceToNow } from "date-fns";
 import { CommentContext } from "../../context/CommentsContext";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 export default function Reviews({ id }) {
-  const { user, isSignedIn } = useUser();
+  const { user, isSignedIn} = useUser();
   const { openSignIn } = useClerk()
   const { setReviews,
     comment,
@@ -24,14 +25,14 @@ export default function Reviews({ id }) {
   const visibleReviews = filteredReviews.slice(0, visibleCount);
   const [error, setError] = useState()
   const [openMenuIndex, setOpenMenuIndex] = useState(null);
-  //state to track which review is being editted
   const [editingReviewId, setEditingReviewId] = useState(null);
-  //state to store the new comment being typed updated when the user types at text area
   const [editedComment, setEditedComment] = useState('');
   const isAdmin = isSignedIn && user?.id === import.meta.env.VITE_ADMIN_ID;
 
 
   useEffect(() => {
+    
+    
     axios
       .get(BASE_URL + Review.GET_ALL)
       .then((res) => setReviews(res.data))
@@ -57,7 +58,6 @@ const addReview = () => {
   axios
     .post(BASE_URL + Review.ADD_REVIEW, newReview)
     .then((res) => {
-      // Use the returned review from backend (assuming it returns the saved review with id)
       setReviews((prev) => [...prev, res.data]);
       setComment("");
       setRating(0);
@@ -104,7 +104,6 @@ const addReview = () => {
     setEditedComment(review.comment);
   };
 
-  //called when user press save button
   const handleUpdate = (id) => {
     axios
     .put(`${BASE_URL}${Review.UPDATE_REVIEW}/${id}`, {
@@ -129,6 +128,7 @@ const addReview = () => {
   const handleRatingClick = (value) => {
     setRating(value);
   };
+
 
   return (
     <div className="space-y-6 p-6 bg-white rounded-2xl shadow-md max-w-2xl mx-auto">
@@ -281,13 +281,19 @@ const addReview = () => {
               onClick={() => openSignIn()}
               className="text-blue-600 hover:underline cursor-pointer"
             >
-              sign in
-            </span>{" "}
+                         <SignInButton  />
+               </span>{" "}
+      
             to rate and comment on this recipe.
           </p>
+  
         </div>
       )}
 
     </div>
   );
 }
+
+
+
+

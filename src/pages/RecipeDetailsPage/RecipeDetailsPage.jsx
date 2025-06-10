@@ -8,14 +8,17 @@ import RecipeDetailAccordion from "./RecipeDetailAccordion";
 import RecipeLoader from '../../components/Loader/RecipeLoader';
 
 const RecipeDetailsPage = () => {
+  
   const { id } = useParams();
   const { recipes } = useContext(RecipesContext);
   const { reviews = [] } = useContext(CommentContext) || {};
   const [recipe, setRecipe] = useState(null);
-
   const reviewCount = reviews?.filter((review) => review.recipeId === id).length;
 
   useEffect(() => {
+
+    
+    
     if (recipes.length > 0) {
       const foundRecipe = recipes.find((recipe) => String(recipe.id) === id);
       setRecipe(foundRecipe);
