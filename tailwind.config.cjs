@@ -8,7 +8,7 @@ module.exports = {
         LightYellow: "#f6d876",
         White2: "#fffbf2",
         darkgreen: "#05ab54",
-        dark: "#000000", // Replace invalid color
+        dark: "#000000", 
       },
       fontFamily: {
         popins: ["Poppins", "sans-serif"],

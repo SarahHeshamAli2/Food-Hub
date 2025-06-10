@@ -1,0 +1,27 @@
+/* MealType.module.css */
+
+.main {
+  @apply max-w-7xl mx-auto px-4 sm:px-6 py-6 dark:text-white;
+}
+
+.section {
+  @apply mb-10 px-6 sm:px-4;
+}
+
+.header {
+  @apply flex justify-between items-center mb-4;
+}
+
+.title {
+  @apply text-2xl font-bold;
+}
+
+.carouselWrapper {
+  overflow: hidden;
+  margin: 0 auto;
+}
+
+.recipeCardContainer {
+  padding: 0 8px;
+  flex: 0 0 auto;
+}

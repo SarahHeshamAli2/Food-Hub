@@ -25,7 +25,7 @@ export default function OurTeam() {
       name: 'Esraa Ahmed',
       role: 'Front-end expert',
       image: girl3,
-      linkedIn: 'https://www.linkedin.com/in/esraa-ahmed-235b7021b?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app',
+      linkedIn: 'https://www.linkedin.com/in/esraa-ahmed-246a66281/',
       gitHub: 'https://github.com/EsraaAhmedAli',
     },
     {

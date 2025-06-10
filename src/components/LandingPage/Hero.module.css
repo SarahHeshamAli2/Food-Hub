@@ -1,0 +1,39 @@
+/* Hero.module.css */
+
+.main {
+  @apply relative overflow-hidden dark:bg-gray-900;
+}
+
+.backgroundShape {
+  @apply w-[700px] h-[700px] absolute bottom-[-100px] right-0 z-0;
+  clip-path: polygon(100% 0, 100% 100%, 0 100%);
+  background-color: #FF7F50;
+}
+
+.containerBox {
+  @apply container min-h-[600px] flex justify-center relative z-10;
+}
+
+.gridWrapper {
+  @apply grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-24 place-items-center justify-between;
+}
+
+.textBox {
+  @apply space-y-3 mt-14 text-center md:text-left md:mt-0;
+}
+
+.heading {
+  @apply text-4xl lg:text-5xl xl:text-6xl font-bold ;
+}
+
+.paragraph {
+  @apply text-sm;
+}
+
+.imageWrapper {
+  @apply relative z-10;
+}
+
+.foodImage {
+  @apply w-full max-w-[500px] md:max-w-[700px] lg:max-w-[800px];
+}

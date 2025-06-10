@@ -2,62 +2,56 @@ import React, { useContext } from 'react';
 import { RecipesContext } from '../../context/RecipesContextProvider';
 import RecipeCard from './RecipeCard';
 import Marquee from 'react-fast-marquee'; 
+import styles from './MealType.module.css';
 
 const Section = ({ title, recipes }) => {
-  const CARD_WIDTH=390
-  return (
-  <section className="mb-10 px-6 sm:px-4">
-    <div className="flex justify-between items-center mb-4">
-      <h2 className="text-2xl font-bold">{title}</h2>
-    </div>
+  const CARD_WIDTH = 390;
 
-    <div
-      style={{
-        width: CARD_WIDTH * 3, 
-        overflow: 'hidden',
-        margin: '0 auto',
-      }}
-    >
-      <Marquee
-        speed={100}
-        pauseOnHover={true}
-        gradient={false}
+  return (
+    <section className={styles.section}>
+      <div className={styles.header}>
+        <h2 className={styles.title}>{title}</h2>
+      </div>
+
+      <div
+        className={styles.carouselWrapper}
+        style={{ width: CARD_WIDTH * 3 }}
       >
-        {recipes.map((recipe) => (
-          <div
-         
-            key={recipe.id}
-            style={{ width: CARD_WIDTH, flex: '0 0 auto', padding: '0 8px' }}
-          >
-            <RecipeCard
-              id={recipe.id}
-              image={recipe.image}
-              title={recipe.name}
-              author={recipe?.auther}
-              calories={recipe.caloriesPerServing}
-            />
-             {console.log(recipe.auther)
-          }
-          </div>
-          
-        ))}
-      </Marquee>
-    </div>
-  </section>
+        <Marquee
+          speed={100}
+          pauseOnHover={true}
+          gradient={false}
+        >
+          {recipes.map((recipe) => (
+            <div
+              key={recipe.id}
+              className={styles.recipeCardContainer}
+              style={{ width: CARD_WIDTH }}
+            >
+              <RecipeCard
+                id={recipe.id}
+                image={recipe.image}
+                title={recipe.name}
+                author={recipe?.auther}
+                calories={recipe.caloriesPerServing}
+              />
+            </div>
+          ))}
+        </Marquee>
+      </div>
+    </section>
   );
 };
 
 export default function MealType() {
   const { recipes } = useContext(RecipesContext);
 
-
-
   const breakfast = recipes.filter(r => r.mealType?.includes('Breakfast'));
   const lunch = recipes.filter(r => r.mealType?.includes('Lunch'));
   const dinner = recipes.filter(r => r.mealType?.includes('Dinner'));
 
   return (
-    <main className="max-w-7xl mx-auto px-4 sm:px-6 py-6">
+    <main className={`${styles.main} dark:text-white`}>
       <Section title="🍳 Breakfast Recipes" recipes={breakfast} />
       <Section title="🥗 Lunch Recipes" recipes={lunch} />
       <Section title="🍝 Dinner Recipes" recipes={dinner} />
