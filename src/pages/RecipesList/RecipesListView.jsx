@@ -37,7 +37,8 @@ export default function RecipesListView({
   isLoading,
 }) {
   const [menuOpenId, setMenuOpenId] = useState(null);
-  const [visibleCount, setVisibleCount] = useState(9); const [searchTerm, setSearchTerm] = useState('');
+  const [visibleCount, setVisibleCount] = useState(9);
+  const [searchTerm, setSearchTerm] = useState('');
   const [showSuggestions, setShowSuggestions] = useState(false);
   const navigate = useNavigate();
 
@@ -140,7 +141,7 @@ export default function RecipesListView({
               );
 
               return (
-                // RECIPES Suggestions
+              
                 <li
                   key={recipe.id}
                   className="px-4 py-2 text-gray-700 hover:bg-orange-200 hover:text-black-800 transition-colors duration-150 cursor-pointer border-b border-gray-100 last:border-b-0"

@@ -12,6 +12,7 @@ const TagRecipes = () => {
   const filteredRecipes = recipes.filter(recipe =>
     recipe.tags?.map(t => t.toLowerCase()).includes(tag.toLowerCase())
   );
+  console.log(filteredRecipes);
 
   return (
     <div className={`${styles.containerBox} dark:bg-gray-900`}>
