@@ -1,21 +1,17 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchRecipes } from "../../redux/recipeSlice";
-import RecipeCard from "./RecipeCard";
+
+import { useContext, useState } from "react";
+import { RecipesContext } from "../../context/RecipesContextProvider";
+import RecipeCard from "../LandingPage/RecipeCard";
 import styles from "./RecipeList.module.css";
 
 export default function RecipeList() {
-  const dispatch = useDispatch();
   const {
-    list: recipes,
+    recipes,
     loading,
     error,
-  } = useSelector((state) => state.recipes);
-  const [showAll, setShowAll] = useState(false);
+  } = useContext(RecipesContext);
 
-  useEffect(() => {
-    dispatch(fetchRecipes());
-  }, [dispatch]);
+  const [showAll, setShowAll] = useState(false);
 
   const visibleRecipes = showAll ? recipes : recipes.slice(0, 9);
 
@@ -41,13 +37,13 @@ export default function RecipeList() {
         <div className={styles.grid}>
           {visibleRecipes.map((recipe, index) => (
             <RecipeCard
+              key={recipe.id}
               id={recipe.id}
               image={recipe.image}
               title={recipe.name}
               author={recipe.auther}
               calories={recipe.caloriesPerServing}
               delay={index * 0.1}
-              key={recipe?.id}
             />
           ))}
         </div>
@@ -55,3 +51,4 @@ export default function RecipeList() {
     </section>
   );
 }
+

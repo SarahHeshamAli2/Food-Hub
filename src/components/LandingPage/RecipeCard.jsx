@@ -1,17 +1,27 @@
-import React from "react";
+import { RecipesContext } from "../../context/RecipesContextProvider";
 import { Link } from "react-router-dom";
-import { Bookmark, Flame, UserCircle } from "lucide-react";
+import { Flame, UserCircle } from "lucide-react";
 import styles from "./RecipeCard.module.css";
 
-export default function RecipeCard({ id, image, title, auther, calories }) {
+export default function RecipeCard({ id, image, title, author="Ahmed", calories }) {
+
   return (
     <Link to={`/recipes/${id}`} className="no-underline text-inherit">
       <div className={styles.card}>
         <div className={styles.imageContainer}>
           <img src={image} alt={title} className={styles.image} />
-          <button className={styles.bookmarkBtn}>
-            <Bookmark size={18} className={styles.bookmarkIcon} />
-          </button>
+          {/* <button
+            className={styles.bookmarkBtn}
+            onClick={(e) => {
+              e.preventDefault(); 
+              
+            }}
+          >
+            <Bookmark
+              size={18}
+              className={`${styles.bookmarkIcon} `}
+            /> 
+           </button> */}
         </div>
 
         <div className={styles.content}>
@@ -19,7 +29,7 @@ export default function RecipeCard({ id, image, title, auther, calories }) {
           <div className={styles.info}>
             <div className={styles.author}>
               <UserCircle size={16} />
-              <span>{auther}</span>
+              <span>{author}</span>
             </div>
             <div className={styles.calories}>
               <Flame size={16} className={styles.flameIcon} />
