@@ -104,9 +104,9 @@ function App() {
   ],);
 
   return (
-    <>
+    <>        <CommentContextProvider>
       <RecipesContextProvider>
-        <CommentContextProvider>
+
           <Suspense
   fallback={
     <div className="vh-100 flex items-center justify-center">
@@ -116,9 +116,9 @@ function App() {
 >
   <RouterProvider router={routes} />
 </Suspense>
-        </CommentContextProvider>
-      </RecipesContextProvider>
 
+      </RecipesContextProvider>
+        </CommentContextProvider>
       <ToastContainer position="top-right" />
     </>
   );

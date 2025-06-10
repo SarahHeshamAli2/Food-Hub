@@ -38,40 +38,41 @@ export default function Reviews({ id }) {
       .catch((err) => console.log("Error fetching reviews", err));
   }, [setReviews]);
 
-  const addReview = () => {
-    if (comment == '') {
-      setError('please enter review !')
-      return
-    }
+const addReview = () => {
+  if (comment === '') {
+    setError('please enter review !');
+    return;
+  }
 
-
-    const newReview = {
-      comment,
-      userId: user?.id,
-      rateCount: rating,
-      userName: user?.fullName,
-      createdAt: new Date().toISOString(),
-      recipeId: id,
-      userImage: user?.imageUrl
-    };
-
-    axios
-      .post(BASE_URL + Review.ADD_REVIEW, newReview)
-      .then(() => {
-        setReviews((prev) => [...prev, newReview]);
-        setComment("");
-        setRating(0);
-
-        Swal.fire({
-          position: "center",
-          icon: "success",
-          title: "Thanks for your feedback !",
-          showConfirmButton: false,
-          timer: 1500
-        });
-      })
-      .catch((err) => console.log(err));
+  const newReview = {
+    comment,
+    userId: user?.id,
+    rateCount: rating,
+    userName: user?.fullName,
+    createdAt: new Date().toISOString(),
+    recipeId: id,
+    userImage: user?.imageUrl
   };
+
+  axios
+    .post(BASE_URL + Review.ADD_REVIEW, newReview)
+    .then((res) => {
+      // Use the returned review from backend (assuming it returns the saved review with id)
+      setReviews((prev) => [...prev, res.data]);
+      setComment("");
+      setRating(0);
+
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "Thanks for your feedback !",
+        showConfirmButton: false,
+        timer: 1500
+      });
+    })
+    .catch((err) => console.log(err));
+};
+
 
   const handleDelete = (reviewId) => {
     Swal.fire({

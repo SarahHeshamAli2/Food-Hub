@@ -17,7 +17,7 @@ const NavMenu = [
 
 const SlideDown = (delay) => ({
   initial: { y: "-100%", opacity: 0 },
-  animate: { y: 0, opacity: 1, transition: { duration: 0.8, delay } },
+  animate: { y: 0, opacity: 1, transition: { duration: 0.4, delay } },
 });
 
 export default function NavbarPage() {
@@ -36,8 +36,8 @@ export default function NavbarPage() {
 const handleSignOut = () => {
   signOut({ redirectUrl: "/Food-Hub/" });  
 };
-  // Scroll state
   useEffect(() => {
+    
     const handleScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
