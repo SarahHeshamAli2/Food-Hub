@@ -356,9 +356,7 @@ function NotificationList({ userId }) {
             notif.status === "unread" ? "font-bold" : "font-normal"
           }`}>
           <div>{notif.message}</div>
-          <small className="text-gray-400">
-            {new Date(notif.date).toLocaleString()}
-          </small>
+ 
         </li>
       ))}
     </ul>

@@ -69,7 +69,7 @@ export default function RecipesListView({
     <div className={styles.container}>
       <h2 className={styles.title}>Explore Recipes</h2>
 
-      <div className="flex justify-center mb-6">        <div className="relative w-full max-w-md">
+      <div className="flex justify-center mb-6 bgr">        <div className="relative w-full max-w-md">
           <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
             <FaSearch />
           </span>

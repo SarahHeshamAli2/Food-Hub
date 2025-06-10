@@ -9,63 +9,63 @@ import { useParams } from "react-router-dom";
 import { RecipesContext } from "../../context/RecipesContextProvider";
 import axios from "axios";
 
-
 export default function AddRecipe() {
-  const{recipes,setRecipes}=useContext(RecipesContext)
+  const { recipes, setRecipes } = useContext(RecipesContext);
 
+  const { id } = useParams();
+  useEffect(() => {
+    if (id !== "new-recipe") {
+      axios.get(BASE_URL + Recipe.GET_BY_ID(id)).then(async (res) => {
+        const response = res.data;
 
+        setValue("name", response.name);
+        setValue("servings", response.servings);
+        setValue("cookTime", response.cookTimeMinutes);
+        setValue("prepTime", response.prepTimeMinutes);
+        setValue("cuisine", response.cuisine);
 
-
-
-
-  const {id} = useParams()
-useEffect(() => {
-  if (id !== "new-recipe") {
-    axios.get(BASE_URL + Recipe.GET_BY_ID(id)).then(async (res) => {
-      const response = res.data;
-
-      setValue("name", response.name);
-      setValue("servings", response.servings);
-      setValue("cookTime", response.cookTimeMinutes);
-      setValue("prepTime", response.prepTimeMinutes);
-      setValue("cuisine", response.cuisine);
-
-      if (Array.isArray(response.ingredients)) {
-        setIngredients(response.ingredients);
-      }
-
-      if (response.image) {
-        try {
-          await setImageFromExistingValue(response.image);
-        } catch (err) {
-          console.error("Error setting image from value:", err);
+        if (Array.isArray(response.ingredients)) {
+          setIngredients(response.ingredients);
         }
-      }
-    });
-  }
-}, []);
+
+        if (response.image) {
+          try {
+            await setImageFromExistingValue(response.image);
+          } catch (err) {
+            console.error("Error setting image from value:", err);
+          }
+        }
+      });
+    }
+  }, []);
 
   const {
     register,
     formState: { errors },
     handleSubmit,
-    setValue
+    setValue,
   } = useForm({ mode: "onChange" });
 
+  const {
+    image,
 
-const {
-  image,
-  fileInputRef,
-  handleImageChange,
-  openFilePicker,
-  handleDelete,
-  setImageFromExistingValue, 
-} = useImageUpload();const { ingredients, addIngredient, removeIngredient, handleInputChange, setIngredients } = useIngredients();
-  const submitRecipe = useSubmitRecipe(recipes, image,setRecipes);
-
+    fileInputRef,
+    handleImageChange,
+    openFilePicker,
+    handleDelete,
+    setImageFromExistingValue,
+  } = useImageUpload();
+  const {
+    ingredients,
+    addIngredient,
+    removeIngredient,
+    handleInputChange,
+    setIngredients,
+  } = useIngredients();
+  const { submitRecipe, loading } = useSubmitRecipe(recipes, image, setRecipes);
 
   const onSubmit = (data) => {
-  submitRecipe(data, ingredients, id !== "new-recipe" ? id : null);
+    submitRecipe(data, ingredients, id !== "new-recipe" ? id : null);
   };
 
   const renderError = (field) =>
@@ -105,15 +105,13 @@ const {
               <button
                 type="button"
                 className={`${styles.imageBtn} ${styles.sameStyleButton}`}
-                onClick={openFilePicker}
-              >
+                onClick={openFilePicker}>
                 Change Image
               </button>
               <button
                 type="button"
                 className={`${styles.imageBtnDelete} ${styles.sameStyleButton}`}
-                onClick={handleDelete}
-              >
+                onClick={handleDelete}>
                 <i className="fa-solid fa-trash-can"></i>
               </button>
             </div>
@@ -138,8 +136,7 @@ const {
               <button
                 type="button"
                 className={styles.removeIngredientBtn}
-                onClick={() => removeIngredient(idx)}
-              >
+                onClick={() => removeIngredient(idx)}>
                 &times;
               </button>
             </div>
@@ -148,8 +145,7 @@ const {
             type="button"
             onClick={addIngredient}
             className={styles.addIngredientBtn}
-            disabled={ingredients.length >= 6}
-          >
+            disabled={ingredients.length >= 6}>
             + Add Ingredient
           </button>
         </div>
@@ -214,11 +210,9 @@ const {
         <select
           id="cuisine"
           className={styles.select}
-          
           {...register("cuisine", {
             required: "Cuisine is required",
-          })}
-        >
+          })}>
           <option value="" disabled>
             Select cuisine
           </option>
@@ -232,8 +226,8 @@ const {
         </select>
         {renderError("cuisine")}
 
-        <button type="submit" className={styles.submitBtn}>
-         {id !='new-recipe' ? 'Update Recipe' : ' Create Recipe'}
+        <button disabled={loading} type="submit" className={styles.submitBtn}>
+          {id != "new-recipe" ? "Update Recipe" : " Create Recipe"}
         </button>
       </form>
     </div>
