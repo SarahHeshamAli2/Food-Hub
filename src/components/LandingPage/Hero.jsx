@@ -40,16 +40,14 @@ export default function Hero() {
               className={`${styles.heading} dark:text-white `}
             >
               Enjoy The Delicious Food Experience
-            </motion.h1>
-
-            <motion.p
+            </motion.h1>            <motion.p
               viewport={{ once: true }}
               variants={SlideUp(1.5)}
               initial="hidden"
               whileInView="show"
               className={`${styles.paragraph} dark:text-white`}
             >
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem veniam molestiae modi obcaecati rem doloremqu sunt, sed temporibus quibusdam magni!
+              Discover thousands of delicious recipes from around the world. Share your culinary creations, explore new flavors, and connect with fellow food enthusiasts in our vibrant cooking community.
             </motion.p>
           </div>
 

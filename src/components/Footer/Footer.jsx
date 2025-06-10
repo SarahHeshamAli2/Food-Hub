@@ -27,10 +27,8 @@ const Footer = () => {
               <span >Food</span>
               <span>Hub</span>
             </span>
-          </motion.div>
-          <p className="dark:text-white">
-            The purpose of lorem ipsum is to create a natural looking block of
-            text that doesn't distract from the layout.
+          </motion.div>          <p className="dark:text-white">
+            FoodHub is your ultimate destination for discovering, sharing, and enjoying incredible recipes from around the globe. Join our community of passionate food lovers today.
           </p>
         </div>
 

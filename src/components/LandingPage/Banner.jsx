@@ -57,15 +57,14 @@ const Banner = () => {
               whileInView="show"
               className='text-6xl uppercase font-semibold font-leagueGothic dark:text-white'>
               The Best Yummy food in the Town
-            </motion.h1>
-            <motion.p
+            </motion.h1>            <motion.p
               viewport={{ once: true }}
               className='dark:text-white'
 
               variants={SlideUp(1.3)}
               initial="hidden"
               whileInView="show" >
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Itaque accusamus voluptate aut?
+              Experience the perfect blend of authentic flavors and modern cooking techniques that will satisfy your taste buds.
             </motion.p>
             <motion.button
               variants={SlideUp(1.6)}
