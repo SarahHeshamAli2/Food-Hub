@@ -65,7 +65,8 @@ const handleSignOut = () => {
       <div className="container mx-auto px-4 py-2 flex justify-between items-center font-league dark:bg-gray-800 ">
         {/* Logo */}
      
-        <Link to={"/"}>
+    <div className="flex items-center">
+           <Link to={"/"}>
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -76,11 +77,12 @@ const handleSignOut = () => {
   <span className="dark:text-white">Food</span>
   <span className="text-[#FF7F50]">Hub</span>
 </span>
- <Darkmode/>
+
 
           </motion.div>
         </Link>
-
+ <Darkmode/>
+    </div>
         {/* Desktop Nav */}
         <div className="hidden md:flex items-center gap-6">
           <ul className="flex gap-6">
