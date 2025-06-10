@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import '../../components/LandingPage/PopularCategories.css';
 
 const PopularCategories = () => {
-  const { recipes, loading, error } = useContext(RecipesContext);
+  const { recipes, error } = useContext(RecipesContext);
 
   const categories = [
     'Breakfast', 'Lunch', 'Dinner', 'Appetizer',

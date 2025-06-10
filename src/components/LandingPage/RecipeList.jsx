@@ -7,7 +7,6 @@ import styles from "./RecipeList.module.css";
 export default function RecipeList() {
   const {
     recipes,
-    loading,
     error,
   } = useContext(RecipesContext);
 
@@ -30,7 +29,6 @@ export default function RecipeList() {
         </button>
       </div>
 
-      {loading && <p className={styles.loading}>Loading...</p>}
       {error && <p className={styles.error}>{error}</p>}
 
       <div className={styles.gridWrapper}>
